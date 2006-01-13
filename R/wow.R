@@ -1,0 +1,49 @@
+WOW <-
+function(x)
+{
+    ## Weka Option Wizard.
+
+    if(is.character(x)) {
+        ## Handle both JNI class names and names from the RWeka
+        ## interface registry.
+        if(regexpr("/", x) > -1)
+            x <- .jnew(x)
+        else if(!is.null(method <- Weka_interfaces[[x]]$method))
+            x <- .jnew(method)
+        else
+            stop("argument 'x' does not specify a known Weka method")
+    }
+    else if(inherits(x, "R_Weka_interface"))
+        x <- .jnew(attr(x, "meta")$method)
+    
+    names <- descriptions <- character()
+    lengths <- integer()
+
+    opt <- .jcall(x, "Ljava/util/Enumeration;", "listOptions")
+
+    while(.jcall(opt, "Z", "hasMoreElements")) {
+        o <- .jcall(opt, "Ljava/lang/Object;", "nextElement")
+        ## In fact, o is now a weka.core.Option object.
+        names <- c(names, .jcall(o, "S", "name"))
+        descriptions <- c(descriptions, .jcall(o, "S", "description"))
+        lengths <- c(lengths, .jcall(o, "I", "numArguments"))
+        
+    }
+
+    structure(list(Name = names,
+                   Length = lengths,
+                   Description = descriptions),
+              class = "WOW")
+    
+}
+    
+print.WOW <- function(x, ...) {
+    out <- mapply(formatDL,
+                  sprintf("-%s", x$Name),
+                  gsub("\t", " ", x$Description),
+                  indent = 8)
+    if(any(ind <- (x$Length > 0)))
+        out[ind] <- sprintf("%s\n\tNumber of arguments: %d.",
+                            out[ind], x$Length[ind])
+    writeLines(out)
+}

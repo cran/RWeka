@@ -1,0 +1,52 @@
+\name{Weka_classifiers_functions}
+\alias{LinearRegression}
+\alias{Logistic}
+\title{R/Weka Classifier Functions}
+\description{
+  R interfaces to Weka regression and classification function learners.
+}
+\usage{
+LinearRegression(formula, data, subset, na.action, control = NULL)
+Logistic(formula, data, subset, na.action, control = NULL)
+}
+\arguments{
+  \item{formula}{a symbolic description of the model to be fit.}
+  \item{data}{an optional data frame containing the variables in the
+    model.}
+  \item{subset}{an optional vector specifying a subset of observations
+    to be used in the fitting process.}
+  \item{na.action}{a function which indicates what should happen when
+    the data contain \code{NA}s.}
+  \item{control}{a character vector with control options, or \code{NULL}
+    (default).  Available options can be obtained on-line using the Weka
+    Option Wizard \code{\link{WOW}}, or the Weka documentation.}
+}
+\value{
+  A list inheriting from classes \code{Weka_functions} and
+  \code{Weka_classifiers} with components including
+  \item{classifier}{a reference (of class
+    \code{\link[rJava:jobjRef-class]{jobjRef}}) to a Java object
+    obtained by applying the Weka \code{buildClassifier} method to build
+    the specified model using the given control options.}
+  \item{predictions}{a numeric vector or factor with the model
+    predictions for the training instances (the results of calling the
+    Weka \code{classifyInstance} method for the built classifier and
+    each instance).}
+  \item{call}{the matched call.}
+}
+\details{
+  There is a \code{\link[predict.Weka_classifier]{predict}} method for
+  predicting from the fitted models.
+
+  \code{LinearRegression} builds suitable linear regression models,
+  using the Akaike criterion for model selection.
+
+  \code{Logistic} builds multinomial logistic regression models based on
+  ridge estimation (le Cessie and van Houwelingen, 1992).
+
+  The model formulae should only use \samp{+} to indicate the variables
+  to be included.
+}
+\keyword{models}
+\keyword{regression}
+\keyword{classif}
