@@ -1,0 +1,28 @@
+export("read.arff",
+       "write.arff",
+       "make_Weka_associator",
+       "Apriori", "Tertius",
+       "make_Weka_classifier",
+       "J48", "M5P", "LMT", "LinearRegression",
+       "make_Weka_clusterer",
+       "Cobweb", "FarthestFirst", "SimpleKMeans",
+       "list_Weka_interfaces",
+       "WOW",
+       "cppredict"
+       ## "j48", "m5", "apriori",
+       ## "as.dendrogram",
+       ## "makeBinaryTree",
+       ## "as.BinaryTree"
+       )
+
+S3method("print", "R_Weka_interface")
+S3method("print", "Weka_associator")
+S3method("print", "Weka_classifier")
+S3method("predict", "Weka_classifier")
+S3method("print", "Weka_clusterer")
+S3method("print", "WOW")
+
+## import("methods")
+
+## exportMethods(predict,show,plot)
+## exportClasses("j48", "m5")
