@@ -23,17 +23,17 @@ function(x, ...)
     ## Seems that not all Weka learners have a globalInfo() method
     ## (e.g., Cobweb for Weka 3.4.6), so be careful.
     o <- .jnew(meta$method)
-    if(length(.jmethods(o, "globalInfo")))
+    if(.has_method(o, "globalInfo"))
         writeLines(c(gettextf("An R interface to Weka class '%s',",
-                              gsub("/", ".", meta$method)),
+                              as_Java_class_name(meta$method)),
                      "which has information",
                      "",
                      strwrap(.jcall(o, "S", "globalInfo"),
                              indent = 2, exdent = 2)))
     else
         writeLines(gettextf("An R interface to Weka class '%s'.",
-                            gsub("/", ".", meta$method)))
-    
+                            as_Java_class_name(meta$method)))
+
     writeLines(c("",
                  "Argument list:",
                  {

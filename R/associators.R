@@ -26,8 +26,12 @@ function(x, control, method)
 
     ## Build the associator.
     associator <- .jnew(method)
-    if(length(control))
+    ## <FIXME>
+    ## Should we warn if a control argument was given and the associator
+    ## does not provide an OptionHandler interface?
+    if(length(control) && .has_method(associator, "setOptions"))
         .jcall(associator, , "setOptions", .jarray(control))
+    ## </FIXME>
     .jcall(associator, "V", "buildAssociations", instances)
 
     list(associator = associator)

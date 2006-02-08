@@ -30,6 +30,9 @@ SimpleKMeans(x, control = NULL)
     instance).}
 }
 \details{
+  There is a \code{\link[predict.Weka_clusterer]{predict}} method for
+  class prediction from the fitted clusterers.
+  
   \code{Cobweb} implements the Cobweb (Fisher, 1987) and Classit
   (Gennari et al., 1989) clustering algorithms.
   
@@ -54,6 +57,6 @@ SimpleKMeans(x, control = NULL)
 data(iris)
 cl <- SimpleKMeans(iris[, -5], c("-N", "3"))
 cl
-table(cl$class_ids, iris$Species)
+table(predict(cl), iris$Species)
 }
 \keyword{cluster}

@@ -2,6 +2,7 @@
 \alias{J48}
 \alias{LMT}
 \alias{M5P}
+\alias{DecisionStump}
 \title{R/Weka Classifier Trees}
 \description{
   R interfaces to Weka regression and classification tree learners.
@@ -10,6 +11,7 @@
 J48(formula, data, subset, na.action, control = NULL)
 LMT(formula, data, subset, na.action, control = NULL)
 M5P(formula, data, subset, na.action, control = NULL)
+DecisionStump(formula, data, subset, na.action, control = NULL)
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -47,7 +49,12 @@ M5P(formula, data, subset, na.action, control = NULL)
 
   \code{M5P} (where the \samp{P} stands for \sQuote{prime}) generates M5
   model trees using the M5' algorithm, which was introduced in Wang &
-  Witten (1997) and enhances the original M5 algorithm by Quinlan (1992).
+  Witten (1997) and enhances the original M5 algorithm by Quinlan
+  (1992).
+
+  \code{DecisionStump} implements decision stumps (trees with a single
+  split only), which are frequently used as base learners for meta
+  learners such as Boosting.
 }
 
 \references{

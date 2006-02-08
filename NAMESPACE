@@ -3,7 +3,11 @@ export("read.arff",
        "make_Weka_associator",
        "Apriori", "Tertius",
        "make_Weka_classifier",
-       "J48", "M5P", "LMT", "LinearRegression",
+       "LinearRegression", "Logistic", "SMO",
+       "IBk", "LBR",
+       "AdaBoostM1", "Bagging", "LogitBoost", "MultiBoostAB", "Stacking",
+       "JRip", "M5Rules", "OneR", "PART",
+       "J48", "M5P", "LMT",
        "make_Weka_clusterer",
        "Cobweb", "FarthestFirst", "SimpleKMeans",
        "list_Weka_interfaces",
@@ -20,6 +24,7 @@ S3method("print", "Weka_associator")
 S3method("print", "Weka_classifier")
 S3method("predict", "Weka_classifier")
 S3method("print", "Weka_clusterer")
+S3method("predict", "Weka_clusterer")
 S3method("print", "WOW")
 
 ## import("methods")

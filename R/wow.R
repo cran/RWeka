@@ -19,15 +19,16 @@ function(x)
     names <- descriptions <- character()
     lengths <- integer()
 
-    opt <- .jcall(x, "Ljava/util/Enumeration;", "listOptions")
-
-    while(.jcall(opt, "Z", "hasMoreElements")) {
-        o <- .jcall(opt, "Ljava/lang/Object;", "nextElement")
-        ## In fact, o is now a weka.core.Option object.
-        names <- c(names, .jcall(o, "S", "name"))
-        descriptions <- c(descriptions, .jcall(o, "S", "description"))
-        lengths <- c(lengths, .jcall(o, "I", "numArguments"))
-        
+    if(.has_method(x, "listOptions")) {
+        opt <- .jcall(x, "Ljava/util/Enumeration;", "listOptions")
+        while(.jcall(opt, "Z", "hasMoreElements")) {
+            o <- .jcall(opt, "Ljava/lang/Object;", "nextElement")
+            ## In fact, o is now a weka.core.Option object.
+            names <- c(names, .jcall(o, "S", "name"))
+            descriptions <-
+                c(descriptions, .jcall(o, "S", "description"))
+            lengths <- c(lengths, .jcall(o, "I", "numArguments"))
+        }
     }
 
     structure(list(Name = names,
@@ -38,12 +39,19 @@ function(x)
 }
     
 print.WOW <- function(x, ...) {
-    out <- mapply(formatDL,
-                  sprintf("-%s", x$Name),
-                  gsub("\t", " ", x$Description),
-                  indent = 8)
-    if(any(ind <- (x$Length > 0)))
-        out[ind] <- sprintf("%s\n\tNumber of arguments: %d.",
-                            out[ind], x$Length[ind])
-    writeLines(out)
+    if(length(x$Name)) {
+        ## Note that we get nothing in case the Weka class has no
+        ## listOptions() method.
+        out <- mapply(formatDL,
+                      sprintf("-%s", x$Name),
+                      gsub("\t", " ", x$Description),
+                      indent = 8)
+        if(any(ind <- (x$Length > 0)))
+            out[ind] <- sprintf("%s\n\tNumber of arguments: %d.",
+                                out[ind], x$Length[ind])
+        writeLines(out)
+    }
+    else
+        writeLines("No available information on options.")
+    invisible(x)
 }
