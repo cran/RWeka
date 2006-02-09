@@ -62,5 +62,22 @@ public class RWekaInterfaces {
 	}
 	return(out);
     }
+
+    public double[] distributionForInstances(Clusterer C, Instances I)
+	throws Exception
+    {
+	int n = I.numInstances();
+	int m = C.numberOfClusters();
+	double[] out = new double[n * m];
+	double[] tmp = new double[m];
+	int k = 0;
+
+	for(int i = 0; i < n; i++) {
+	    tmp = C.distributionForInstance(I.instance(i));
+	    for(int j = 0; j < m; j++, k++)
+		out[k] = tmp[j];
+	}
+	return(out);
+    }
     
 }

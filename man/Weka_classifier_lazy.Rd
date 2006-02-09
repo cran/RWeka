@@ -1,15 +1,13 @@
-\name{Weka_classifiers_functions}
-\alias{LinearRegression}
-\alias{Logistic}
-\alias{SMO}
-\title{R/Weka Classifier Functions}
+\name{Weka_classifier_lazy}
+\alias{IBk}
+\alias{LBR}
+\title{R/Weka Lazy Learners}
 \description{
-  R interfaces to Weka regression and classification function learners.
+  R interfaces to Weka lazy learners.
 }
 \usage{
-LinearRegression(formula, data, subset, na.action, control = NULL)
-Logistic(formula, data, subset, na.action, control = NULL)
-SMO(formula, data, subset, na.action, control = NULL)
+IBk(formula, data, subset, na.action, control = NULL)
+LBR(formula, data, subset, na.action, control = NULL)
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -24,7 +22,7 @@ SMO(formula, data, subset, na.action, control = NULL)
     Option Wizard \code{\link{WOW}}, or the Weka documentation.}
 }
 \value{
-  A list inheriting from classes \code{Weka_functions} and
+  A list inheriting from classes \code{Weka_lazy} and
   \code{Weka_classifiers} with components including
   \item{classifier}{a reference (of class
     \code{\link[rJava:jobjRef-class]{jobjRef}}) to a Java object
@@ -40,27 +38,21 @@ SMO(formula, data, subset, na.action, control = NULL)
   There is a \code{\link[predict.Weka_classifier]{predict}} method for
   predicting from the fitted models.
 
-  \code{LinearRegression} builds suitable linear regression models,
-  using the Akaike criterion for model selection.
+  \code{IBk} provides a \eqn{k}-nearest neighbors classifier, see Aha \&
+  Kibler (1991).
 
-  \code{Logistic} builds multinomial logistic regression models based on
-  ridge estimation (le Cessie and van Houwelingen, 1992).
-
-  \code{SMO} implements John C. Platt's sequential minimal optimization
-  algorithm for training a support vector classifier using polynomial or
-  RBF kernels.  Multi-class problems are solved using pairwise
-  classification.  
-
-  The model formulae should only use \samp{+} to indicate the variables
-  to be included.
+  \code{LBR} (\dQuote{Lazy Bayesian Rules}) implements a lazy learning
+  approach to lessening the attribute-independence assumption of naive
+  Bayes as suggested by Zheng \& Webb (2000).
 }
 \references{
-  J. C. Platt (1998).
-  Fast training of Support Vector Machines using Sequential Minimal
-  Optimization.
-  In B. Schoelkopf, C. Burges, and A. Smola (eds.),
-  \emph{Advances in Kernel Methods --- Support Vector Learning}.
-  MIT Press.
+  D. Aha and D. Kibler (1991).
+  Instance-based learning algorithms.
+  \emph{Machine Learning}, \bold{6}, 37--66.
+  
+  Z. Zheng & G. Webb, (2000).
+  Lazy learning of Bayesian rules.
+  \emph{Machine Learning}, \bold{41}/1, 53--84.
 }
 \keyword{models}
 \keyword{regression}

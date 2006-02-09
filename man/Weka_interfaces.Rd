@@ -10,7 +10,7 @@
 }
 \usage{
 make_Weka_associator(method, class = NULL)
-make_Weka_classifier(method, class = NULL)
+make_Weka_classifier(method, class = NULL, handlers = list())
 make_Weka_clusterer(method, class = NULL)
 list_Weka_interfaces()
 }
@@ -21,6 +21,8 @@ list_Weka_interfaces()
     names of R classes the objects returned by the interface function
     should inherit from in addition to the default ones (for
     representing associators, classifiers, and clusterers).}
+  \item{handlers}{a named list of special handler functions, see
+    \bold{Details}.}
 }
 \details{
   \code{make_Weka_associator} and \code{make_Weka_clusterer} create an R
@@ -40,6 +42,14 @@ list_Weka_interfaces()
   Weka learner.  Objects created by these interfaces always inherit from
   class \code{Weka_classifier}, and have at least suitable \code{print}
   and \code{\link[predict.Weka_classifier]{predict}} methods.
+
+  Certain aspects of the interface function can be customized by
+  providing handlers.  Currently, only \emph{control} handlers
+  (functions given as the \code{control} component of the list of
+  handlers) are used for processing the given control arguments before
+  passing them to the Weka classifier.  This is used, e.g., by the meta
+  learners to allow the specification of registered base learners by
+  their \dQuote{base names} (rather their full Weka/Java class names).
 
   In addition to creating interface functions, the interfaces are
   registered (under the name of the Weka class interfaced), which in

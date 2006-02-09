@@ -1,8 +1,8 @@
 \name{write.arff}
 \alias{write.arff}
-\title{Write Data into ARFF File Data Format}
+\title{Write Data into ARFF Files}
 \description{
-  Writes data into the Weka ARFF file data format.
+  Writes data into Weka Attribute-Relation File Format (ARFF) files.
 }
 \usage{
 write.arff(x, file, eol = "\n")
