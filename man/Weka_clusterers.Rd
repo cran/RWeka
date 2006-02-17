@@ -24,7 +24,7 @@ SimpleKMeans(x, control = NULL)
     \code{\link[rJava:jobjRef-class]{jobjRef}}) to a Java object
     obtained by applying the Weka \code{buildClusterer} method to the
     training instances using the given control options.}
-  \item{class\_ids}{a vector of integers indicating the class to which
+  \item{class_ids}{a vector of integers indicating the class to which
     each training instance is allocated (the results of calling the Weka
     \code{clusterInstance} method for the built clusterer and each
     instance).}
