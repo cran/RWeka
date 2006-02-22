@@ -3,6 +3,7 @@
 \alias{LMT}
 \alias{M5P}
 \alias{DecisionStump}
+\alias{plot.Weka_tree}
 \title{R/Weka Classifier Trees}
 \description{
   R interfaces to Weka regression and classification tree learners.
@@ -26,7 +27,7 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
     Option Wizard \code{\link{WOW}}, or the Weka documentation.}
 }
 \value{
-  A list inheriting from classes \code{Weka_trees} and
+  A list inheriting from classes \code{Weka_tree} and
   \code{Weka_classifiers} with components including
   \item{classifier}{a reference (of class
     \code{\link[rJava:jobjRef-class]{jobjRef}}) to a Java object
@@ -41,6 +42,16 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
 \details{
   There is a \code{\link[predict.Weka_classifier]{predict}} method for
   predicting from the fitted models.
+
+  There is also a \code{plot} method for fitted binary \code{Weka_tree}s
+  via the facilities provided by package \pkg{party}. This converts the
+  \code{Weka_tree} to a \code{BinaryTree} and then simply calls
+  \link[party]{plot.BinaryTree} with slightly different default arguments.
+
+  Provided the Weka classification tree learner implements the
+  \dQuote{Drawable} interface (i.e., provides a \code{graph} method),
+  \code{\link{write_to_dot}} can be used to create a DOT representation
+  of the tree for visualization via GraphViz.
 
   \code{J48} generates unpruned or a pruned C4.5 decision trees
   (Quinlan, 1993).
@@ -83,31 +94,43 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
 }
 \examples{
 data(iris)
-m1 <- J48(Species ~ ., iris)
+m1 <- J48(Species ~ ., data = iris)
 m1
 table(iris$Species, predict(m1))
+write_to_dot(m1)
+if(require("party", quietly=TRUE)) plot(m1)
 
 ## Using some Weka data sets ...
 
 ## J48
-DF2 <- read.arff(system.file("arff", "contact-lenses.arff",
-                             package = "RWeka"))
+DF2 <- read.arff(system.file("arff", "contact-lenses.arff", package = "RWeka"))
 m2 <- J48(`contact-lenses` ~ ., data = DF2)
 m2
 table(DF2$`contact-lenses`, predict(m2))
+if(require("party", quietly=TRUE)) plot(m2)
 
 ## M5P
-DF3 <- read.arff(system.file("arff", "cpu.arff",
-                             package = "RWeka"))
+DF3 <- read.arff(system.file("arff", "cpu.arff", package = "RWeka"))
 m3 <- M5P(class ~ ., data = DF3)
 m3
+if(require("party", quietly=TRUE)) plot(m3)
 
 ## Logistic Model Tree.
-DF4 <- read.arff(system.file("arff", "weather.arff",
-                             package = "RWeka"))
+DF4 <- read.arff(system.file("arff", "weather.arff", package = "RWeka"))
 m4 <- LMT(play ~ ., data = DF4)
 m4
 table(DF4$play, predict(m4))
+
+## larger scale example
+if(require("mlbench", quietly = TRUE) && require("party", quietly=TRUE)) {
+## predict diabetes status for Pima Indian women
+data("PimaIndiansDiabetes", package = "mlbench")
+## fit J48 tree with reduced error pruning
+m5 <- J48(diabetes ~ ., data = PimaIndiansDiabetes, control = "-R")
+plot(m5)
+## (make sure that the plotting device is big enough for the tree)
+}
+
 }
 \keyword{models}
 \keyword{regression}

@@ -12,22 +12,15 @@ export("read.arff",
        "Cobweb", "FarthestFirst", "SimpleKMeans",
        "list_Weka_interfaces",
        "WOW",
-       "cppredict"
-       ## "j48", "m5", "apriori",
-       ## "as.dendrogram",
-       ## "makeBinaryTree",
-       ## "as.BinaryTree"
-       )
+       "cppredict",
+       "write_to_dot")
 
+S3method("plot", "Weka_tree")
+S3method("predict", "Weka_classifier")
+S3method("predict", "Weka_clusterer")
 S3method("print", "R_Weka_interface")
 S3method("print", "Weka_associator")
 S3method("print", "Weka_classifier")
-S3method("predict", "Weka_classifier")
 S3method("print", "Weka_clusterer")
-S3method("predict", "Weka_clusterer")
 S3method("print", "WOW")
-
-## import("methods")
-
-## exportMethods(predict,show,plot)
-## exportClasses("j48", "m5")
+S3method("write_to_dot", "Weka_classifier")

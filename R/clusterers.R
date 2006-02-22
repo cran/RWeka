@@ -36,6 +36,8 @@ function(x, control, method)
 
     ## Get the class ids.
     class_ids <- .class_ids_for_instances(clusterer, instances)
+    if(!is.null(nms <- rownames(x)))
+        names(class_ids) <- nms
 
     list(clusterer = clusterer, class_ids = class_ids)
 }
