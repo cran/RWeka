@@ -42,6 +42,10 @@ Tertius(x, control = NULL)
   P. A. Flach and N. Lachiche (1999).
   Confirmation-guided discovery of first-order rules with Tertius.
   \emph{Machine Learning}, \bold{42}, 61--95.
+
+  I. H. Witten and Eibe Frank (2005).
+  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
+  2nd Edition, Morgan Kaufmann, San Francisco. 
 }
 \examples{
 x <- read.arff(system.file("arff", "contact-lenses.arff",

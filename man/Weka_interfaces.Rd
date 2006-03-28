@@ -74,7 +74,7 @@ if(require("e1071", quiet = TRUE)) {
     data(HouseVotes84)
     model <- NB(Class ~ ., data = HouseVotes84)
     predict(model, HouseVotes84[1:10,-1])
-    cppredict(model, HouseVotes84[1:10,-1])
+    predict(model, HouseVotes84[1:10,-1], type = "prob")
 }
 ## (Compare this to David Meyer's naiveBayes() in package 'e1071'.
 }

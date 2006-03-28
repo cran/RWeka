@@ -75,12 +75,16 @@ Stacking(formula, data, subset, na.action, control = NULL)
   Morgan Kaufmann: San Francisco.
 
   J. H. Friedman, T. Hastie, and R. Tibshirani (2000).
-  Additive logistic regression: a statistical view of boosting.
+  Additive logistic regression: A statistical view of boosting.
   \emph{Annals of Statistics}, \bold{28}/2, 337--374.
 
   G. I. Webb (2000).
-  MultiBoosting: a technique for combining boosting and wagging.
+  MultiBoosting: A technique for combining boosting and wagging.
   \emph{Machine Learning}, \bold{40}/2, 159--196.
+
+  I. H. Witten and Eibe Frank (2005).
+  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
+  2nd Edition, Morgan Kaufmann, San Francisco. 
 
   D. H. Wolpert (1992).
   Stacked generalization.

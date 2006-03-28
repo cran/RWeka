@@ -64,7 +64,7 @@ function(mf, control, method, handlers)
     ## And classify the training instances.
     predictions <- .predictions_for_instances(classifier, instances)
     if(!is.null(levels <- levels(mf[[1]])))
-        predictions <- levels[predictions + 1]
+        predictions <- factor(levels[predictions + 1], levels = levels)
     
     list(classifier = classifier, predictions = predictions)
 }
@@ -108,13 +108,23 @@ function(classifier, instances)
 }
 
 predict.Weka_classifier <-
-function(object, newdata = NULL, ...)
+function(object, newdata = NULL, type = c("class", "probability"), ...)
 {
     ## This should work as a general-purpose interface to getting
     ## predictions from Weka.
 
-    if(is.null(newdata))
-        return(object$predictions)
+    type <- match.arg(type)
+
+    if(type == "probability" && is.null(object$levels))
+        stop("Can only compute class probabilities for classification problems")
+
+    if(is.null(newdata)) {
+        ## currently only the class predictions for the training 
+	## data are stored:
+        if(type == "class") return(object$predictions)
+        ## but not the probabilities. Hence we need to try something fancy:
+	else newdata <- eval(object$call$data, environment(formula(object)))
+    }
 
     mf <- model.frame(delete.response(terms(object)), newdata,
                       na.action = object$call$na.action)
@@ -130,55 +140,31 @@ function(object, newdata = NULL, ...)
     ## Get new instances into Weka.
     instances <- read_model_frame_into_Weka(mf)
 
-    ## Get predictions from Weka.
-    out <- .predictions_for_instances(object$classifier, instances)
-
-    ## Post-process predictions for factors.
-    if(!is.null(object$levels))
-        out <- factor(object$levels[out + 1], levels = object$levels)
+    switch(type,
+    
+    "class" = {
+        ## Get predictions from Weka.
+        out <- .predictions_for_instances(object$classifier, instances)
+        ## Post-process predictions for factors.
+        if(!is.null(object$levels))
+            out <- factor(object$levels[out + 1], levels = object$levels)    
+    },
+    
+    "probability" = {
+        ## Get predictions from Weka.
+        out <- .distribution_for_instances(object$classifier, instances)    
+        dimnames(out) <- list(rownames(mf), object$levels)    
+    })
     
     out
 }
 
-## Class probabilities.
-## As TH does not like a method = "prob" argument to predict() methods,
-## a separate function for the time being ...
-
-cppredict <-
-function(object, newdata, ...)
+fitted.Weka_classifier <-
+function (object, ...) 
 {
-    if(!inherits(object, "Weka_classifier"))
-        stop("'object' must be a Weka classifier")
-    
-    if(is.null(object$levels))
-        stop("Can only compute class probabilities for classification problems")
-    
-    ## We currently do not store the class probabilities (let alone the
-    ## whole model frame) for the training instances with the built
-    ## classifier, hence always need to try something fancy:
-    if(missing(newdata) || is.null(newdata)) {
-        ## (Same evaluation is used in expand.model.frame() ...
-        newdata <- eval(object$call$data, environment(formula(object)))
-    }
-    ## Is there a better way?
-    mf <- model.frame(delete.response(terms(object)), newdata,
-                      na.action = object$call$na.action)
-
-    ## Seems that Weka always needs to have a "class" with its
-    ## instances, and even know a factor by its levels ...
-    classes <- factor(NA, levels = object$levels)
-    mf <- cbind(CLASS = classes, mf)
-
-    ## Get new instances into Weka.
-    instances <- read_model_frame_into_Weka(mf)
-
-    ## Get predictions from Weka.
-    out <- .distribution_for_instances(object$classifier, instances)
-    
-    dimnames(out) <- list(rownames(mf), object$levels)
-
-    out
+    predict(object, ...)
 }
+
 
 ## Handlers.
 
