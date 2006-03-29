@@ -56,7 +56,8 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
   \code{J48} generates unpruned or a pruned C4.5 decision trees
   (Quinlan, 1993).
 
-  \code{LMT} implements \dQuote{Logistic Model Trees} (Landwehr, 2003).
+  \code{LMT} implements \dQuote{Logistic Model Trees} (Landwehr, 2003;
+  Landwehr et al., 2005).
 
   \code{M5P} (where the \samp{P} stands for \sQuote{prime}) generates M5
   model trees using the M5' algorithm, which was introduced in Wang &
@@ -70,10 +71,14 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
 
 \references{
   N. Landwehr (2003).
-  \emph{Logistic model trees}.
-  Masters thesis, Institute for Computer Science, University of
+  \emph{Logistic Model Trees}.
+  Master's thesis, Institute for Computer Science, University of
   Freiburg, Germany.
   \url{http://www.informatik.uni-freiburg.de/~ml/thesis_landwehr2003.html}
+
+  N. Landwehr, Mark Hall and Eibe Frank (2005).
+  Logistic Model Trees.
+  \emph{Machine Learning}, \bold{59}, 161--205.
   
   R. Quinlan (1993).
   \emph{C4.5: Programs for Machine Learning}.
@@ -91,6 +96,10 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
     Learning}.
   University of Economics, Faculty of Informatics and Statistics,
   Prague.
+
+  I. H. Witten and Eibe Frank (2005).
+  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
+  2nd Edition, Morgan Kaufmann, San Francisco. 
 }
 \examples{
 data(iris)

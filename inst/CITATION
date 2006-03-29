@@ -1,0 +1,34 @@
+citHeader("When using RWeka in publications, please cite both the RWeka interface and Weka itself:")
+
+citEntry(entry="Manual",
+         title = "RWeka: An R Interface to Weka",
+         author = personList(as.person("Kurt Hornik"), 
+                             as.person("Achim Zeileis"),
+			     as.person("Torsten Hothorn"),
+			     as.person("Christian Buchta")),
+         year         = "2006",
+         note         = "R package version 0.2-2",
+         
+         textVersion = 
+         paste("Kurt Hornik, Achim Zeileis, Torsten Hothorn and Christian Buchta (2006).", 
+               "RWeka: An R Interface to Weka.",
+	       "R package version 0.2-2."),
+	 header = "To cite RWeka, the R interface to Weka, please use:"
+)
+
+citEntry(entry="Book",
+         title = "Data Mining: Practical Machine Learning Tools and Techniques",
+         author = personList(as.person("Ian H. Witten"), 
+	                     as.person("Eibe Frank")),
+         year         = "2005",
+	 edition      = "2nd",
+         publisher    = "Morgan Kaufmann",
+	 address      = "San Francisco",
+         
+         textVersion = 
+         paste("Ian H. Witten and Eibe Frank (2005).", 
+               "Data Mining: Practical Machine Learning Tools and Techniques.",
+               "2nd Edition, Morgan Kaufmann, San Francisco."),
+	 header = "To cite Weka, please use:"
+)
+

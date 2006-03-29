@@ -12,9 +12,9 @@ export("read.arff",
        "Cobweb", "FarthestFirst", "SimpleKMeans",
        "list_Weka_interfaces",
        "WOW",
-       "cppredict",
        "write_to_dot")
 
+S3method("fitted", "Weka_classifier")
 S3method("plot", "Weka_tree")
 S3method("predict", "Weka_classifier")
 S3method("predict", "Weka_clusterer")

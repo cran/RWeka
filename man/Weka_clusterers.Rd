@@ -52,6 +52,10 @@ SimpleKMeans(x, control = NULL)
   Hochbaum and Shmoys (1985).
   A best possible heuristic for the \eqn{k}-center problem,
   \emph{Mathematics of Operations Research}, \bold{10}(2), 180--184.
+
+  I. H. Witten and Eibe Frank (2005).
+  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
+  2nd Edition, Morgan Kaufmann, San Francisco. 
 }
 \examples{
 data(iris)

@@ -61,6 +61,10 @@ SMO(formula, data, subset, na.action, control = NULL)
   In B. Schoelkopf, C. Burges, and A. Smola (eds.),
   \emph{Advances in Kernel Methods --- Support Vector Learning}.
   MIT Press.
+
+  I. H. Witten and Eibe Frank (2005).
+  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
+  2nd Edition, Morgan Kaufmann, San Francisco. 
 }
 \keyword{models}
 \keyword{regression}
