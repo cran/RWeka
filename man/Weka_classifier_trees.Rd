@@ -45,16 +45,17 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
 
   There is also a \code{plot} method for fitted binary \code{Weka_tree}s
   via the facilities provided by package \pkg{party}. This converts the
-  \code{Weka_tree} to a \code{BinaryTree} and then simply calls
-  \link[party]{plot.BinaryTree} with slightly different default arguments.
+  \code{Weka_tree} to a \code{BinaryTree} and then simply calls the plot
+  method of this class (see \code{\link[party]{plot.BinaryTree}}) with
+  slight modifications to the default arguments.
 
   Provided the Weka classification tree learner implements the
   \dQuote{Drawable} interface (i.e., provides a \code{graph} method),
   \code{\link{write_to_dot}} can be used to create a DOT representation
   of the tree for visualization via GraphViz.
 
-  \code{J48} generates unpruned or a pruned C4.5 decision trees
-  (Quinlan, 1993).
+  \code{J48} generates unpruned or pruned C4.5 decision trees (Quinlan,
+  1993).
 
   \code{LMT} implements \dQuote{Logistic Model Trees} (Landwehr, 2003;
   Landwehr et al., 2005).
@@ -107,22 +108,23 @@ m1 <- J48(Species ~ ., data = iris)
 m1
 table(iris$Species, predict(m1))
 write_to_dot(m1)
-if(require("party", quietly=TRUE)) plot(m1)
+if(require("party", quietly = TRUE)) plot(m1)
 
 ## Using some Weka data sets ...
 
 ## J48
-DF2 <- read.arff(system.file("arff", "contact-lenses.arff", package = "RWeka"))
+DF2 <- read.arff(system.file("arff", "contact-lenses.arff",
+                             package = "RWeka"))
 m2 <- J48(`contact-lenses` ~ ., data = DF2)
 m2
 table(DF2$`contact-lenses`, predict(m2))
-if(require("party", quietly=TRUE)) plot(m2)
+if(require("party", quietly = TRUE)) plot(m2)
 
 ## M5P
 DF3 <- read.arff(system.file("arff", "cpu.arff", package = "RWeka"))
 m3 <- M5P(class ~ ., data = DF3)
 m3
-if(require("party", quietly=TRUE)) plot(m3)
+if(require("party", quietly = TRUE)) plot(m3)
 
 ## Logistic Model Tree.
 DF4 <- read.arff(system.file("arff", "weather.arff", package = "RWeka"))
@@ -130,16 +132,16 @@ m4 <- LMT(play ~ ., data = DF4)
 m4
 table(DF4$play, predict(m4))
 
-## larger scale example
-if(require("mlbench", quietly = TRUE) && require("party", quietly=TRUE)) {
-## predict diabetes status for Pima Indian women
-data("PimaIndiansDiabetes", package = "mlbench")
-## fit J48 tree with reduced error pruning
-m5 <- J48(diabetes ~ ., data = PimaIndiansDiabetes, control = "-R")
-plot(m5)
-## (make sure that the plotting device is big enough for the tree)
+## Larger scale example.
+if(require("mlbench", quietly = TRUE)
+   && require("party", quietly = TRUE)) {
+    ## Predict diabetes status for Pima Indian women
+    data("PimaIndiansDiabetes", package = "mlbench")
+    ## Fit J48 tree with reduced error pruning
+    m5 <- J48(diabetes ~ ., data = PimaIndiansDiabetes, control = "-R")
+    plot(m5)
+    ## (Make sure that the plotting device is big enough for the tree.)
 }
-
 }
 \keyword{models}
 \keyword{regression}

@@ -17,11 +17,13 @@
     instances are used.}
   \item{type}{character string determining whether classes should be
     predicted (numeric for regression, factor for classification) or
-    class probabilities (only available for classification).}
+    class probabilities (only available for classification).  May be
+    abbreviated.}
   \item{\dots}{further arguments passed to or from other methods.}
 }
 \value{
-  Either a vector with classes or
-  a matrix with the posterior class probabilities.
+  Either a vector with classes or a matrix with the posterior class
+  probabilities, with rows corresponding to instances and columns to
+  classes.
 }
 \keyword{models}

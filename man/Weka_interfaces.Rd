@@ -76,7 +76,7 @@ if(require("e1071", quiet = TRUE)) {
     predict(model, HouseVotes84[1:10,-1])
     predict(model, HouseVotes84[1:10,-1], type = "prob")
 }
-## (Compare this to David Meyer's naiveBayes() in package 'e1071'.
+## (Compare this to David Meyer's naiveBayes() in package 'e1071'.)
 }
 \keyword{interface}
 \keyword{models}

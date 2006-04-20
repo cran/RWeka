@@ -36,7 +36,7 @@ SimpleKMeans(x, control = NULL)
   \code{Cobweb} implements the Cobweb (Fisher, 1987) and Classit
   (Gennari et al., 1989) clustering algorithms.
   
-  \code{FarthestFirst} implements the \dQuote{farthest first traversal
+  \code{FarthestFirst} provides the \dQuote{farthest first traversal
     algorithm} by Hochbaum and Shmoys, which works as a fast simple
   approximate clusterer modelled after simple \eqn{k}-means.
 }

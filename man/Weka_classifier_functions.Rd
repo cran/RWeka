@@ -1,4 +1,4 @@
-\name{Weka_classifiers_functions}
+\name{Weka_classifier_functions}
 \alias{LinearRegression}
 \alias{Logistic}
 \alias{SMO}
