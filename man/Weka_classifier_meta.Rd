@@ -53,7 +53,7 @@ Stacking(formula, data, subset, na.action, control = NULL)
 
   \code{Bagging} provides bagging (Breiman, 1996).
 
-  \code{LogitBoost} perfoms boosting via additive logistic regression
+  \code{LogitBoost} performs boosting via additive logistic regression
   (Friedman, Hastie and Tibshirani, 2000).
 
   \code{MultiBoostAB} implements MultiBoosting (Webb, 2000), an

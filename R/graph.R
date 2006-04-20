@@ -253,12 +253,13 @@ class(node_Weka) <- "grapcon_generator"
 
 plot.Weka_tree <-
 function(x, type = "simple", terminal_panel = node_Weka,
-  ip_args = list(pval = FALSE, id = FALSE), ...)
+         ip_args = list(pval = FALSE, id = FALSE), ...)
 {
-    if(!require("party")) stop("Plotting Weka trees requires package 'party'.")
+    if(!require("party"))
+        stop("Plotting Weka trees requires package 'party'.")
     x$call[[1]] <- as.name("ModelEnvFormula")
-    data <- eval(x$call)@get("input")
-    response <- eval(x$call)@get("response")
+    data <- eval(x$call, environment(formula(x)))@get("input")
+    response <- eval(x$call, environment(formula(x)))@get("response")
     x <- make_Weka_classifier_tree(x)
     if(attr(x, "max_n_of_children") > 2)
         stop("Plotting of trees with multi-way splits is currently not implemented.")

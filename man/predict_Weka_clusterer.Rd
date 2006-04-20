@@ -20,7 +20,7 @@
   \item{\dots}{further arguments passed to or from other methods.}
 }
 \details{
-  Class memberships can only be predicted if the Weka clusterer provides
-  a \code{distributionForInstance} method.
+  It is only possible to predict class memberships if the Weka clusterer
+  provides a \code{distributionForInstance} method.
 }
 \keyword{cluster}
