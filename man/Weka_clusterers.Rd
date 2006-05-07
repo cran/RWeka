@@ -2,6 +2,7 @@
 \alias{Cobweb}
 \alias{FarthestFirst}
 \alias{SimpleKMeans}
+\alias{DBScan}
 \title{R/Weka Clusterers}
 \description{
   R interfaces to Weka clustering algorithms.
@@ -10,6 +11,7 @@
 Cobweb(x, control = NULL)
 FarthestFirst(x, control = NULL)
 SimpleKMeans(x, control = NULL)
+DBScan(x, control = NULL)
 }
 \arguments{
   \item{x}{an R object with the data to be clustered.}
@@ -39,8 +41,18 @@ SimpleKMeans(x, control = NULL)
   \code{FarthestFirst} provides the \dQuote{farthest first traversal
     algorithm} by Hochbaum and Shmoys, which works as a fast simple
   approximate clusterer modelled after simple \eqn{k}-means.
+
+  \code{DBScan} provides the \dQuote{density-based clustering algorithm}
+  by Ester, Kriegel, Sander, and Xu. Note that noise points are assigned
+  to \code{NA}.
 }
 \references{
+  Ester M., Kriegel H.-P., Sander J., Xu X. (1996).
+  A Density-Based Algorithm for Discovering Clusters in Large 
+  Spatial Databases with Noise,
+  \emph{Proc. 2nd Int. Conf. on Knowledge Discovery and Data Mining (KDD'96)},
+  Portland, OR, 226--231.
+
   D. H. Fisher (1987).
   Knowledge acquisition via incremental conceptual clustering.
   \emph{Machine Learning}, \bold{2}/2, 139--172.
@@ -55,7 +67,7 @@ SimpleKMeans(x, control = NULL)
 
   I. H. Witten and Eibe Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
-  2nd Edition, Morgan Kaufmann, San Francisco. 
+  2nd Edition, Morgan Kaufmann, San Francisco.
 }
 \examples{
 data(iris)

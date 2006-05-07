@@ -56,12 +56,18 @@ function(clusterer, instances)
     ## but then class ids returned would not be in sync with output from
     ## Weka's toString() methods.
     
-    if(.has_method(clusterer, "clusterInstance"))
-        .jcall(.jnew("RWekaInterfaces"),
-               "[I",
-               "clusterInstances",
-               .jcast(clusterer, "weka/clusterers/Clusterer"),
-               instances)
+    ## in RWekaInterfaces we set the class label to Double.NaN If the 
+    ## instance could not be classified or is less than zero.
+    
+    if(.has_method(clusterer, "clusterInstance")) {
+        class <- .jcall(.jnew("RWekaInterfaces"),
+                        "[D",
+                        "clusterInstances",
+                        .jcast(clusterer, "weka/clusterers/Clusterer"),
+                        instances)
+        is.na(class) <- is.nan(class)
+        as.integer(class)
+    }
     else {
         ## If there is no clusterInstance() method, the Weka clusterer
         ## must provide a distributionForInstance() method.
@@ -114,6 +120,15 @@ function(object, newdata = NULL,
     }
 }
 
+###
+
+fitted.Weka_clusterer <-
+function (object, ...) 
+{
+        predict(object, ...)
+}
+
+
 ## And now for the really cool stuff:
 
 Cobweb <-
@@ -122,3 +137,5 @@ FarthestFirst <-
     make_Weka_clusterer("weka/clusterers/FarthestFirst", "FarthestFirst")
 SimpleKMeans <-
     make_Weka_clusterer("weka/clusterers/SimpleKMeans", "SimpleKMeans")
+DBScan <-
+    make_Weka_clusterer("weka/clusterers/DBScan", "DBScan")

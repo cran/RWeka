@@ -9,12 +9,13 @@ export("read.arff",
        "JRip", "M5Rules", "OneR", "PART",
        "J48", "M5P", "LMT", "DecisionStump",
        "make_Weka_clusterer",
-       "Cobweb", "FarthestFirst", "SimpleKMeans",
+       "Cobweb", "FarthestFirst", "SimpleKMeans", "DBScan",
        "list_Weka_interfaces",
        "WOW",
        "write_to_dot")
 
 S3method("fitted", "Weka_classifier")
+S3method("fitted", "Weka_clusterer")
 S3method("plot", "Weka_tree")
 S3method("predict", "Weka_classifier")
 S3method("predict", "Weka_clusterer")

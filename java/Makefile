@@ -28,6 +28,7 @@ all: $(JARS)
 
 RWeka.jar: $(OBJECTS)
 	$(JAR) cvf $@ $(OBJECTS)
+$(OBJECTS): ../inst/jar/weka.jar
 
 install: all
 	@mv $(JARS) ../inst/jar

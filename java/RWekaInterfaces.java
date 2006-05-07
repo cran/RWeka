@@ -10,22 +10,40 @@ public class RWekaInterfaces {
 	int n = I.numInstances();
 	double[] out = new double[n];
 	
+	int k = 0;
 	for(int i = 0; i < n; i++) {
-	    out[i] = C.classifyInstance(I.instance(i));
+	    try {
+		out[i] = C.classifyInstance(I.instance(i));
+	    } catch(Exception e) {
+		k++;
+		out[i] = Double.NaN;	// see weke.core.Instance
+	    }
 	}
-	
+	if (k > 0)
+	   System.out.println(k+" instances not classified");
+
 	return(out);
     }
 
-    public int[] clusterInstances(Clusterer C, Instances I)
+    public double[] clusterInstances(Clusterer C, Instances I)
 	throws Exception
     {
 	int n = I.numInstances();
-	int[] out = new int[n];
-	
+	double[] out = new double[n];
+
+	int k = 0;
 	for(int i = 0; i < n; i++) {
-	    out[i] = C.clusterInstance(I.instance(i));
+	    try {
+		out[i] = C.clusterInstance(I.instance(i));
+		if (out[i] < 0)
+		    out[i] = Double.NaN;
+	    } catch (Exception e) {
+		k++;
+		out[i] = Double.NaN;	// as above
+	    }
 	}
+	if (k > 0)
+	   System.out.println(k+" instances not classified");
 	
 	return(out);
     }
