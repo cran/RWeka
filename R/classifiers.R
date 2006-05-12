@@ -78,12 +78,18 @@ print.Weka_classifier <- function(x, ...) {
 function(classifier, instances)
 {
     ## Get the predictions for a fitted Weka classifier.
+   
+    ## Weka uses NaN for missing values as we do in RWekaInterfaces.
+    ## So we have to map to NA.
     
-    if(.has_method(classifier, "classifyInstance"))
-        .jcall(.jnew("RWekaInterfaces"), "[D",
-               "classifyInstances",
-               .jcast(classifier, "weka/classifiers/Classifier"),
-               instances)
+    if(.has_method(classifier, "classifyInstance")) {
+        class <- .jcall(.jnew("RWekaInterfaces"), "[D",
+                        "classifyInstances",
+                        .jcast(classifier, "weka/classifiers/Classifier"),
+                        instances)
+        is.na(class) <- is.nan(class)
+        class
+    }
     else {
         ## If there is no classifyInstance() method, the Weka classifier
         ## must provide a distributionForInstance() method.

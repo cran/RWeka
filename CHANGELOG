@@ -1,0 +1,8 @@
+
+version 0.2-4
+
+* upgraded to Weka-3.5.2 (K)
+
+* Exception and missing value fixes in RWekaInterfaces.java, 
+  classifiers.R, clusterers.R. Registered DBScan. (C)
+
