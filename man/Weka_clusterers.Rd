@@ -15,9 +15,10 @@ DBScan(x, control = NULL)
 }
 \arguments{
   \item{x}{an R object with the data to be clustered.}
-  \item{control}{a character vector with control options, or \code{NULL}
-    (default).  Available options can be obtained on-line using the Weka
-    Option Wizard \code{\link{WOW}}, or the Weka documentation.}
+  \item{control}{an object of class \code{\link{Weka_control}}, or a
+    character vector of control options, or \code{NULL} (default).
+    Available options can be obtained on-line using the Weka Option
+    Wizard \code{\link{WOW}}, or the Weka documentation.}
 }
 \value{
   A list inheriting from class \code{Weka_clusterers} with components
@@ -70,8 +71,9 @@ DBScan(x, control = NULL)
   2nd Edition, Morgan Kaufmann, San Francisco.
 }
 \examples{
-data(iris)
-cl <- SimpleKMeans(iris[, -5], c("-N", "3"))
+data("iris")
+% cl <- SimpleKMeans(iris[, -5], c("-N", 3))
+cl <- SimpleKMeans(iris[, -5], Weka_control(N = 3))
 cl
 table(predict(cl), iris$Species)
 }

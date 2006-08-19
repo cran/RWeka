@@ -11,9 +11,10 @@ Tertius(x, control = NULL)
 }
 \arguments{
   \item{x}{an R object with the data to be associated.}
-  \item{control}{a character vector with control options, or \code{NULL}
-    (default).  Available options can be obtained on-line using the Weka
-    Option Wizard \code{\link{WOW}}, or the Weka documentation.}
+  \item{control}{an object of class \code{\link{Weka_control}}, or a
+    character vector of control options, or \code{NULL} (default).
+    Available options can be obtained on-line using the Weka Option
+    Wizard \code{\link{WOW}}, or the Weka documentation.}
 }
 \value{
   A list inheriting from class \code{Weka_associators} with components
@@ -37,7 +38,7 @@ Tertius(x, control = NULL)
   Fast algorithms for mining association rules in large databases.
   \emph{Proceedings of the  International Conference on Very Large
     Databases}, 478--499.
-  Santiage, Chile: Morgan Kaufmann, Los Altos, CA.
+  Santiago, Chile: Morgan Kaufmann, Los Altos, CA.
 
   P. A. Flach and N. Lachiche (1999).
   Confirmation-guided discovery of first-order rules with Tertius.
@@ -53,11 +54,13 @@ x <- read.arff(system.file("arff", "contact-lenses.arff",
 ## Apriori with defaults.
 Apriori(x)
 ## Some options: set required number of rules to 20.
-Apriori(x, c("-N", "20"))
+% Apriori(x, c("-N", "20"))
+Apriori(x, Weka_control(N = 20))
 
 ## Tertius with defaults.
 Tertius(x)
 ## Some options: only classification rules (single item in the RHS).
-Tertius(x, "-S")
+% Tertius(x, "-S")
+Tertius(x, Weka_control(S = TRUE))
 }
 \keyword{models}

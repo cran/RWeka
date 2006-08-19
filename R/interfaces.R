@@ -7,10 +7,12 @@ function()
                mapply("[", classes, sapply(classes, length)))
     tr_db <- list(c("Weka_associator",
                     "Weka_classifier",
-                    "Weka_clusterer"),
+                    "Weka_clusterer",
+                    "Weka_filter"),
                   c("Associators",
                     "Classifiers",
-                    "Clusterers"))
+                    "Clusterers",
+                    "Filters"))
     names(o) <- tr_db[[2]][match(names(o), tr_db[[1]])]
     o
 }
@@ -24,9 +26,8 @@ function(x, ...)
     ## (e.g., Cobweb for Weka 3.4.6), so be careful.
     o <- .jnew(meta$method)
     if(.has_method(o, "globalInfo"))
-        writeLines(c(gettextf("An R interface to Weka class '%s',",
+        writeLines(c(gettextf("An R interface to Weka class '%s',\nwhich has information",
                               as_Java_class_name(meta$method)),
-                     "which has information",
                      "",
                      strwrap(.jcall(o, "S", "globalInfo"),
                              indent = 2, exdent = 2)))
@@ -35,14 +36,14 @@ function(x, ...)
                             as_Java_class_name(meta$method)))
 
     writeLines(c("",
-                 "Argument list:",
+                 gettext("Argument list:"),
                  {
                      ax <- deparse(args(x))
                      strwrap(sub("^function", "", ax[-length(ax)]),
                              indent = 2, exdent = 2)
                  },
                  "",
-                 gettextf("Returns objects inheriting from classes"),
+                 gettext("Returns objects inheriting from classes:"),
                  paste(c(" ", meta$class), collapse = " ")))
     invisible(x)
 }

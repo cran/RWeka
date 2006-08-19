@@ -47,11 +47,11 @@ print.WOW <- function(x, ...) {
                       gsub("\t", " ", x$Description),
                       indent = 8)
         if(any(ind <- (x$Length > 0)))
-            out[ind] <- sprintf("%s\n\tNumber of arguments: %d.",
-                                out[ind], x$Length[ind])
+            out[ind] <- gettextf("%s\n\tNumber of arguments: %d.",
+                                 out[ind], x$Length[ind])
         writeLines(out)
     }
     else
-        writeLines("No available information on options.")
+        writeLines(gettext("No available information on options."))
     invisible(x)
 }

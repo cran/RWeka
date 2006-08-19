@@ -12,7 +12,12 @@ export("read.arff",
        "Cobweb", "FarthestFirst", "SimpleKMeans", "DBScan",
        "list_Weka_interfaces",
        "WOW",
-       "write_to_dot")
+       "Weka_control",
+       "write_to_dot",
+       "make_Weka_filter",
+       Normalize,
+       Discretize,
+       "evaluate_Weka_classifier")
 
 S3method("fitted", "Weka_classifier")
 S3method("fitted", "Weka_clusterer")
@@ -24,4 +29,9 @@ S3method("print", "Weka_associator")
 S3method("print", "Weka_classifier")
 S3method("print", "Weka_clusterer")
 S3method("print", "WOW")
+S3method("print", "Weka_control")
+S3method("as.character", "Weka_control")
 S3method("write_to_dot", "Weka_classifier")
+S3method("print", "Weka_filter")
+S3method("print", "Weka_classifier_evaluation")
+

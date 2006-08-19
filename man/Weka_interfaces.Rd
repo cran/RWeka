@@ -3,20 +3,22 @@
 \alias{make_Weka_associator}
 \alias{make_Weka_classifier}
 \alias{make_Weka_clusterer}
+\alias{make_Weka_filter}
 \alias{list_Weka_interfaces}
 \description{
-  Create an R interface to an exisiting Weka learner, or show the
+  Create an R interface to an exisiting Weka learner/filter, or show the
   available interfaces.
 }
 \usage{
 make_Weka_associator(method, class = NULL)
 make_Weka_classifier(method, class = NULL, handlers = list())
 make_Weka_clusterer(method, class = NULL)
+make_Weka_filter(method, class = NULL)
 list_Weka_interfaces()
 }
 \arguments{
   \item{method}{a character string giving the fully qualified name of
-    a Weka learner class in JNI notation.}
+    a Weka learner/filter class in JNI notation.}
   \item{class}{\code{NULL} (default), or a character vector giving the
     names of R classes the objects returned by the interface function
     should inherit from in addition to the default ones (for
@@ -36,12 +38,23 @@ list_Weka_interfaces()
 
   \code{make_Weka_classifier} creates an interface function for a Weka
   classifier, with formals \code{formula}, \code{data}, \code{subset},
+  \code{na.action}, and \code{control} (default: none), where the first
+  four have the \dQuote{usual} meanings for statistical modeling
+  functions in R, and the last again specifies the control options to be
+  employed by the Weka learner.  Objects created by these interfaces
+  always inherit from class \code{Weka_classifier}, and have at least
+  suitable \code{print} and
+  \code{\link[predict.Weka_classifier]{predict}} methods.
+
+  \code{make_Weka_filter} creates an interface function for a Weka
+  filter, with formals \code{formula}, \code{data}, \code{subset},
   \code{na.action}, and \code{control = NULL}, where the first four have
   the \dQuote{usual} meanings for statistical modeling functions in R,
   and the last again specifies the control options to be employed by the
-  Weka learner.  Objects created by these interfaces always inherit from
-  class \code{Weka_classifier}, and have at least suitable \code{print}
-  and \code{\link[predict.Weka_classifier]{predict}} methods.
+  Weka filter. Note that the response variable can be omitted from 
+  \code{formula} if the filter is \dQuote{unsupervised}. Objects created 
+  by these interface functions are (currently) always of class 
+  \code{data.frame}.
 
   Certain aspects of the interface function can be customized by
   providing handlers.  Currently, only \emph{control} handlers
@@ -71,10 +84,10 @@ NB
 WOW(NB)
 ## And actually use the interface ...
 if(require("e1071", quiet = TRUE)) {
-    data(HouseVotes84)
+    data("HouseVotes84")
     model <- NB(Class ~ ., data = HouseVotes84)
-    predict(model, HouseVotes84[1:10,-1])
-    predict(model, HouseVotes84[1:10,-1], type = "prob")
+    predict(model, HouseVotes84[1:10, -1])
+    predict(model, HouseVotes84[1:10, -1], type = "prob")
 }
 ## (Compare this to David Meyer's naiveBayes() in package 'e1071'.)
 }

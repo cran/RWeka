@@ -1,3 +1,21 @@
+version 0.2-6
+
+* upgraded to weka-3.5.3, moved out persistence support as it 
+  lacks support from R and others :-( (C)
+
+* Support for Weka control lists in make_class_name_expander(). (K)
+
+version 0.2-5
+
+* added interface to Weka filters, fixed RWekaInterfaces.java
+  to abstract class and its methods to class methods. added
+  escapes removal to read.arff. (C)
+
+* added evaluate_Weka_classifiers.R (C)
+
+* added low level functions for RWeka Java object persistence. (C)
+
+* added Weka_control class. (K)
 
 version 0.2-4
 
@@ -5,4 +23,3 @@ version 0.2-4
 
 * Exception and missing value fixes in RWekaInterfaces.java, 
   classifiers.R, clusterers.R. Registered DBScan. (C)
-
