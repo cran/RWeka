@@ -7,7 +7,7 @@
 }
 \usage{
 \method{predict}{Weka_classifier}(object, newdata = NULL,
-  type = c("class", "probability"), ...)
+        type = c("class", "probability"), ...)
 }
 \arguments{
   \item{object}{an object of class inheriting from

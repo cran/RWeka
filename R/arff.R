@@ -4,6 +4,7 @@
 ### <NOTE>
 ### String and evaluation types are enclosed by single quotes upon
 ### writing and enclosing single quotes are removed upon reading.
+### Escaped single quotes inside single quotes may also occur.
 ### </NOTE>
 
 read.arff <-
@@ -72,6 +73,10 @@ function(file)
     if(any(ind <- which(!is.na(col_dfmts))))
         for(i in ind)
             data[i] <- as.data.frame(strptime(data[[i]], col_dfmts[i]))
+    ## Remove left over escapes.
+    for (i in seq(length(data)))
+        if (is.factor(data[[i]]))
+           levels(data[[i]]) <- gsub("\\\\", "", levels(data[[i]]))
     names(data) <- col_names
     data
 }

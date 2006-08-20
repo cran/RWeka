@@ -7,9 +7,9 @@
   R interfaces to Weka regression and classification function learners.
 }
 \usage{
-LinearRegression(formula, data, subset, na.action, control = NULL)
-Logistic(formula, data, subset, na.action, control = NULL)
-SMO(formula, data, subset, na.action, control = NULL)
+LinearRegression(formula, data, subset, na.action, control = Weka_control())
+Logistic(formula, data, subset, na.action, control = Weka_control())
+SMO(formula, data, subset, na.action, control = Weka_control())
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -19,8 +19,8 @@ SMO(formula, data, subset, na.action, control = NULL)
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.}
-  \item{control}{a character vector with control options, or \code{NULL}
-    (default).  Available options can be obtained on-line using the Weka
+  \item{control}{an object of class \code{\link{Weka_control}}.
+    Available options can be obtained on-line using the Weka
     Option Wizard \code{\link{WOW}}, or the Weka documentation.}
 }
 \value{

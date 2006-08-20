@@ -9,10 +9,10 @@
   R interfaces to Weka regression and classification tree learners.
 }
 \usage{
-J48(formula, data, subset, na.action, control = NULL)
-LMT(formula, data, subset, na.action, control = NULL)
-M5P(formula, data, subset, na.action, control = NULL)
-DecisionStump(formula, data, subset, na.action, control = NULL)
+J48(formula, data, subset, na.action, control = Weka_control())
+LMT(formula, data, subset, na.action, control = Weka_control())
+M5P(formula, data, subset, na.action, control = Weka_control())
+DecisionStump(formula, data, subset, na.action, control = Weka_control())
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -22,9 +22,9 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.}
-  \item{control}{a character vector with control options, or \code{NULL}
-    (default).  Available options can be obtained on-line using the Weka
-    Option Wizard \code{\link{WOW}}, or the Weka documentation.}
+  \item{control}{an object of class \code{\link{Weka_control}}.
+    Available options can be obtained on-line using the Weka Option
+    Wizard \code{\link{WOW}}, or the Weka documentation.}
 }
 \value{
   A list inheriting from classes \code{Weka_tree} and
@@ -103,7 +103,7 @@ DecisionStump(formula, data, subset, na.action, control = NULL)
   2nd Edition, Morgan Kaufmann, San Francisco. 
 }
 \examples{
-data(iris)
+data("iris")
 m1 <- J48(Species ~ ., data = iris)
 m1
 table(iris$Species, predict(m1))
@@ -138,7 +138,8 @@ if(require("mlbench", quietly = TRUE)
     ## Predict diabetes status for Pima Indian women
     data("PimaIndiansDiabetes", package = "mlbench")
     ## Fit J48 tree with reduced error pruning
-    m5 <- J48(diabetes ~ ., data = PimaIndiansDiabetes, control = "-R")
+    m5 <- J48(diabetes ~ ., data = PimaIndiansDiabetes,
+              control = Weka_control(R = TRUE))
     plot(m5)
     ## (Make sure that the plotting device is big enough for the tree.)
 }

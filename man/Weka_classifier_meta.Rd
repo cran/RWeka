@@ -9,11 +9,11 @@
   R interfaces to Weka meta learners.
 }
 \usage{
-AdaBoostM1(formula, data, subset, na.action, control = NULL)
-Bagging(formula, data, subset, na.action, control = NULL)
-LogitBoost(formula, data, subset, na.action, control = NULL)
-MultiBoostAB(formula, data, subset, na.action, control = NULL)
-Stacking(formula, data, subset, na.action, control = NULL)
+AdaBoostM1(formula, data, subset, na.action, control = Weka_control())
+Bagging(formula, data, subset, na.action, control = Weka_control())
+LogitBoost(formula, data, subset, na.action, control = Weka_control())
+MultiBoostAB(formula, data, subset, na.action, control = Weka_control())
+Stacking(formula, data, subset, na.action, control = Weka_control())
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -23,13 +23,14 @@ Stacking(formula, data, subset, na.action, control = NULL)
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.}
-  \item{control}{a character vector with control options, or \code{NULL}
-    (default).  Available options can be obtained on-line using the Weka
-    Option Wizard \code{\link{WOW}}, or the Weka documentation.  Base
-    classifiers with an available R/Weka interface (see
+  \item{control}{an object of class \code{\link{Weka_control}}.
+    Available options can be obtained on-line using the Weka
+    Option Wizard \code{\link{WOW}}, or the Weka documentation.
+    Base classifiers with an available R/Weka interface (see
     \code{\link{list_Weka_interfaces}}), can be specified (using the
-    \option{-W} option) via their \dQuote{base name} as shown
-    in the interface registry (see the examples).}
+    \option{W} option) via their \dQuote{base name} as shown
+    in the interface registry (see the examples), or their interface
+    function.}
 }
 \value{
   A list inheriting from classes \code{Weka_meta} and
@@ -94,7 +95,7 @@ Stacking(formula, data, subset, na.action, control = NULL)
 data("iris")
 ## Use AdaBoostM1 with decision stumps.
 m1 <- AdaBoostM1(Species ~ ., data = iris,
-                 control = c("-W", "DecisionStump"))
+                 control = Weka_control(W = "DecisionStump"))
 table(predict(m1), iris$Species)
 }
 \keyword{models}

@@ -26,6 +26,7 @@ function(x, control, method)
 
     ## Build the associator.
     associator <- .jnew(method)
+    control <- as.character(control)
     ## <FIXME>
     ## Should we warn if a control argument was given and the associator
     ## does not provide an OptionHandler interface?

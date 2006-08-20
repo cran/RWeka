@@ -6,8 +6,8 @@
   R interfaces to Weka lazy learners.
 }
 \usage{
-IBk(formula, data, subset, na.action, control = NULL)
-LBR(formula, data, subset, na.action, control = NULL)
+IBk(formula, data, subset, na.action, control = Weka_control())
+LBR(formula, data, subset, na.action, control = Weka_control())
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -17,8 +17,8 @@ LBR(formula, data, subset, na.action, control = NULL)
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.}
-  \item{control}{a character vector with control options, or \code{NULL}
-    (default).  Available options can be obtained on-line using the Weka
+  \item{control}{an object of class \code{\link{Weka_control}}.
+    Available options can be obtained on-line using the Weka
     Option Wizard \code{\link{WOW}}, or the Weka documentation.}
 }
 \value{

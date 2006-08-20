@@ -8,7 +8,8 @@
 ##   getOptions()
 ##   listOptions()
 ##   setOptions()
-## so that we should be able to safely call these methods.
+## (in fact, Weka's OptionHandler interface) so that we should be able
+## to safely call these methods.
 
 make_Weka_classifier <-
 function(method, class = NULL, handlers = list())
@@ -17,10 +18,8 @@ function(method, class = NULL, handlers = list())
     ## Return a function interfacing a Weka classifier with constructor
     ## 'method'.
     
-    ## Eventually, add more arguments, including:
+    ## Eventually, add support for more handlers, including:
     ## * a formula handler (e.g., are interactions allowed? etc.)
-    ## * a control handler (convert between control lists in R style and
-    ##   character strings with Weka options
     ## * a data handler (e.g., are numeric or categorical responses
     ##   allowed? etc.)
 
@@ -29,15 +28,16 @@ function(method, class = NULL, handlers = list())
     meta <- list(method = method, class = classes)
     Weka_interfaces[[sub(".*/", "", method)]] <- meta
         
-    out <- function(formula, data, subset, na.action, control = NULL) {
-        
+    out <- function(formula, data, subset, na.action,
+                    control = Weka_control())
+    {
         ## The "usual" way of creating a model frame from the call.
         mc <- match.call()
         mf <- mc[c(1, match(c("formula", "data", "subset", "na.action"),
                             names(mc), 0))]
         mf[[1]] <- as.name("model.frame")
         mf <- eval(mf, parent.frame())
-    
+	
         structure(c(RWeka_build_classifier(mf, control, method, handlers),
                     list(call = mc, terms = attr(mf, "terms"),
                          levels = levels(mf[[1]]))),
@@ -55,8 +55,10 @@ function(mf, control, method, handlers)
 
     ## Build the classifier.
     classifier <- .jnew(method)
-    if(is.function(control_handler <- handlers$control))
-        control <- control_handler(control)
+    control <- if(is.function(control_handler <- handlers$control))
+        control_handler(control)
+    else
+        as.character(control)
     if(length(control))
         .jcall(classifier, , "setOptions", .jarray(control))
     .jcall(classifier, "V", "buildClassifier", instances)
@@ -83,7 +85,7 @@ function(classifier, instances)
     ## So we have to map to NA.
     
     if(.has_method(classifier, "classifyInstance")) {
-        class <- .jcall(.jnew("RWekaInterfaces"), "[D",
+        class <- .jcall("RWekaInterfaces", "[D",
                         "classifyInstances",
                         .jcast(classifier, "weka/classifiers/Classifier"),
                         instances)
@@ -105,7 +107,7 @@ function(classifier, instances)
     ## provide just a distributionForInstance() method which in that
     ## case would return the (numeric) predictions.)
 
-    out <- .jcall(.jnew("RWekaInterfaces"), "[D",
+    out <- .jcall("RWekaInterfaces", "[D",
                   "distributionForInstances",
                   .jcast(classifier, "weka/classifiers/Classifier"),
                   instances)
@@ -125,11 +127,13 @@ function(object, newdata = NULL, type = c("class", "probability"), ...)
         stop("Can only compute class probabilities for classification problems")
 
     if(is.null(newdata)) {
-        ## currently only the class predictions for the training 
-	## data are stored:
+        ## Currently only the class predictions for the training data
+        ## are stored:
         if(type == "class") return(object$predictions)
-        ## but not the probabilities. Hence we need to try something fancy:
-	else newdata <- eval(object$call$data, environment(formula(object)))
+        ## but not the probabilities.  Hence, we need to try something
+        ## fancy:
+	else newdata <-
+            eval(object$call$data, environment(formula(object)))
     }
 
     mf <- model.frame(delete.response(terms(object)), newdata,
@@ -147,20 +151,21 @@ function(object, newdata = NULL, type = c("class", "probability"), ...)
     instances <- read_model_frame_into_Weka(mf)
 
     switch(type,
-    
-    "class" = {
-        ## Get predictions from Weka.
-        out <- .predictions_for_instances(object$classifier, instances)
-        ## Post-process predictions for factors.
-        if(!is.null(object$levels))
-            out <- factor(object$levels[out + 1], levels = object$levels)    
-    },
-    
-    "probability" = {
-        ## Get predictions from Weka.
-        out <- .distribution_for_instances(object$classifier, instances)    
-        dimnames(out) <- list(rownames(mf), object$levels)    
-    })
+           "class" = {
+               ## Get predictions from Weka.
+               out <- .predictions_for_instances(object$classifier,
+                                                 instances)
+               ## Post-process predictions for factors.
+               if(!is.null(object$levels))
+                   out <- factor(object$levels[out + 1],
+                                 levels = object$levels)    
+           },
+           "probability" = {
+               ## Get predictions from Weka.
+               out <- .distribution_for_instances(object$classifier,
+                                                  instances)    
+               dimnames(out) <- list(rownames(mf), object$levels)    
+           })
     
     out
 }
@@ -186,40 +191,62 @@ function(options)
     ## class name, but R/Weka users do not necessarily (have to) know
     ## this.
 
-    ## Note that currently, 'control' arguments to R/Weka classifier
-    ## interface functions are character vectors, so one cannot simply
-    ## give an interface function via '-W'.  Eventually, we might add a
-    ## list-style control interface, e.g.
-    ##    list("-B", C = 1, W = J48)
-    ## which does both the obvious transscription
-    ##    C = 1    => "-C", "1"
-    ## and the lookup
-    ##    W = J48  => "-W", as_Java_class_name(J48$meta$method)
-
-    ## It would also be cool if we could look at the '-W' values, and in
-    ## case these do not start with "weka.", find the full class names
-    ## using reflectance (if possible) ...
-
+    ## This now handles both new-style 'control' arguments to R/Weka
+    ## classifier interface functions given via RWeka_control() and
+    ## old-style specifications as character vectors.  The former can
+    ## also expand registered interface functions.
+    
     ## This is really not intended to validate the given control
     ## options.
     
     function(x) {
-        ind <- which(x %in% options)
-        if(any(ind)) {
-            x[ind + 1] <-
-                sapply(x[ind + 1],
-                       function(s) {
-                           full_class_name <-
-                               Weka_interfaces[[s]]$method
-                           if(is.null(full_class_name))
-                               s
-                           else
-                               as_Java_class_name(full_class_name)
-                       })
+        maybe_get_Java_class_name <- function(s) {
+            ## Helper function.  If s is the name of a registered R/Weka
+            ## interface, return its full Java class name; otherwise,
+            ## return s assuming it already is a full Java class name
+            ## (which of course we could check for).
+            full_class_name <-
+                Weka_interfaces[[s]]$method
+            if(is.null(full_class_name))
+                s
+            else
+                as_Java_class_name(full_class_name)
+        }
+        
+        if(inherits(x, "Weka_control")) {
+            ## Handle Weka control lists directly ...
+            ##   Weka_control(W = "J48")
+            ##   Weka_control(W = J48)
+            ind <- which(names(x) %in% substring(options, 2))
+            if(any(ind)) {
+                x[ind] <-
+                    lapply(x[ind],
+                           function(o) {
+                               if(inherits(o,
+                                           "R_Weka_classifier_interface"))
+                                   as_Java_class_name(attr(o, "meta")$method)
+                               else
+                                   maybe_get_Java_class_name(o)
+                           })
+            }
+            ## And then coerce to character.
+            x <- as.character(x)
+        }
+        else {
+            ## Old-style character stuff:
+            ##   c("-W", "J48")
+            x <- as.character(x)
+            ## Just making sure ...
+            ind <- which(x %in% options)
+            if(any(ind)) {
+                x[ind + 1] <-
+                    sapply(x[ind + 1], maybe_get_Java_class_name)
+            }
         }
         x
     }
-}        
+}
+
 
 ## And now for the really cool stuff:
 
@@ -284,4 +311,3 @@ Stacking <-
     make_Weka_classifier("weka/classifiers/meta/Stacking",
                          c("Stacking", "Weka_meta"),
                          .Weka_meta_classifier_handlers)
-    

@@ -26,6 +26,7 @@ function(x, control, method)
 
     ## Build the clusterer.
     clusterer <- .jnew(method)
+    control <- as.character(control)
     ## <FIXME>
     ## Should we warn if a control argument was given and the clusterer
     ## does not provide an OptionHandler interface?
@@ -56,11 +57,11 @@ function(clusterer, instances)
     ## but then class ids returned would not be in sync with output from
     ## Weka's toString() methods.
     
-    ## in RWekaInterfaces we set the class label to Double.NaN If the 
+    ## In RWekaInterfaces we set the class label to Double.NaN if the 
     ## instance could not be classified or is less than zero.
     
     if(.has_method(clusterer, "clusterInstance")) {
-        class <- .jcall(.jnew("RWekaInterfaces"),
+        class <- .jcall("RWekaInterfaces",
                         "[D",
                         "clusterInstances",
                         .jcast(clusterer, "weka/clusterers/Clusterer"),
@@ -82,7 +83,7 @@ function(clusterer, instances)
 {
     ## Get the class memberships for a fitted Weka clusterer which
     ## provides a distributionForInstance() method.
-    out <- .jcall(.jnew("RWekaInterfaces"),
+    out <- .jcall("RWekaInterfaces",
                   "[D",
                   "distributionForInstances",
                   .jcast(clusterer, "weka/clusterers/Clusterer"),

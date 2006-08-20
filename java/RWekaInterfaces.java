@@ -1,10 +1,14 @@
 import weka.classifiers.*;
 import weka.clusterers.*;
 import weka.core.*;
+import java.lang.*;
+import java.io.*;
 
-public class RWekaInterfaces {
+// changed to abstract class and class methods. (C)
 
-    public double[] classifyInstances(Classifier C, Instances I)
+public abstract class RWekaInterfaces {
+
+    public static double[] classifyInstances(Classifier C, Instances I)
 	throws Exception
     {
 	int n = I.numInstances();
@@ -25,7 +29,7 @@ public class RWekaInterfaces {
 	return(out);
     }
 
-    public double[] clusterInstances(Clusterer C, Instances I)
+    public static double[] clusterInstances(Clusterer C, Instances I)
 	throws Exception
     {
 	int n = I.numInstances();
@@ -48,7 +52,7 @@ public class RWekaInterfaces {
 	return(out);
     }
 
-//     public double[][] distributionForInstances(Classifier C, Instances I)
+//     public static double[][] distributionForInstances(Classifier C, Instances I)
 // 	throws Exception
 //     {
 // 	int n = I.numInstances();
@@ -59,7 +63,7 @@ public class RWekaInterfaces {
 // 	return(out);
 //     }
 
-    public double[] distributionForInstances(Classifier C, Instances I)
+    public static double[] distributionForInstances(Classifier C, Instances I)
 	throws Exception
     {
 	// We could more elegantly have this as double[][] with row i
@@ -81,7 +85,7 @@ public class RWekaInterfaces {
 	return(out);
     }
 
-    public double[] distributionForInstances(Clusterer C, Instances I)
+    public static double[] distributionForInstances(Clusterer C, Instances I)
 	throws Exception
     {
 	int n = I.numInstances();
@@ -97,5 +101,25 @@ public class RWekaInterfaces {
 	}
 	return(out);
     }
+
+    // populate Instances with data in column-major format. note that 
+    // we cannot check the length of an array and, hence, if nrow is 
+    // correct. also, we can call this more than once with the same 
+    // Instances object. so, use with care! (C)
     
+    public static void addInstances(Instances instances, double[] data, 
+				    int nrow)
+	throws Exception
+    {
+	int i, j, ncol = instances.numAttributes();
+
+	for (i = 0; i < nrow; i++) {
+	    Instance instance = new Instance(ncol);
+	    for (j = 0; j < ncol; j++) 
+		instance.setValue(j, data[i+j*nrow]);
+	    instances.add(instance);
+	}
+    }
 }
+
+//

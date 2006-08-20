@@ -16,6 +16,15 @@ function(o, name)
     length(grep(paste("\\.", name, "\\(", sep = ''), ss)) > 0
 }
 
+.has_Java_method <- 
+function(object, name) 
+{
+    object <- .jcall(object, "Ljava/lang/Class;", "getClass")
+    object <- .jcall(object, "[Ljava/lang/reflect/Method;", "getMethods")
+    object <- sapply(object, .jcall, "S", "getName")
+    match(name, object, nomatch = 0) > 0   
+}   
+
 as_JNI_class_name <-
 function(x)
     gsub("\\.", "/", x)
