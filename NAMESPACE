@@ -1,3 +1,5 @@
+importFrom("stats", "is.leaf")
+
 export("read.arff",
        "write.arff",
        "make_Weka_associator",
@@ -15,8 +17,8 @@ export("read.arff",
        "Weka_control",
        "write_to_dot",
        "make_Weka_filter",
-       Normalize,
-       Discretize,
+       "Normalize",
+       "Discretize",
        "evaluate_Weka_classifier")
 
 S3method("fitted", "Weka_classifier")
