@@ -1,4 +1,10 @@
-importFrom("stats", "is.leaf")
+import("stats")
+importFrom("graphics", "plot")
+## For 2.5.0 or later, read.table() and friends were moved to utils, so
+## we need
+##   importFrom("utils", "read.table", "write.table")
+## Let's just import utils to keep things simple.
+import("utils")
 
 export("read.arff",
        "write.arff",
