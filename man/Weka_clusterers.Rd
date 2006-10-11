@@ -2,6 +2,7 @@
 \alias{Cobweb}
 \alias{FarthestFirst}
 \alias{SimpleKMeans}
+\alias{XMeans}
 \alias{DBScan}
 \title{R/Weka Clusterers}
 \description{
@@ -11,6 +12,7 @@
 Cobweb(x, control = NULL)
 FarthestFirst(x, control = NULL)
 SimpleKMeans(x, control = NULL)
+XMeans(x, control = NULL)
 DBScan(x, control = NULL)
 }
 \arguments{
@@ -43,6 +45,11 @@ DBScan(x, control = NULL)
     algorithm} by Hochbaum and Shmoys, which works as a fast simple
   approximate clusterer modelled after simple \eqn{k}-means.
 
+  \code{SimpleKMeans} provides clustering with the k-means algorithm.
+  
+  \code{XMeans} provides k-means extended by an \dQuote{Improve-Structure
+  part} and automatically determines the number of clusters.
+
   \code{DBScan} provides the \dQuote{density-based clustering algorithm}
   by Ester, Kriegel, Sander, and Xu. Note that noise points are assigned
   to \code{NA}.
@@ -59,12 +66,17 @@ DBScan(x, control = NULL)
   \emph{Machine Learning}, \bold{2}/2, 139--172.
 
   J. Gennari, P. Langley and D. H. Fisher (1989).
-  Models of incremenal concept formation.
+  Models of incremental concept formation.
   \emph{Artificial Intelligence}, \bold{40}, 11--62.
   
   Hochbaum and Shmoys (1985).
   A best possible heuristic for the \eqn{k}-center problem,
   \emph{Mathematics of Operations Research}, \bold{10}(2), 180--184.
+
+  Dan Pelleg and Andrew W. Moore (2006).
+  X-means: Extending K-means with Efficient Estimation of the Number of
+  Clusters. In: \emph{Seventeenth International Conference on Machine
+  Learning}, 727-734.
 
   I. H. Witten and Eibe Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
@@ -73,8 +85,12 @@ DBScan(x, control = NULL)
 \examples{
 data("iris")
 % cl <- SimpleKMeans(iris[, -5], c("-N", 3))
-cl <- SimpleKMeans(iris[, -5], Weka_control(N = 3))
-cl
-table(predict(cl), iris$Species)
+cl1 <- SimpleKMeans(iris[, -5], Weka_control(N = 3))
+cl1
+table(predict(cl1), iris$Species)
+
+cl2 <- XMeans(iris[, -5], c("-L", 3, "-H", 7, "weka.core.KDTree", "-P"))
+cl2
+table(predict(cl2), iris$Species)
 }
 \keyword{cluster}

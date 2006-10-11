@@ -1,3 +1,7 @@
+version 0.2-9
+
+* added XMeans to interface for clusterers. (C)
+
 version 0.2-6
 
 * upgraded to weka-3.5.3, moved out persistence support as it 

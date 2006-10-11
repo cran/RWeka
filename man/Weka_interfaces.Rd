@@ -83,8 +83,9 @@ NB
 ## And we can use the Weka Option Wizard for finding out more:
 WOW(NB)
 ## And actually use the interface ...
-if(require("e1071", quiet = TRUE)) {
-    data("HouseVotes84")
+if(require("e1071", quiet = TRUE) &&
+   require("mlbench", quiet = TRUE)) {
+    data("HouseVotes84", package = "mlbench")
     model <- NB(Class ~ ., data = HouseVotes84)
     predict(model, HouseVotes84[1:10, -1])
     predict(model, HouseVotes84[1:10, -1], type = "prob")
