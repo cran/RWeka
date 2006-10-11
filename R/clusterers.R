@@ -138,5 +138,7 @@ FarthestFirst <-
     make_Weka_clusterer("weka/clusterers/FarthestFirst", "FarthestFirst")
 SimpleKMeans <-
     make_Weka_clusterer("weka/clusterers/SimpleKMeans", "SimpleKMeans")
+XMeans <-
+    make_Weka_clusterer("weka/clusterers/XMeans", "XMeans")
 DBScan <-
     make_Weka_clusterer("weka/clusterers/DBScan", "DBScan")
