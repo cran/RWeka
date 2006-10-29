@@ -74,7 +74,7 @@ function(file)
         for(i in ind)
             data[i] <- as.data.frame(strptime(data[[i]], col_dfmts[i]))
     ## Remove left over escapes.
-    for (i in seq(length(data)))
+    for (i in seq_len(length(data)))
         if (is.factor(data[[i]]))
            levels(data[[i]]) <- gsub("\\\\", "", levels(data[[i]]))
     names(data) <- col_names

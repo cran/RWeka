@@ -18,7 +18,7 @@ read_model_frame_into_Weka <-
 function(mf)
 {
     ## For Weka, always have the response *last* in the ARFF file.
-    instances <- read_data_into_Weka(mf[c(seq(along = mf)[-1], 1)])
+    instances <- read_data_into_Weka(mf[c(seq_along(mf)[-1], 1)])
     .jcall(instances, "V", "setClassIndex",
            as.integer(.jcall(instances, "I", "numAttributes") - 1))
     instances
@@ -47,7 +47,7 @@ function(instances) {
     ##        by a repackaging method in RWekaInterfaces.
     
     out <- vector("list", .jcall(instances, "I", "numAttributes"))
-    for (k in seq(length(out))) {
+    for (k in seq_len(length(out))) {
         ## in Weka missing values are coded as NaN and the cast 
         ## to double should ensure this for all attribute types.
         out[[k]] <- .jcall(instances, "[D", "attributeToDoubleArray",
@@ -98,7 +98,7 @@ function(data) {
     attname <- names(data)
     attinfo <- .jnew("weka/core/FastVector", 
                      as.integer(length(data)))
-    for (i in seq(length(data))) {
+    for (i in seq_len(length(data))) {
         attribute <- 
             if (is.factor(data[[i]])) {
                levels <- .jnew("weka/core/FastVector", 
