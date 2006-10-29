@@ -91,7 +91,7 @@ function(x)
             return(out)
         }
         out <- vector("list", length = length(ind))
-        for (i in seq(along = out))
+        for (i in seq_along(out))
             out[[i]] <- Recall(edges[ind[i], "to"], depth + 1)
         attributes(out) <-
             list(members = sum(sapply(out, attr, "members")),
@@ -119,7 +119,7 @@ function(object, ...)
         attr(y, "height") <- max_depth - attr(x, "depth")
         if(is.leaf(x))
             return(y)
-        for(i in seq(along = x))
+        for(i in seq_along(x))
             y[[i]] <- Recall(x[[i]])
         y
     }
