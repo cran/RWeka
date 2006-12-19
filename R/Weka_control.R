@@ -22,7 +22,7 @@ function(x, ...)
 }
 
 as.character.Weka_control <-
-function(x)
+function(x, ...)
 {
     if(length(x) < 1) return(character(0))
   
