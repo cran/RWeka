@@ -14,14 +14,15 @@ JAR = jar
 ## http://www.cs.waikato.ac.nz/~ml/weka/index_requirements.html.
 ## As of 2006-04-20, the current release (3.4.7) only requires 1.4, but
 ## the developer branch ("HEAD") from the CVS needs Java 1.5 to compile
-## and run.
-## Now, if we use Sun javac 1.5.0_06 with -target 1.4, we get
+## and run.  To ensure that a jar built with e.g. Sun javac 1.5.0_06 and
+## Weka 3.4.x works with 1.4, we would use
+##   $(JAVAC) -target 1.4 -source 1.4
+## as otherwise we get
 ##   javac -target 1.4 -cp ../inst/jar/weka.jar RWekaInterfaces.java
 ##   javac: target release 1.4 conflicts with default source release 1.5
-## hence we try what we use below.  If this does not work, we could
-## hard-wire /usr/lib/j2sdk1.4-sun/bin/javac for JAVAC.
+## However, we now ship with Weka 3.5.x which requires 1.5 anyway ...
 .java.class:
-	$(JAVAC) -target 1.4 -source 1.4 -cp ../inst/jar/weka.jar $<
+	$(JAVAC) -cp ../inst/jar/weka.jar $<
 ## </NOTE>
 
 all: $(JARS)
