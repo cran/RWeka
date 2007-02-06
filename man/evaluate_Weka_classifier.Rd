@@ -45,7 +45,7 @@ evaluate_Weka_classifier(object, newdata = NULL, cost = NULL,
     predicted classes.}
 }
 \references{
-  I. H. Witten and Eibe Frank (2005).
+  I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
   2nd Edition, Morgan Kaufmann, San Francisco.    
 }

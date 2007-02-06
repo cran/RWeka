@@ -1,4 +1,5 @@
 \name{Weka_classifier_rules}
+\alias{Weka_classifier_rules}
 \alias{JRip}
 \alias{M5Rules}
 \alias{OneR}
@@ -39,8 +40,9 @@ PART(formula, data, subset, na.action, control = Weka_control())
   \item{call}{the matched call.}
 }
 \details{
-  There is a \code{\link[predict.Weka_classifier]{predict}} method for
-  predicting from the fitted models.
+  There are a \code{\link[predict.Weka_classifier]{predict}} method for
+  predicting from the fitted models, and a \code{summary} method based
+  on \code{\link{evaluate_Weka_classifier}}.
 
   \code{JRip} implements a propositional rule learner, \dQuote{Repeated
     Incremental Pruning to Produce Error Reduction} (RIPPER), as proposed
@@ -55,7 +57,6 @@ PART(formula, data, subset, na.action, control = Weka_control())
 
   \code{PART} generates PART decision lists using the approach of Frank
   and Witten (1998).
-
 }
 \references{
   W. W. Cohen (1995).
@@ -87,9 +88,19 @@ PART(formula, data, subset, na.action, control = Weka_control())
   datasets.
   \emph{Machine Learning}, \bold{11}, 63--91. 
 
-  I. H. Witten and Eibe Frank (2005).
+  I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
   2nd Edition, Morgan Kaufmann, San Francisco. 
+}
+\seealso{
+  \link[=Weka_classifiers]{Weka\_classifiers}  
+}
+\examples{
+M5Rules(mpg ~ ., data = mtcars)
+
+m <- PART(Species ~ ., data = iris)
+m
+summary(m)
 }
 \keyword{models}
 \keyword{regression}

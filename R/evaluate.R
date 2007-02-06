@@ -20,7 +20,7 @@ function(object, newdata = NULL,
         evaluation <- .jnew("weka/classifiers/Evaluation", instances)
     else {
        if (!isSquare(cost))
-           stop("'cost' invalid")
+           stop("Argument 'cost' must be a square matrix.")
        costMatrix <- read_costMatrix_into_Weka(cost, ...)
        evaluation <- .jnew("weka/classifiers/Evaluation", instances, 
                            costMatrix)

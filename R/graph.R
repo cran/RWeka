@@ -137,7 +137,7 @@ function(object, data, response, ...)
     ## not be expected to return a fully valid BinaryTree object.
 
     if(attr(object, "max_n_of_children") > 2)
-        stop("Cannot coerce n-are trees.")
+        stop("Cannot coerce n-ary trees.")
 
     ## construct a BinaryTree object    
     ## for numeric binary splits only

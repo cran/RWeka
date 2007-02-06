@@ -23,7 +23,6 @@ write.arff(x, file, eol = "\n")
   \code{\link{write.table}}
 }
 \examples{
-data("iris")
 write.arff(iris, file = "")
 }
 \keyword{print}

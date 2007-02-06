@@ -7,14 +7,16 @@
 ## ceeboo 2006
 
 make_Weka_filter <-
-function(method, class = NULL)
+function(name, class = NULL)
 {
     ## <FIXME>
     ## Do we need handlers?
     ## </FIXME>
-    classes <- c(class, "Weka_filter")
-    meta <- list(method = method, class = classes)
-    Weka_interfaces[[sub(".*/", "", method)]] <- meta
+    classes <- c(class, "data.frame")
+    kind <- "R_Weka_filter_interface"
+    name <- as_JNI_name(name)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes)
+    Weka_interfaces[[Java_class_base_name(name)]] <- meta    
 
     out <- function(formula, data, subset, na.action, control = NULL) {
         mc <- match.call()
@@ -23,15 +25,14 @@ function(method, class = NULL)
         mf[[1]] <- as.name("model.frame")
         mf <- eval(mf, parent.frame())
         
-        RWeka_use_filter(mf, control, method)
+        RWeka_use_filter(mf, control, name)
     }
-    class(out) <- c("R_Weka_filter_interface", "R_Weka_interface")
-    attr(out, "meta") <- meta
-    out
+
+    make_R_Weka_interface(out, meta)
 }
 
 RWeka_use_filter <-
-function(mf, control, method)
+function(mf, control, name)
 {
     ## We do not always need a response variable, e.g., for the class 
     ## of unsupervised filters.
@@ -48,7 +49,7 @@ function(mf, control, method)
        instances <- read_model_frame_into_Weka(mf)
 
     ## Build filter.
-    filter <- .jnew(method)
+    filter <- .jnew(name)
     control <- as.character(control)
     if (length(control))
        .jcall(filter, "V", "setOptions", .jarray(control))
@@ -75,11 +76,3 @@ function(x, ...)
     invisible(x)
 }
 
-## Some functions.
-
-Normalize <-
-    make_Weka_filter("weka/filters/unsupervised/attribute/Normalize", 
-                     "Normalize")
-Discretize <-
-    make_Weka_filter("weka/filters/supervised/attribute/Discretize", 
-                     "Discretize")

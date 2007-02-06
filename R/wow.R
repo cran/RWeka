@@ -3,19 +3,12 @@ function(x)
 {
     ## Weka Option Wizard.
 
-    if(is.character(x)) {
-        ## Handle both JNI class names and names from the RWeka
-        ## interface registry.
-        if(regexpr("/", x) > -1)
-            x <- .jnew(x)
-        else if(!is.null(method <- Weka_interfaces[[x]]$method))
-            x <- .jnew(method)
-        else
-            stop("argument 'x' does not specify a known Weka method")
-    }
-    else if(inherits(x, "R_Weka_interface"))
-        x <- .jnew(attr(x, "meta")$method)
+    name <- get_Java_class(x)
+    if(is.null(name))
+        stop("Argument 'x' does not specify a known Weka method.")
     
+    x <- .jnew(name)
+
     names <- descriptions <- character()
     lengths <- integer()
 

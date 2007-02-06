@@ -17,7 +17,7 @@ function(file)
         on.exit(close(file))
     }
     if(!inherits(file, "connection")) 
-        stop("argument 'file' must be a character string or connection")
+        stop("Argument 'file' must be a character string or connection.")
     if(!isOpen(file)) {
         open(file, "r")
         on.exit(close(file))
@@ -37,7 +37,7 @@ function(file)
             line <- scan(con, character(), quiet = TRUE)
             close(con)
             if(length(line) < 3) 
-                stop("invalid attribute specification")
+                stop("Invalid attribute specification.")
             col_names <- c(col_names, line[2])
             if((type <- tolower(line[3])) == "date") {
                 col_types <- c(col_types, "character")
@@ -46,6 +46,8 @@ function(file)
                                ISO_8601_to_POSIX_datetime_format(line[4])
                                else "%Y-%m-%d %H:%M:%S")
             }
+            else if(type == "relational")
+                stop("Type 'relational' currently not implemented.")
             else {
                 type <- sub("\\{.*", "factor", type)
                 ## (Could try to preserve factor levels ...)
@@ -60,12 +62,12 @@ function(file)
 
     ## Test header.
     if(length(line) == 0)
-        stop("missing data section")
+        stop("Missing data section.")
     if(is.null(col_names))
-        stop("missing attribute section")
+        stop("Missing attribute section.")
     if(length(col_names) !=
        length(grep('factor|numeric|character', col_types)))
-        stop("invalid type specification")
+        stop("Invalid type specification.")
     
     ## Get data.
     data <- read.table(file, sep = ",", na.strings = "?",
@@ -92,7 +94,7 @@ function(x, file, eol = "\n")
         on.exit(close(file))
     }
     if(!inherits(file, "connection")) 
-        stop("argument 'file' must be a character string or connection")
+        stop("Argument 'file' must be a character string or connection.")
 
     if (!is.data.frame(x) && !is.matrix(x))
         x <- data.frame(x)

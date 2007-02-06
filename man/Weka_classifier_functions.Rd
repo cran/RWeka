@@ -1,4 +1,5 @@
 \name{Weka_classifier_functions}
+\alias{Weka_classifier_functions}
 \alias{LinearRegression}
 \alias{Logistic}
 \alias{SMO}
@@ -37,8 +38,9 @@ SMO(formula, data, subset, na.action, control = Weka_control())
   \item{call}{the matched call.}
 }
 \details{
-  There is a \code{\link[predict.Weka_classifier]{predict}} method for
-  predicting from the fitted models.
+  There are a \code{\link[predict.Weka_classifier]{predict}} method for
+  predicting from the fitted models, and a \code{summary} method based
+  on \code{\link{evaluate_Weka_classifier}}.
 
   \code{LinearRegression} builds suitable linear regression models,
   using the Akaike criterion for model selection.
@@ -62,9 +64,30 @@ SMO(formula, data, subset, na.action, control = Weka_control())
   \emph{Advances in Kernel Methods --- Support Vector Learning}.
   MIT Press.
 
-  I. H. Witten and Eibe Frank (2005).
+  I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
   2nd Edition, Morgan Kaufmann, San Francisco. 
+}
+\seealso{
+  \link[=Weka_classifiers]{Weka\_classifiers}  
+}
+\examples{
+## Linear regression:
+## Using standard data set 'mtcars'.
+LinearRegression(mpg ~ ., data = mtcars)
+## Compare to R:
+step(lm(mpg ~ ., data = mtcars), trace = 0)
+
+## Using standard data set 'chickwts'.
+LinearRegression(weight ~ feed, data = chickwts)
+## (Note the interactions!)
+
+## Logistic regression:
+## Using standard data set 'infert'.
+STATUS <- factor(infert$case, labels = c("control", "case"))
+Logistic(STATUS ~ spontaneous + induced, data = infert)
+## Compare to R:
+glm(STATUS ~ spontaneous + induced, data = infert, family = binomial())
 }
 \keyword{models}
 \keyword{regression}
