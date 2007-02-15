@@ -54,31 +54,36 @@ function(instances) {
                            as.integer(k-1))
         is.na(out[[k]]) <- is.nan(out[[k]])
         attribute <- .jcall(instances, "Lweka/core/Attribute;",
-                            "attribute",as.integer(k-1))
+                            "attribute", as.integer(k-1))
         names(out)[k] <- .jcall(attribute, "S", "name")
         ## see Constant Field Values in the Weka documentation.
         switch(.jcall(attribute, "I", "type") + 1,
-            {   ## 0 numeric (nothing todo) 
-            },
+           {   ## 0 numeric (nothing todo) 
+           },
             
-            {   ## 1 nominal (Weka value code = R level code - 1)
-                idx <- seq(.jcall(attribute, "I", "numValues")) - 1
-                out[[k]] <- factor(out[[k]], levels = idx)
-                levels(out[[k]]) <-  sapply(idx, function(k)
-                    .jcall(attribute, "S", "value", as.integer(k))) 
-            },
+           {   ## 1 nominal (Weka value code = R level code - 1)
+               idx <- seq(.jcall(attribute, "I", "numValues")) - 1
+               out[[k]] <- factor(out[[k]], levels = idx)
+               levels(out[[k]]) <-
+                   sapply(idx, function(k)
+                          .jcall(attribute, "S", "value", as.integer(k))) 
+           },
             
-            {   ## 2 string
-                stop("'string' type not implemented")
-            },
+           {   ## 2 string
+               stop("Type 'string' currently not implemented.")
+           },
             
-            {   ## 3 date
-                stop("'date' type not implemented")
+           {   ## 3 date
+               stop("Type 'date' currently not implemented.")
 
-                out[[k]] <- out[[k]] / 1e+3
-                attr(out[[k]], "tzone") <- ""
-                class(out[[k]]) <- c("POSIXt", "POSIXct")
-            }
+               out[[k]] <- out[[k]] / 1e+3
+               attr(out[[k]], "tzone") <- ""
+               class(out[[k]]) <- c("POSIXt", "POSIXct")
+           },
+
+           {   ## 4 relational
+               stop("Type 'relational' currently not implemented.")
+           }
         )
     }
     out <- data.frame(out)
@@ -112,9 +117,9 @@ function(data) {
                .jnew("weka/core/Attribute", attname[i], levels)
             }
             else if (is.character(data[[i]]))
-               stop("'string' type not implemented")
+               stop("Type 'string' currently not implemented.")
             else if (inherits(data[[i]], "POSIXt")) {
-               stop("'date' type not implemented")
+               stop("Type 'date' currently not implemented.")
                   
                data[[i]] <- data[[i]] * 1e+3
                .jnew("weka/core/Attribute", attname[i],
@@ -127,11 +132,11 @@ function(data) {
     }
     
     ## build instances
-    n <- dim(data)[1]                               # number of instances
+    n <- dim(data)[1]                   # number of instances
     instances <- .jnew("weka/core/Instances",
                        "R-data-frame",
                        attinfo,
-                       as.integer(n))               # capcity
+                       as.integer(n))   # capacity
     
     ## set class index.
     classIndex <- attr(data, "classIndex")
@@ -141,7 +146,7 @@ function(data) {
 
     ## populate.
     data <- unlist(data, use.names = FALSE)
-    data[is.na(data)] <- NaN                        # Weka missing value.
+    data[is.na(data)] <- NaN            # Weka missing value.
     .jcall("RWekaInterfaces", "V", "addInstances",
            instances, .jarray(data), as.integer(n))
     

@@ -1,4 +1,5 @@
 \name{Weka_classifier_trees}
+\alias{Weka_classifier_trees}
 \alias{J48}
 \alias{LMT}
 \alias{M5P}
@@ -40,8 +41,9 @@ DecisionStump(formula, data, subset, na.action, control = Weka_control())
   \item{call}{the matched call.}
 }
 \details{
-  There is a \code{\link[predict.Weka_classifier]{predict}} method for
-  predicting from the fitted models.
+  There are a \code{\link[predict.Weka_classifier]{predict}} method for
+  predicting from the fitted models, and a \code{summary} method based
+  on \code{\link{evaluate_Weka_classifier}}.
 
   There is also a \code{plot} method for fitted binary \code{Weka_tree}s
   via the facilities provided by package \pkg{party}. This converts the
@@ -52,7 +54,8 @@ DecisionStump(formula, data, subset, na.action, control = Weka_control())
   Provided the Weka classification tree learner implements the
   \dQuote{Drawable} interface (i.e., provides a \code{graph} method),
   \code{\link{write_to_dot}} can be used to create a DOT representation
-  of the tree for visualization via GraphViz.
+  of the tree for visualization via GraphViz or the \pkg{Rgraphviz}
+  package.
 
   \code{J48} generates unpruned or pruned C4.5 decision trees (Quinlan,
   1993).
@@ -77,7 +80,7 @@ DecisionStump(formula, data, subset, na.action, control = Weka_control())
   Freiburg, Germany.
   \url{http://www.informatik.uni-freiburg.de/~ml/thesis_landwehr2003.html}
 
-  N. Landwehr, Mark Hall and Eibe Frank (2005).
+  N. Landwehr, M. Hall and E. Frank (2005).
   Logistic Model Trees.
   \emph{Machine Learning}, \bold{59}, 161--205.
   
@@ -98,17 +101,33 @@ DecisionStump(formula, data, subset, na.action, control = Weka_control())
   University of Economics, Faculty of Informatics and Statistics,
   Prague.
 
-  I. H. Witten and Eibe Frank (2005).
+  I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
   2nd Edition, Morgan Kaufmann, San Francisco. 
 }
+\seealso{
+  \link[=Weka_classifiers]{Weka\_classifiers}
+}
 \examples{
-data("iris")
 m1 <- J48(Species ~ ., data = iris)
+
+## print and summary
 m1
-table(iris$Species, predict(m1))
-write_to_dot(m1)
+summary(m1) # calls evaluate_Weka_classifier()
+table(iris$Species, predict(m1)) # by hand
+
+## visualization
+## use party package
 if(require("party", quietly = TRUE)) plot(m1)
+## or GraphViz
+write_to_dot(m1)
+## or Rgraphviz
+\dontrun{
+library("Rgraphviz")
+ff <- tempfile()
+write_to_dot(m1, ff)
+plot(agread(ff))
+}
 
 ## Using some Weka data sets ...
 

@@ -1,49 +1,66 @@
 list_Weka_interfaces <-
 function()
 {
-    classes <- lapply(mget(objects(Weka_interfaces), Weka_interfaces),
-                      "[[", "class")
-    o <- split(names(classes),
-               mapply("[", classes, sapply(classes, length)))
-    tr_db <- list(c("Weka_associator",
-                    "Weka_classifier",
-                    "Weka_clusterer",
-                    "Weka_filter"),
-                  c("Associators",
-                    "Classifiers",
-                    "Clusterers",
-                    "Filters"))
-    names(o) <- tr_db[[2]][match(names(o), tr_db[[1]])]
-    o
+    capitalize <- function(s)
+        sprintf("%s%s", toupper(substring(s, 1, 1)), substring(s, 2))
+
+    kinds <- lapply(mget(objects(Weka_interfaces), Weka_interfaces),
+                    "[[", "kind")
+    o <- split(names(kinds), sapply(kinds, "[", 1))
+    names(o) <-
+        capitalize(sprintf("%ss",
+                           sub(".*_([^_]+)_interface", "\\1", names(o))))
+    writeLines(formatDL(names(o),
+                        sapply(o, paste, collapse = ", "),
+                        style = "list"))
+    invisible(o)
 }
 
 print.R_Weka_interface <-
 function(x, ...)
 {
-    meta <- attr(x, "meta")
+    ## We can only get the name of the interface function if print() is
+    ## called explicitly.
+    fname <- if(is.name(s <- substitute(x)))
+        as.character(s)
+    else
+        ""
+    
+    name <- get_Java_class(x)
     
     ## Seems that not all Weka learners have a globalInfo() method
     ## (e.g., Cobweb for Weka 3.4.6), so be careful.
-    o <- .jnew(meta$method)
-    if(.has_method(o, "globalInfo"))
+    o <- .jnew(name)
+    if(.has_method(o, "globalInfo")) {
         writeLines(c(gettextf("An R interface to Weka class '%s',\nwhich has information",
-                              as_Java_class_name(meta$method)),
+                              as_qualified_name(name)),
                      "",
                      strwrap(.jcall(o, "S", "globalInfo"),
                              indent = 2, exdent = 2)))
+        if(.has_method(o, "getTechnicalInformation"))
+            writeLines(c("",
+                         "  BibTeX:",
+                         "",
+                         format(get_technical_information(o),
+                                offset = 2)))
+    }
     else
         writeLines(gettextf("An R interface to Weka class '%s'.",
-                            as_Java_class_name(meta$method)))
+                            as_qualified_name(name)))
 
     writeLines(c("",
                  gettext("Argument list:"),
                  {
                      ax <- deparse(args(x))
-                     strwrap(sub("^function", "", ax[-length(ax)]),
+                     strwrap(sub("^function *", fname, ax[-length(ax)]),
                              indent = 2, exdent = 2)
-                 },
-                 "",
-                 gettext("Returns objects inheriting from classes:"),
-                 paste(c(" ", meta$class), collapse = " ")))
+                 }))
+    
+    classes <- get_R_classes_returned(x)
+    if(length(classes))
+        writeLines(c("",
+                     gettext("Returns objects inheriting from classes:"),
+                     paste(c(" ", classes), collapse = " ")))
+    
     invisible(x)
 }

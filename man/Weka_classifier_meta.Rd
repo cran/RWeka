@@ -1,4 +1,5 @@
 \name{Weka_classifier_meta}
+\alias{Weka_classifier_meta}
 \alias{AdaBoostM1}
 \alias{Bagging}
 \alias{LogitBoost}
@@ -46,8 +47,9 @@ Stacking(formula, data, subset, na.action, control = Weka_control())
   \item{call}{the matched call.}
 }
 \details{
-  There is a \code{\link[predict.Weka_classifier]{predict}} method for
-  predicting from the fitted models.
+  There are a \code{\link[predict.Weka_classifier]{predict}} method for
+  predicting from the fitted models, and a \code{summary} method based
+  on \code{\link{evaluate_Weka_classifier}}.
 
   \code{AdaBoostM1} implements the Adaboost M1 method of Freund and
   Schapire (1996).
@@ -83,7 +85,7 @@ Stacking(formula, data, subset, na.action, control = Weka_control())
   MultiBoosting: A technique for combining boosting and wagging.
   \emph{Machine Learning}, \bold{40}/2, 159--196.
 
-  I. H. Witten and Eibe Frank (2005).
+  I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
   2nd Edition, Morgan Kaufmann, San Francisco. 
 
@@ -91,12 +93,16 @@ Stacking(formula, data, subset, na.action, control = Weka_control())
   Stacked generalization.
   \emph{Neural Networks}, \bold{5}, 241--259.
 }
+\seealso{
+  \link[=Weka_classifiers]{Weka\_classifiers}  
+}
 \examples{
-data("iris")
 ## Use AdaBoostM1 with decision stumps.
 m1 <- AdaBoostM1(Species ~ ., data = iris,
                  control = Weka_control(W = "DecisionStump"))
 table(predict(m1), iris$Species)
+
+summary(m1) # uses evaluate_Weka_classifier()
 }
 \keyword{models}
 \keyword{regression}

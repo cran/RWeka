@@ -12,11 +12,11 @@
 ## to safely call these methods.
 
 make_Weka_classifier <-
-function(method, class = NULL, handlers = list())
+function(name, class = NULL, handlers = list())
 {
     
-    ## Return a function interfacing a Weka classifier with constructor
-    ## 'method'.
+    ## Return a function interfacing the Weka classification learner
+    ## class 'name'.
     
     ## Eventually, add support for more handlers, including:
     ## * a formula handler (e.g., are interactions allowed? etc.)
@@ -25,8 +25,10 @@ function(method, class = NULL, handlers = list())
 
     ## Add to registry.
     classes <- c(class, "Weka_classifier")
-    meta <- list(method = method, class = classes)
-    Weka_interfaces[[sub(".*/", "", method)]] <- meta
+    kind <- "R_Weka_classifier_interface"
+    name <- as_JNI_name(name)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes)
+    Weka_interfaces[[Java_class_base_name(name)]] <- meta    
         
     out <- function(formula, data, subset, na.action,
                     control = Weka_control())
@@ -38,29 +40,27 @@ function(method, class = NULL, handlers = list())
         mf[[1]] <- as.name("model.frame")
         mf <- eval(mf, parent.frame())
 	
-        structure(c(RWeka_build_classifier(mf, control, method, handlers),
+        structure(c(RWeka_build_classifier(mf, control, name, handlers),
                     list(call = mc, terms = attr(mf, "terms"),
                          levels = levels(mf[[1]]))),
                   class = classes)
     }
-    class(out) <- c("R_Weka_classifier_interface", "R_Weka_interface")
-    attr(out, "meta") <- meta
-    out
+    make_R_Weka_interface(out, meta)
 }
 
 RWeka_build_classifier <-
-function(mf, control, method, handlers)
+function(mf, control, name, handlers)
 {
     instances <- read_model_frame_into_Weka(mf)
 
     ## Build the classifier.
-    classifier <- .jnew(method)
+    classifier <- .jnew(name)
     control <- if(is.function(control_handler <- handlers$control))
         control_handler(control)
     else
         as.character(control)
     if(length(control))
-        .jcall(classifier, , "setOptions", .jarray(control))
+        .jcall(classifier, "V", "setOptions", .jarray(control))
     .jcall(classifier, "V", "buildClassifier", instances)
 
     ## And classify the training instances.
@@ -74,6 +74,12 @@ function(mf, control, method, handlers)
 print.Weka_classifier <- function(x, ...) {
     writeLines(.jcall(x$classifier, "S", "toString"))
     invisible(x)
+}
+
+summary.Weka_classifier <-
+function(object, ...)
+{
+    evaluate_Weka_classifier(object, ...)
 }
 
 .predictions_for_instances <-
@@ -124,7 +130,7 @@ function(object, newdata = NULL, type = c("class", "probability"), ...)
     type <- match.arg(type)
 
     if(type == "probability" && is.null(object$levels))
-        stop("Can only compute class probabilities for classification problems")
+        stop("Can only compute class probabilities for classification problems.")
 
     if(is.null(newdata)) {
         ## Currently only the class predictions for the training data
@@ -176,138 +182,3 @@ function (object, ...)
     predict(object, ...)
 }
 
-
-## Handlers.
-
-make_class_name_expander <-
-function(options)
-{
-    ## Return a function which expands class names specified as the
-    ## control arguments following those named by options (e.g., '-W'
-    ## for meta learners) if the "base names" are found in the R/Weka
-    ## interface registry.
-    ##
-    ## This is useful, as e.g. for meta learners, '-W' requires the full
-    ## class name, but R/Weka users do not necessarily (have to) know
-    ## this.
-
-    ## This now handles both new-style 'control' arguments to R/Weka
-    ## classifier interface functions given via RWeka_control() and
-    ## old-style specifications as character vectors.  The former can
-    ## also expand registered interface functions.
-    
-    ## This is really not intended to validate the given control
-    ## options.
-    
-    function(x) {
-        maybe_get_Java_class_name <- function(s) {
-            ## Helper function.  If s is the name of a registered R/Weka
-            ## interface, return its full Java class name; otherwise,
-            ## return s assuming it already is a full Java class name
-            ## (which of course we could check for).
-            full_class_name <-
-                Weka_interfaces[[s]]$method
-            if(is.null(full_class_name))
-                s
-            else
-                as_Java_class_name(full_class_name)
-        }
-        
-        if(inherits(x, "Weka_control")) {
-            ## Handle Weka control lists directly ...
-            ##   Weka_control(W = "J48")
-            ##   Weka_control(W = J48)
-            ind <- which(names(x) %in% substring(options, 2))
-            if(any(ind)) {
-                x[ind] <-
-                    lapply(x[ind],
-                           function(o) {
-                               if(inherits(o,
-                                           "R_Weka_classifier_interface"))
-                                   as_Java_class_name(attr(o, "meta")$method)
-                               else
-                                   maybe_get_Java_class_name(o)
-                           })
-            }
-            ## And then coerce to character.
-            x <- as.character(x)
-        }
-        else {
-            ## Old-style character stuff:
-            ##   c("-W", "J48")
-            x <- as.character(x)
-            ## Just making sure ...
-            ind <- which(x %in% options)
-            if(any(ind)) {
-                x[ind + 1] <-
-                    sapply(x[ind + 1], maybe_get_Java_class_name)
-            }
-        }
-        x
-    }
-}
-
-
-## And now for the really cool stuff:
-
-## Functions.
-LinearRegression <-
-    make_Weka_classifier("weka/classifiers/functions/LinearRegression",
-                         c("LinearRegression", "Weka_functions"))
-Logistic <-
-    make_Weka_classifier("weka/classifiers/functions/Logistic",
-                         c("Logistic", "Weka_functions"))
-SMO <-
-    make_Weka_classifier("weka/classifiers/functions/SMO",
-                         c("SMO", "Weka_functions"))
-
-## Lazy.
-IBk <- make_Weka_classifier("weka/classifiers/rules/IBk",
-                            c("IBk", "Weka_lazy"))
-LBR <- make_Weka_classifier("weka/classifiers/rules/LBR",
-                            c("LBR", "Weka_lazy"))
-
-## Rules.
-JRip <- make_Weka_classifier("weka/classifiers/rules/JRip",
-                             c("JRip", "Weka_rules"))
-M5Rules <- make_Weka_classifier("weka/classifiers/rules/M5Rules",
-                                c("M5Rules", "Weka_rules"))
-OneR <- make_Weka_classifier("weka/classifiers/rules/OneR",
-                             c("OneR", "Weka_rules"))
-PART <- make_Weka_classifier("weka/classifiers/rules/PART",
-                             c("PART", "Weka_rules"))
-
-## Trees.
-J48 <- make_Weka_classifier("weka/classifiers/trees/J48",
-                            c("J48", "Weka_tree"))
-M5P <- make_Weka_classifier("weka/classifiers/trees/M5P",
-                            c("M5P", "Weka_tree"))
-LMT <- make_Weka_classifier("weka/classifiers/trees/LMT",
-                            c("LMT", "Weka_tree"))
-DecisionStump <-
-    make_Weka_classifier("weka/classifiers/trees/DecisionStump",
-                         c("DecisionStump", "Weka_tree"))
-
-## Meta learners.
-.Weka_meta_classifier_handlers <-
-    list(control = make_class_name_expander("-W"))
-AdaBoostM1 <-
-    make_Weka_classifier("weka/classifiers/meta/AdaBoostM1",
-                         c("AdaBoostM1", "Weka_meta"),
-                         .Weka_meta_classifier_handlers)
-Bagging <-
-    make_Weka_classifier("weka/classifiers/meta/Bagging",
-                         c("Bagging", "Weka_meta"),
-                         .Weka_meta_classifier_handlers)
-LogitBoost <-
-    make_Weka_classifier("weka/classifiers/meta/LogitBoost",
-                         c("LogitBoost", "Weka_meta"),
-                         .Weka_meta_classifier_handlers)
-MultiBoostAB <-
-    make_Weka_classifier("weka/classifiers/meta/MultiBoostAB",
-                         c("MultiBoostAB", "Weka_meta"),
-                         .Weka_meta_classifier_handlers)
-Stacking <-
-    make_Weka_classifier("weka/classifiers/meta/Stacking",
-                         c("Stacking", "Weka_meta"),
-                         .Weka_meta_classifier_handlers)

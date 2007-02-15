@@ -1,4 +1,5 @@
 \name{Weka_classifier_lazy}
+\alias{Weka_classifier_lazy}
 \alias{IBk}
 \alias{LBR}
 \title{R/Weka Lazy Learners}
@@ -35,8 +36,9 @@ LBR(formula, data, subset, na.action, control = Weka_control())
   \item{call}{the matched call.}
 }
 \details{
-  There is a \code{\link[predict.Weka_classifier]{predict}} method for
-  predicting from the fitted models.
+  There are a \code{\link[predict.Weka_classifier]{predict}} method for
+  predicting from the fitted models, and a \code{summary} method based
+  on \code{\link{evaluate_Weka_classifier}}.
 
   \code{IBk} provides a \eqn{k}-nearest neighbors classifier, see Aha \&
   Kibler (1991).
@@ -53,6 +55,9 @@ LBR(formula, data, subset, na.action, control = Weka_control())
   Z. Zheng & G. Webb, (2000).
   Lazy learning of Bayesian rules.
   \emph{Machine Learning}, \bold{41}/1, 53--84.
+}
+\seealso{
+  \link[=Weka_classifiers]{Weka\_classifiers}  
 }
 \keyword{models}
 \keyword{regression}

@@ -1,6 +1,7 @@
 import weka.classifiers.*;
 import weka.clusterers.*;
 import weka.core.*;
+import weka.core.stemmers.*;
 import java.lang.*;
 import java.io.*;
 
@@ -51,17 +52,6 @@ public abstract class RWekaInterfaces {
 	
 	return(out);
     }
-
-//     public static double[][] distributionForInstances(Classifier C, Instances I)
-// 	throws Exception
-//     {
-// 	int n = I.numInstances();
-// 	double[][] out = new double[n][I.numClasses()];
-// 	for(int i = 0; i < n; i++) {
-// 	    out[i] = C.distributionForInstance(I.instance(i));
-// 	}
-// 	return(out);
-//     }
 
     public static double[] distributionForInstances(Classifier C, Instances I)
 	throws Exception
@@ -120,6 +110,40 @@ public abstract class RWekaInterfaces {
 	    instances.add(instance);
 	}
     }
+
+    public static double[] getAttributeWeights(Instances I)
+	throws Exception
+    {
+	int i, n = I.numAttributes();
+	double[] out = new double[n];
+	for(i = 0; i < n; i++) {
+	    out[i] = I.attribute(i).weight();
+	}
+	return(out);
+    }	
+    
+    public static double[] getInstanceWeights(Instances I)
+	throws Exception
+    {
+	int i, n = I.numInstances();
+	double[] out = new double[n];
+	for(i = 0; i < n; i++) {
+	    out[i] = I.instance(i).weight();
+	}
+	return(out);
+    }
+
+    public static String[] stem(Stemmer S, String[] words)
+	throws Exception
+    {
+	int i, n = words.length;
+	String[] out = new String[n];
+	for(i = 0; i < n; i++) {
+	    out[i] = S.stem(words[i]);
+	}
+	return(out);
+    }
+    
 }
 
 //

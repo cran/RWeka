@@ -10,14 +10,14 @@
   available interfaces.
 }
 \usage{
-make_Weka_associator(method, class = NULL)
-make_Weka_classifier(method, class = NULL, handlers = list())
-make_Weka_clusterer(method, class = NULL)
-make_Weka_filter(method, class = NULL)
+make_Weka_associator(name, class = NULL)
+make_Weka_classifier(name, class = NULL, handlers = list())
+make_Weka_clusterer(name, class = NULL)
+make_Weka_filter(name, class = NULL)
 list_Weka_interfaces()
 }
 \arguments{
-  \item{method}{a character string giving the fully qualified name of
+  \item{name}{a character string giving the fully qualified name of
     a Weka learner/filter class in JNI notation.}
   \item{class}{\code{NULL} (default), or a character vector giving the
     names of R classes the objects returned by the interface function
@@ -29,12 +29,13 @@ list_Weka_interfaces()
 \details{
   \code{make_Weka_associator} and \code{make_Weka_clusterer} create an R
   function providing an interface to a Weka association learner or a
-  Weka clusterer, respectively.  The interface function has formals
+  Weka clusterer, respectively.  This interface function has formals
   \code{x} and \code{control = NULL}, representing the training
   instances and control options to be employed.  Objects created by
   these interface functions always inherit from classes
-  \code{Weka_associators} and \code{Weka_clusterers}, respectively,
-  which have at least suitable \code{print} methods.
+  \code{Weka_associator} and \code{Weka_clusterer}, respectively,
+  and have at least suitable \code{print} methods.  Fitted clusterers
+  also have a \code{\link[predict.Weka_clusterer]{predict}} method.
 
   \code{make_Weka_classifier} creates an interface function for a Weka
   classifier, with formals \code{formula}, \code{data}, \code{subset},
@@ -51,10 +52,10 @@ list_Weka_interfaces()
   \code{na.action}, and \code{control = NULL}, where the first four have
   the \dQuote{usual} meanings for statistical modeling functions in R,
   and the last again specifies the control options to be employed by the
-  Weka filter. Note that the response variable can be omitted from 
-  \code{formula} if the filter is \dQuote{unsupervised}. Objects created 
-  by these interface functions are (currently) always of class 
-  \code{data.frame}.
+  Weka filter.  Note that the response variable can be omitted from 
+  \code{formula} if the filter is \dQuote{unsupervised}.  Objects
+  created by these interface functions are (currently) always of class
+  \code{\link{data.frame}}.
 
   Certain aspects of the interface function can be customized by
   providing handlers.  Currently, only \emph{control} handlers

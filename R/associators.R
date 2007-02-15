@@ -1,41 +1,41 @@
 make_Weka_associator <-
-function(method, class = NULL)
+function(name, class = NULL)
 {
     
-    ## Return a function interfacing a Weka associator with constructor
-    ## 'method'.
+    ## Return a function interfacing the Weka association learner class
+    ## 'name'.
 
     ## Add to registry.
     classes <- c(class, "Weka_associator")
-    meta <- list(method = method, class = classes)
-    Weka_interfaces[[sub(".*/", "", method)]] <- meta
+    kind <- "R_Weka_associator_interface"
+    name <- as_JNI_name(name)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes)
+    Weka_interfaces[[Java_class_base_name(name)]] <- meta
         
     out <- function(x, control = NULL) {
-        structure(RWeka_build_associator(x, control, method),
+        structure(RWeka_build_associator(x, control, name),
                   class = classes)
     }
-    class(out) <- c("R_Weka_associator_interface", "R_Weka_interface")
-    attr(out, "meta") <- meta
-    out
+    make_R_Weka_interface(out, meta)
 }
 
 RWeka_build_associator <-
-function(x, control, method)
+function(x, control, name)
 {
     instances <- read_data_into_Weka(x)
 
     ## Build the associator.
-    associator <- .jnew(method)
+    associator <- .jnew(name)
     control <- as.character(control)
     ## <FIXME>
     ## Should we warn if a control argument was given and the associator
     ## does not provide an OptionHandler interface?
     if(length(control) && .has_method(associator, "setOptions"))
-        .jcall(associator, , "setOptions", .jarray(control))
+        .jcall(associator, "V", "setOptions", .jarray(control))
     ## </FIXME>
     .jcall(associator, "V", "buildAssociations", instances)
 
-    list(associator = associator)
+    list(associator = associator, instances = instances)
 }
 
 print.Weka_associator <- function(x, ...) {
@@ -44,9 +44,3 @@ print.Weka_associator <- function(x, ...) {
 }
 
 
-## And now for the really cool stuff:
-
-Apriori <-
-    make_Weka_associator("weka/associations/Apriori", "Apriori")
-Tertius <-
-    make_Weka_associator("weka/associations/Tertius", "Tertius")

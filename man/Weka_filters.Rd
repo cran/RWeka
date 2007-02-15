@@ -40,14 +40,14 @@ Discretize(formula, data, subset, na.action, control = NULL)
   class \code{factor}.
 }
 \references{
-  Usama M. Fayyad and Keki B. Irani (1993).
+  U. M. Fayyad and K. B. Irani (1993).
   Multi-interval discretization of continuousvalued attributes for
   classification learning.
   \emph{Thirteenth International Joint Conference on Articial
     Intelligence}, 1022--1027.
   Morgan Kaufmann.
 
-  I. H. Witten and Eibe Frank (2005).
+  I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
   2nd Edition, Morgan Kaufmann, San Francisco.
 }

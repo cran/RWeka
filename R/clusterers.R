@@ -1,37 +1,37 @@
 make_Weka_clusterer <-
-function(method, class = NULL)
+function(name, class = NULL)
 {
     
-    ## Return a function interfacing a Weka clusterer with constructor
-    ## 'method'.
+    ## Return a function interfacing the Weka cluster learner class
+    ## 'name'.
 
     ## Add to registry.
     classes <- c(class, "Weka_clusterer")
-    meta <- list(method = method, class = classes)
-    Weka_interfaces[[sub(".*/", "", method)]] <- meta
+    kind <- "R_Weka_clusterer_interface"
+    name <- as_JNI_name(name)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes)
+    Weka_interfaces[[Java_class_base_name(name)]] <- meta
     
     out <- function(x, control = NULL) {
-        structure(RWeka_build_clusterer(x, control, method),
+        structure(RWeka_build_clusterer(x, control, name),
                   class = classes)
     }
-    class(out) <- c("R_Weka_clusterer_interface", "R_Weka_interface")
-    attr(out, "meta") <- meta
-    out
+    make_R_Weka_interface(out, meta)
 }
 
 RWeka_build_clusterer <-
-function(x, control, method)
+function(x, control, name)
 {
     instances <- read_data_into_Weka(x)
 
     ## Build the clusterer.
-    clusterer <- .jnew(method)
+    clusterer <- .jnew(name)
     control <- as.character(control)
     ## <FIXME>
     ## Should we warn if a control argument was given and the clusterer
     ## does not provide an OptionHandler interface?
     if(length(control) && .has_method(clusterer, "setOptions"))
-        .jcall(clusterer, , "setOptions", .jarray(control))
+        .jcall(clusterer, "V", "setOptions", .jarray(control))
     ## </FIXME>
     .jcall(clusterer, "V", "buildClusterer", instances)
 
@@ -129,16 +129,3 @@ function (object, ...)
         predict(object, ...)
 }
 
-
-## And now for the really cool stuff:
-
-Cobweb <-
-    make_Weka_clusterer("weka/clusterers/Cobweb", "Cobweb")
-FarthestFirst <-
-    make_Weka_clusterer("weka/clusterers/FarthestFirst", "FarthestFirst")
-SimpleKMeans <-
-    make_Weka_clusterer("weka/clusterers/SimpleKMeans", "SimpleKMeans")
-XMeans <-
-    make_Weka_clusterer("weka/clusterers/XMeans", "XMeans")
-DBScan <-
-    make_Weka_clusterer("weka/clusterers/DBScan", "DBScan")

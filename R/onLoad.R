@@ -1,7 +1,8 @@
 .onLoad <-
 function(libname, pkgname) {
-    ## Currently, rJava has no namespace, so we have to do this:
+    ## rJava now has a namespace, but we have trouble using it ...
     require("rJava")
-    .jinit(c(system.file("jar", "weka.jar", package = "RWeka"),
-             system.file("jar", "RWeka.jar", package = "RWeka")))
+    .jinit(system.file("jar",
+                       c("weka.jar", "RWeka.jar"),
+                       package = "RWeka"))
 }
