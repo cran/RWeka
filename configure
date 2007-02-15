@@ -24,6 +24,7 @@ else
   save_IFS="${IFS}"
   IFS=":"
   for dir in ${JAVA_PATH}; do
+    test "${dir}" = "." && continue
     if test -x "${dir}/java"; then
       JAVA="${dir}/java"
       break
