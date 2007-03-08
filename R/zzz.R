@@ -18,9 +18,9 @@ SMO <-
                          c("SMO", "Weka_functions"))
 
 ### ** Lazy
-IBk <- make_Weka_classifier("weka/classifiers/rules/IBk",
+IBk <- make_Weka_classifier("weka/classifiers/lazy/IBk",
                             c("IBk", "Weka_lazy"))
-LBR <- make_Weka_classifier("weka/classifiers/rules/LBR",
+LBR <- make_Weka_classifier("weka/classifiers/lazy/LBR",
                             c("LBR", "Weka_lazy"))
 
 ### ** Rules
