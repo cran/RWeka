@@ -19,8 +19,7 @@ write.arff(x, file, eol = "\n")
   \url{http://www.cs.waikato.ac.nz/~ml/weka/arff.html}
 }  
 \seealso{
-  \code{\link{read.arff}},  
-  \code{\link{write.table}}
+  \code{\link{read.arff}}
 }
 \examples{
 write.arff(iris, file = "")

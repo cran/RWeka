@@ -1,5 +1,4 @@
-### Functions for reading and writing files in Weka ARFF format (see
-### README and example data sets of version 3-4-7)
+### Functions for reading and writing files in Weka ARFF format.
 
 ### <NOTE>
 ### String and evaluation types are enclosed by single quotes upon
@@ -10,7 +9,6 @@
 read.arff <-
 function(file)
 {
-
     ## See read.table().
     if(is.character(file)) {
         file <- file(file, "r")

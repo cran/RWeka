@@ -2,7 +2,7 @@
 \alias{read.arff}
 \title{Read Data from ARFF Files}
 \description{
-  \code{read.arff} reads data from Weka ARFF files into a data frame.
+  Reads data from Weka Attribute-Relation File Format (ARFF) files.
 }
 \usage{
 read.arff(file)
@@ -20,8 +20,7 @@ read.arff(file)
   \url{http://www.cs.waikato.ac.nz/~ml/weka/arff.html}
 }
 \seealso{
-  \code{\link{write.arff}},
-  \code{\link{read.table}}
+  \code{\link{write.arff}}
 }
 \examples{
 read.arff(system.file("arff", "contact-lenses.arff",

@@ -8,7 +8,7 @@
 }
 \usage{
 write_to_dot(x, con = stdout(), \dots)
-\method{write_to_dot}{Weka_classifier}(x, con = stdout(), \dots)}
+\method{write_to_dot}{Weka_classifier}(x, con = stdout(), \dots)
 }
 \arguments{
   \item{x}{an \R object.}
