@@ -221,7 +221,7 @@ node_Weka <- function(treeobj, digits = 3, abbreviate = FALSE,
         lab <- node$label
         #Z# well, we could try to prettify:
         if(linebreaks) {
-          lab1 <- strsplit(lab, " (", extended = FALSE, fixed = TRUE)[[1]]
+          lab1 <- strsplit(lab, " (", fixed = TRUE)[[1]]
           lab <- paste(paste(lab1[-length(lab1)], collapse = " ("), "\n(", lab1[length(lab1)], sep = "")
         }
 
