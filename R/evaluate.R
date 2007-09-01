@@ -1,6 +1,6 @@
-### evaluate Weka fitted model objects
-##
-## fixem: we need to check if we got a fitted model because
+### Evaluate Weka fitted model objects.
+
+## fixme: we need to check if we got a fitted model because
 ##        if Java throws R doesn't stop.
 
 evaluate_Weka_classifier <- 
@@ -19,13 +19,13 @@ function(object, newdata = NULL,
     if (is.null(cost))
         evaluation <- .jnew("weka/classifiers/Evaluation", instances)
     else {
-       if (!isSquare(cost))
+       if(!is_square_matrix(cost))
            stop("Argument 'cost' must be a square matrix.")
        costMatrix <- read_costMatrix_into_Weka(cost, ...)
        evaluation <- .jnew("weka/classifiers/Evaluation", instances, 
                            costMatrix)
     }
-    # evaluateModel returns fitted class values
+    ## evaluateModel returns fitted class values
     if (numFolds == 0) 
         .jcall(evaluation, "[D", "evaluateModel",
                .jcast(object$classifier, "weka/classifiers/Classifier"),
@@ -127,5 +127,5 @@ read_costMatrix_into_Weka <- function(x, normalize = FALSE, ...) {
     x
 }
 
-isSquare <- function(object, ...)
-    is.matrix(object) && nrow(object) == ncol(object)
+is_square_matrix <- function(x, ...)
+    is.matrix(x) && nrow(x) == ncol(x)

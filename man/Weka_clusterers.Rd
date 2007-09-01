@@ -93,7 +93,10 @@ cl1 <- SimpleKMeans(iris[, -5], Weka_control(N = 3))
 cl1
 table(predict(cl1), iris$Species)
 
-cl2 <- XMeans(iris[, -5], c("-L", 3, "-H", 7, "weka.core.KDTree", "-P"))
+## Use XMeans with a KDTree.
+cl2 <- XMeans(iris[, -5],
+              c("-L", 3, "-H", 7, "-use-kdtree",
+                "-K", "weka.core.neighboursearch.KDTree -P"))
 cl2
 table(predict(cl2), iris$Species)
 }
