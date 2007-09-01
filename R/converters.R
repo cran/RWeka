@@ -33,10 +33,8 @@ function(name, handlers = list())
         ## Call the saver with the ARFF file as input, the given output
         ## file, and the given control arguments.
         saver <- .jnew(name)
-        control <- if(is.function(control_handler <- handlers$control))
-            control_handler(control)
-        else
-            as.character(control)
+        control <- as.character(.compose_and_funcall(handlers$control,
+                                                     control))
         .jcall(saver, "V", "setOptions",
                .jarray(c(control, "-i", arfff, "-o", path.expand(file))))
         .jcall(saver, "V", "writeBatch")

@@ -48,21 +48,42 @@ function(x)
     sub(".*[/.]", "", x)
 
 get_Java_class <-
-function(x)
+function(x, packages = NULL)
 {
-    if(is.character(x)) {
-        ## If possibly a full Java class name, return as is.
-        ## Otherwise, try treating as the base class name of a Weka
-        ## class interfaced and registered.
-        if(regexpr("[/.]", x) > -1)
+    ## For consistency (and simplicity), return qualified names.
+    
+    .find_Java_class_in_packages <- function(x, packages) {
+        classes <- paste(as_JNI_name(packages), x, sep = "/")
+        for(cl in classes)
+            if(!is.null(.jfindClass(cl, silent = TRUE))) return(cl)
+        NULL
+    }
+
+    cls <- if(is.character(x)) {
+        if(regexpr("[/.]", x) > -1) {
+            ## If possibly a full Java class name, leave alone.
             x
-        else
-            Weka_interfaces[[x]]$name
+        }
+        else {
+            ## Otherwise, try treating as the base class name of a Weka
+            ## class interfaced and registered.
+            cls <- Weka_interfaces[[x]]$name
+            ## And finally, try to find within the given packages ...
+            if(is.null(cls))
+                cls <- .find_Java_class_in_packages(x, packages)
+            ## (Shouldn't we do something if we only "find" NULL?
+            cls
+        }
     }
     else if(inherits(x, "R_Weka_interface"))
         attr(x, "meta")$name
     else
         NULL
+
+    ## Canonicalize.
+    if(!is.null(cls)) cls <- as_qualified_name(cls)
+
+    cls
 }
 
 get_R_classes_returned <-
@@ -76,3 +97,16 @@ function(x)
         NULL
 }
 
+.compose_and_funcall <-
+function(flist, x)
+{
+    if(is.function(flist))
+        flist(x)
+    else {
+        ## flist should be a list of functions.
+        for(i in seq_along(flist))
+            if(is.function(f <- flist[[i]]))
+                x <- f(x)
+        x
+    }
+}

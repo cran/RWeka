@@ -17,6 +17,9 @@ Weka_control(\dots)
   The available options for a Weka learner, \code{foo()} say, can be
   queried by \code{WOW(foo)} and then conveniently set by
   \code{Weka_control()}.  See below for an example.
+
+  One can use lists for options taking multiple arguments, see the
+  documentation for \code{\link{SMO}} for an example.
 }
 
 \value{

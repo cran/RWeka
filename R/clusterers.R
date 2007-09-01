@@ -91,7 +91,7 @@ function(clusterer, instances)
     ## <FIXME>
     ## Is there anything we can do about dimnames here?
     ## At least, set colnames to 0 : clusterer.numberOfClusters() ...
-    matrix(out, nc = .jcall(clusterer, "I", "numberOfClusters"),
+    matrix(out, ncol = .jcall(clusterer, "I", "numberOfClusters"),
            byrow = TRUE)
     ## </FIXME>
 }

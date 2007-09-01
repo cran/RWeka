@@ -1,6 +1,6 @@
 Package: RWeka
-Version: 0.3-4
-Date: 2007-06-05
+Version: 0.3-5
+Date: 2007-09-01
 Title: R/Weka interface
 Author: Kurt Hornik, with contributions from Christian Buchta, 
   Torsten Hothorn, Alexandros Karatzoglou, David Meyer, and
@@ -18,4 +18,4 @@ Imports: graphics, stats, utils
 Suggests: party (>= 0.8-0), mlbench, e1071
 SystemRequirements: Java (>= 5.0)
 License: GPL-2
-Packaged: Tue Jun  5 10:17:10 2007; hornik
+Packaged: Sat Sep  1 13:14:57 2007; hornik

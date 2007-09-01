@@ -55,10 +55,8 @@ function(mf, control, name, handlers)
 
     ## Build the classifier.
     classifier <- .jnew(name)
-    control <- if(is.function(control_handler <- handlers$control))
-        control_handler(control)
-    else
-        as.character(control)
+    control <- as.character(.compose_and_funcall(handlers$control,
+                                                 control))
     if(length(control))
         .jcall(classifier, "V", "setOptions", .jarray(control))
     .jcall(classifier, "V", "buildClassifier", instances)
@@ -117,7 +115,7 @@ function(classifier, instances)
                   "distributionForInstances",
                   .jcast(classifier, "weka/classifiers/Classifier"),
                   instances)
-    matrix(out, nr = .jcall(instances, "I", "numInstances"),
+    matrix(out, nrow = .jcall(instances, "I", "numInstances"),
            byrow = TRUE)
 }
 

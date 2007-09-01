@@ -88,6 +88,18 @@ STATUS <- factor(infert$case, labels = c("control", "case"))
 Logistic(STATUS ~ spontaneous + induced, data = infert)
 ## Compare to R:
 glm(STATUS ~ spontaneous + induced, data = infert, family = binomial())
+
+## Sequential minimal optimization algorithm for training a support
+## vector classifier, using am RBF kernel with a non-default gamma
+## parameter (argument '-G') instead of the default polynomial kernel
+## (from a question on r-help):
+SMO(Species ~ ., data = iris,
+    control = Weka_control(K =
+    list("weka.classifiers.functions.supportVector.RBFKernel", G = 2)))
+## In fact, by some hidden magic it also "works" to give the "base" name
+## of the Weka kernel class:
+SMO(Species ~ ., data = iris,
+    control = Weka_control(K = list("RBFKernel", G = 2)))
 }
 \keyword{models}
 \keyword{regression}
