@@ -4,5 +4,6 @@ function(libname, pkgname) {
     require("rJava")
     .jinit(system.file("jar",
                        c("weka.jar", "RWeka.jar"),
-                       package = "RWeka"))
+                       package = pkgname,
+                       lib.loc = libname))
 }
