@@ -35,14 +35,14 @@ function(name, class = NULL, handlers = list())
     {
         ## The "usual" way of creating a model frame from the call.
         mc <- match.call()
-        mf <- mc[c(1, match(c("formula", "data", "subset", "na.action"),
-                            names(mc), 0))]
-        mf[[1]] <- as.name("model.frame")
+        mf <- mc[c(1L, match(c("formula", "data", "subset", "na.action"),
+                             names(mc), 0L))]
+        mf[[1L]] <- as.name("model.frame")
         mf <- eval(mf, parent.frame())
 	
         structure(c(RWeka_build_classifier(mf, control, name, handlers),
                     list(call = mc, terms = attr(mf, "terms"),
-                         levels = levels(mf[[1]]))),
+                         levels = levels(mf[[1L]]))),
                   class = classes)
     }
     make_R_Weka_interface(out, meta)
@@ -63,8 +63,8 @@ function(mf, control, name, handlers)
 
     ## And classify the training instances.
     predictions <- .predictions_for_instances(classifier, instances)
-    if(!is.null(levels <- levels(mf[[1]])))
-        predictions <- factor(levels[predictions + 1], levels = levels)
+    if(!is.null(levels <- levels(mf[[1L]])))
+        predictions <- factor(levels[predictions + 1L], levels = levels)
     
     list(classifier = classifier, predictions = predictions)
 }
@@ -161,7 +161,7 @@ function(object, newdata = NULL, type = c("class", "probability"), ...)
                                                  instances)
                ## Post-process predictions for factors.
                if(!is.null(object$levels))
-                   out <- factor(object$levels[out + 1],
+                   out <- factor(object$levels[out + 1L],
                                  levels = object$levels)    
            },
            "probability" = {

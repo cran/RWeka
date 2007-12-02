@@ -22,29 +22,29 @@ function(x, plainleaf = TRUE)
     ## 'graph' ...
     
     ## Use the individual lines apart from the first and last ones.
-    x <- strsplit(x, "\n")[[1]]
-    x <- x[-c(1, length(x))]
+    x <- strsplit(x, "\n")[[1L]]
+    x <- x[-c(1L, length(x))]
     
     ind <- regexpr("->", x, fixed = TRUE)
-    nodes <- x[ind == -1]
-    edges <- x[ind != -1]
+    nodes <- x[ind == -1L]
+    edges <- x[ind != -1L]
     
-    nval <- matrix(rep("", 2 * length(nodes)), ncol = 2)
+    nval <- matrix(rep("", 2L * length(nodes)), ncol = 2L)
     colnames(nval) <- c("name", "splitvar")
-    nval[, 1] <- sapply(strsplit(nodes, " "), "[", 1)
-    nval[, 2] <- sapply(strsplit(nodes, "\""), "[", 2)
+    nval[, 1L] <- sapply(strsplit(nodes, " "), "[", 1L)
+    nval[, 2L] <- sapply(strsplit(nodes, "\""), "[", 2L)
     if(plainleaf)
-        nval[grep("(", nval[, 2], extended = FALSE), 2] <- ""
+        nval[grep("(", nval[, 2L], extended = FALSE), 2L] <- ""
     
-    eval <- matrix(rep("", 3 * length(edges)), ncol = 3)
+    eval <- matrix(rep("", 3L * length(edges)), ncol = 3L)
     colnames(eval) <- c("from", "to", "label")
-    eval[, 1] <- sapply(strsplit(edges, "->"), "[", 1)
-    eval[, 2] <-
+    eval[, 1L] <- sapply(strsplit(edges, "->"), "[", 1L)
+    eval[, 2L] <-
         sapply(strsplit(as.character(sapply(strsplit(edges, "->"),
-                                            "[", 2)),
+                                            "[", 2L)),
                         " "),
-               "[", 1)
-    eval[, 3] <- sapply(strsplit(edges, "\""), "[", 2)
+               "[", 1L)
+    eval[, 3L] <- sapply(strsplit(edges, "\""), "[", 2L)
     
     return(list(nodes = nval, edges = eval))
 }
@@ -65,7 +65,7 @@ function(x)
     nodes <- nodes_and_edges$nodes
     edges <- nodes_and_edges$edges
 
-    max_n_of_children <- if(NROW(edges) > 0) max(table(edges[, "from"])) else 0
+    max_n_of_children <- if(NROW(edges) > 0L) max(table(edges[, "from"])) else 0
     max_depth <- 0
             
     get_subtree <- function(node, depth = 0) {
@@ -167,13 +167,13 @@ function(object, data, response, ...)
             ordered <- is.numeric(data[[var]]) || is.ordered(data[[var]])
             if (ordered) {
                 split <- as.numeric(gsub("[=< ]", "",
-                                         attr(x[[1]], "edgetext")))
+                                         attr(x[[1L]], "edgetext")))
                 leftweights <- weights * (data[[var]] <= split)
                 rightweights <- weights * (data[[var]] > split)
             } else {
-                split <- gsub("[!= ]", "", attr(x[[1]], "edgetext"))
+                split <- gsub("[!= ]", "", attr(x[[1L]], "edgetext"))
                 split <- as.integer(levels(data[[var]]) %in% split)
-                if (length(grep("!", attr(x[[1]], "edgetext"))) > 0)
+                if (length(grep("!", attr(x[[1L]], "edgetext"))) > 0)
                     split <- !split
                 leftweights <- weights * (data[[var]] %in% levels(data[[var]])[split])
                 rightweights <- weights * (data[[var]] %in% levels(data[[var]])[!split])
@@ -194,8 +194,8 @@ function(object, data, response, ...)
                                        table = ifelse(!ordered, table(data[[var]]), 0)),
                          ssplit = NULL,
                          prediction = 0,
-                         left = Recall(x[[1]], data = data, leftweights),
-                         right = Recall(x[[2]], data = data, rightweights))
+                         left = Recall(x[[1L]], data = data, leftweights),
+                         right = Recall(x[[2L]], data = data, rightweights))
             class(node$psplit) <-
                 ifelse(ordered, "orderedSplit", "nominalSplit")
             class(node) <- "SplittingNode"
@@ -213,7 +213,7 @@ function(object, data, response, ...)
 node_Weka <- function(treeobj, digits = 3, abbreviate = FALSE,
          fill = c("lightgray", "white"), linebreaks = TRUE, id = FALSE)
 {
-    fill <- rep(fill, length.out = 2)
+    fill <- rep(fill, length.out = 2L)
 
     rval <- function(node) {
 
@@ -221,7 +221,7 @@ node_Weka <- function(treeobj, digits = 3, abbreviate = FALSE,
         lab <- node$label
         #Z# well, we could try to prettify:
         if(linebreaks) {
-          lab1 <- strsplit(lab, " (", fixed = TRUE)[[1]]
+          lab1 <- strsplit(lab, " (", fixed = TRUE)[[1L]]
           lab <- paste(paste(lab1[-length(lab1)], collapse = " ("), "\n(", lab1[length(lab1)], sep = "")
         }
 
@@ -232,7 +232,7 @@ node_Weka <- function(treeobj, digits = 3, abbreviate = FALSE,
             name = sprintf("node_terminal%s", node$nodeID))
         pushViewport(node_vp)
 
-        grid.rect(gp = gpar(fill = fill[1]))   
+        grid.rect(gp = gpar(fill = fill[1L]))   
         grid.text(y = unit(1.5 + 0.5 * linebreaks, "lines"), lab)
 
         if(id) {
@@ -241,7 +241,7 @@ node_Weka <- function(treeobj, digits = 3, abbreviate = FALSE,
             	width = max(unit(1, "lines"), unit(1.3, "strwidth", as.character(node$nodeID))), 
             	height = max(unit(1, "lines"), unit(1.3, "strheight", as.character(node$nodeID))))
             pushViewport(nodeIDvp)
-            grid.rect(gp = gpar(fill = fill[2], lty = "solid"))
+            grid.rect(gp = gpar(fill = fill[2L], lty = "solid"))
             grid.text(node$nodeID)
             popViewport()
         }

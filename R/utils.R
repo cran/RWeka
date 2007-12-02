@@ -13,7 +13,7 @@ function(o, name)
     ms <- .jcall(cl, "[Ljava/lang/reflect/Method;", "getMethods")
     ## This is what currently segfaults ...
     ss <- unlist(lapply(ms, function(x) .jcall(x, "S", "toString")))
-    length(grep(paste("\\.", name, "\\(", sep = ''), ss)) > 0
+    length(grep(paste("\\.", name, "\\(", sep = ''), ss)) > 0L
 }
 
 .has_Java_method <- 
@@ -60,7 +60,7 @@ function(x, packages = NULL)
     }
 
     cls <- if(is.character(x)) {
-        if(regexpr("[/.]", x) > -1) {
+        if(regexpr("[/.]", x) > -1L) {
             ## If possibly a full Java class name, leave alone.
             x
         }
@@ -69,7 +69,7 @@ function(x, packages = NULL)
             ## class interfaced and registered.
             cls <- Weka_interfaces[[x]]$name
             ## And finally, try to find within the given packages ...
-            if(is.null(cls))
+            if(is.null(cls) && !is.null(packages))
                 cls <- .find_Java_class_in_packages(x, packages)
             ## (Shouldn't we do something if we only "find" NULL?
             cls

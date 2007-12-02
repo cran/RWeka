@@ -11,8 +11,12 @@ function(name)
     out <- function(x, control = NULL) {
         stemmer <- .jnew(name)
         control <- as.character(control)
-        if(length(control) && .has_method(stemmer, "setOptions"))
-            .jcall(stemmer, "V", "setOptions", .jarray(control))
+        if(length(control)) {
+            if(.has_method(stemmer, "setOptions"))
+                .jcall(stemmer, "V", "setOptions", .jarray(control))
+            else
+                warning("Stemmer cannot set control options.")
+        }
         .jcall("RWekaInterfaces", "[S", "stem",
                .jcast(stemmer, "weka/core/stemmers/Stemmer"),
                .jarray(as.character(x)))

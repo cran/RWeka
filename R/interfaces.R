@@ -2,11 +2,11 @@ list_Weka_interfaces <-
 function()
 {
     capitalize <- function(s)
-        sprintf("%s%s", toupper(substring(s, 1, 1)), substring(s, 2))
+        sprintf("%s%s", toupper(substring(s, 1L, 1L)), substring(s, 2L))
 
     kinds <- lapply(mget(objects(Weka_interfaces), Weka_interfaces),
                     "[[", "kind")
-    o <- split(names(kinds), sapply(kinds, "[", 1))
+    o <- split(names(kinds), sapply(kinds, "[", 1L))
     names(o) <-
         capitalize(sprintf("%ss",
                            sub(".*_([^_]+)_interface", "\\1", names(o))))

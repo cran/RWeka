@@ -6,6 +6,24 @@ Tertius <-
 
 ### * Classifiers
 
+.make_class_name_expander <-
+function(packages = NULL)
+    function(e) {
+        if(is.list(e))
+            e[[1L]] <- get_Java_class(e[[1L]], packages)
+        else if(is.character(e)) {
+            ## Could have seen
+            ##   Weka_control(K = "RBFKernel -G 2")
+            ## or better/worse ...
+            e <- unlist(strsplit(e, "[[:space:]]+"))
+            e[1L] <- get_Java_class(e[1L], packages)
+            e <- paste(e, collapse = " ")
+        }
+        e
+    }
+## Basic class name expander:
+.expand_class_name <- .make_class_name_expander()
+
 ### ** Functions
 LinearRegression <-
     make_Weka_classifier("weka/classifiers/functions/LinearRegression",
@@ -13,25 +31,13 @@ LinearRegression <-
 Logistic <-
     make_Weka_classifier("weka/classifiers/functions/Logistic",
                          c("Logistic", "Weka_functions"))
+## Specialized support vector kernel class name expander:
 .expand_kernel_class_name <-
-function(e) {
-    ## Note that weka.classifiers.functions.supportVector.Kernel
-    ## provides an abstract kernel class, so we could interface this
-    ## (e.g., make_Weka_kernel()) or at least verify that the class name
-    ## expansion gave something extending the Kernel class.
-    packages <- "weka/classifiers/functions/supportVector"
-    if(is.list(e))
-        e[[1]] <- get_Java_class(e[[1]], packages)
-    else if(is.character(e)) {
-        ## Could have seen
-        ##   Weka_control(K = "RBFKernel -G 2")
-        ## or better/worse ...
-        e <- unlist(strsplit(e, "[[:space:]]+"))
-        e[1] <- get_Java_class(e[1], packages)
-        e <- paste(e, collapse = " ")
-    }
-    e
-}
+    .make_class_name_expander("weka/classifiers/functions/supportVector")
+## Note that weka.classifiers.functions.supportVector.Kernel provides an
+## abstract kernel class, so we could interface this (e.g.,
+## make_Weka_kernel()) or at least verify that the class name expansion
+## gave something extending the Kernel class.
 SMO <-
     make_Weka_classifier("weka/classifiers/functions/SMO",
                          c("SMO", "Weka_functions"),
@@ -66,8 +72,25 @@ DecisionStump <-
 
 ### ** Meta learners
 
+.expand_base_learner_spec <-
+function(e)
+{
+    ## For some of the meta learners, option '-W' is used for the full
+    ## name of the base classifier, and options after '--' are passed to
+    ## this.  Let us be nice and make specifications like
+    ##   Weka_control(W = list(J48, M = 50))
+    ## work in this case, which means having the control handler convert
+    ## to character and insert the '--'.
+    if(is.list(e)) {
+        c(get_Java_class(e[[1L]]),
+          if(length(e) > 1L)
+          c("--", as.character(do.call("Weka_control", e[-1L]))))
+    }
+    else
+        get_Java_class(e)
+}
 .Weka_meta_classifier_handlers <-
-    .control_handlers("-W" = get_Java_class)
+    .control_handlers("-W" = .expand_base_learner_spec)
 AdaBoostM1 <-
     make_Weka_classifier("weka/classifiers/meta/AdaBoostM1",
                          c("AdaBoostM1", "Weka_meta"),
@@ -87,7 +110,8 @@ MultiBoostAB <-
 Stacking <-
     make_Weka_classifier("weka/classifiers/meta/Stacking",
                          c("Stacking", "Weka_meta"),
-                         .Weka_meta_classifier_handlers)
+                         .control_handlers("-B" = .expand_class_name,
+                                           "-M" = .expand_class_name))
 
 ### * Clusterers
 

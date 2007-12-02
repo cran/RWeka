@@ -20,9 +20,9 @@ function(name, class = NULL)
 
     out <- function(formula, data, subset, na.action, control = NULL) {
         mc <- match.call()
-        mf <- mc[c(1, match(c("formula", "data", "subset", "na.action"),
-                            names(mc), 0))]
-        mf[[1]] <- as.name("model.frame")
+        mf <- mc[c(1L, match(c("formula", "data", "subset", "na.action"),
+                             names(mc), 0L))]
+        mf[[1L]] <- as.name("model.frame")
         mf <- eval(mf, parent.frame())
         
         RWeka_use_filter(mf, control, name)
