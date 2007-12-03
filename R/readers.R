@@ -18,9 +18,9 @@ read_model_frame_into_Weka <-
 function(mf)
 {
     ## For Weka, always have the response *last* in the ARFF file.
-    instances <- read_data_into_Weka(mf[c(seq_along(mf)[-1], 1)])
+    instances <- read_data_into_Weka(mf[c(seq_along(mf)[-1L], 1L)])
     .jcall(instances, "V", "setClassIndex",
-           as.integer(.jcall(instances, "I", "numAttributes") - 1))
+           as.integer(.jcall(instances, "I", "numAttributes") - 1L))
     instances
 }
 
@@ -51,18 +51,18 @@ function(instances) {
         ## in Weka missing values are coded as NaN and the cast 
         ## to double should ensure this for all attribute types.
         out[[k]] <- .jcall(instances, "[D", "attributeToDoubleArray",
-                           as.integer(k-1))
+                           as.integer(k - 1L))
         is.na(out[[k]]) <- is.nan(out[[k]])
         attribute <- .jcall(instances, "Lweka/core/Attribute;",
-                            "attribute", as.integer(k-1))
+                            "attribute", as.integer(k - 1L))
         names(out)[k] <- .jcall(attribute, "S", "name")
         ## see Constant Field Values in the Weka documentation.
-        switch(.jcall(attribute, "I", "type") + 1,
+        switch(.jcall(attribute, "I", "type") + 1L,
            {   ## 0 numeric (nothing todo) 
            },
             
            {   ## 1 nominal (Weka value code = R level code - 1)
-               idx <- seq(.jcall(attribute, "I", "numValues")) - 1
+               idx <- seq(.jcall(attribute, "I", "numValues")) - 1L
                out[[k]] <- factor(out[[k]], levels = idx)
                levels(out[[k]]) <-
                    sapply(idx, function(k)
@@ -89,8 +89,8 @@ function(instances) {
     out <- data.frame(out)
     ## this could be useful. note that Weka codes a missing 
     ## class attribute as -1.
-    attr(out, "classIndex") <- .jcall(instances, "I", "classIndex") + 1
-    if (attr(out, "classIndex") == 0)
+    attr(out, "classIndex") <- .jcall(instances, "I", "classIndex") + 1L
+    if (attr(out, "classIndex") == 0L)
        attr(out, "classIndex") <- NULL
     out
 }
@@ -132,7 +132,7 @@ function(data) {
     }
     
     ## build instances
-    n <- dim(data)[1]                   # number of instances
+    n <- dim(data)[1L]                  # number of instances
     instances <- .jnew("weka/core/Instances",
                        "R-data-frame",
                        attinfo,
@@ -142,7 +142,7 @@ function(data) {
     classIndex <- attr(data, "classIndex")
     if (!is.null(classIndex))
        .jcall(instances, "V", "setClassIndex",
-              as.integer(classIndex - 1))
+              as.integer(classIndex - 1L))
 
     ## populate.
     data <- unlist(data, use.names = FALSE)

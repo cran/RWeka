@@ -1,7 +1,6 @@
 make_Weka_associator <-
 function(name, class = NULL)
 {
-    
     ## Return a function interfacing the Weka association learner class
     ## 'name'.
 
@@ -27,12 +26,12 @@ function(x, control, name)
     ## Build the associator.
     associator <- .jnew(name)
     control <- as.character(control)
-    ## <FIXME>
-    ## Should we warn if a control argument was given and the associator
-    ## does not provide an OptionHandler interface?
-    if(length(control) && .has_method(associator, "setOptions"))
-        .jcall(associator, "V", "setOptions", .jarray(control))
-    ## </FIXME>
+    if(length(control)) {
+        if(.has_method(associator, "setOptions"))
+            .jcall(associator, "V", "setOptions", .jarray(control))
+        else
+            warning("Associator cannot set control options.")
+    }
     .jcall(associator, "V", "buildAssociations", instances)
 
     list(associator = associator, instances = instances)

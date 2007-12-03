@@ -1,7 +1,6 @@
 make_Weka_clusterer <-
 function(name, class = NULL)
 {
-    
     ## Return a function interfacing the Weka cluster learner class
     ## 'name'.
 
@@ -27,12 +26,12 @@ function(x, control, name)
     ## Build the clusterer.
     clusterer <- .jnew(name)
     control <- as.character(control)
-    ## <FIXME>
-    ## Should we warn if a control argument was given and the clusterer
-    ## does not provide an OptionHandler interface?
-    if(length(control) && .has_method(clusterer, "setOptions"))
-        .jcall(clusterer, "V", "setOptions", .jarray(control))
-    ## </FIXME>
+    if(length(control)) {
+        if(.has_method(clusterer, "setOptions"))
+            .jcall(clusterer, "V", "setOptions", .jarray(control))
+        else
+            warning("Clusterer cannot set control options.")
+    }
     .jcall(clusterer, "V", "buildClusterer", instances)
 
     ## Get the class ids.
@@ -74,7 +73,7 @@ function(clusterer, instances)
         ## must provide a distributionForInstance() method.
         col <- max.col(.class_memberships_for_instances(clusterer,
                                                         instances))
-        as.integer(col - 1)
+        as.integer(col - 1L)
     }
 }
 
@@ -88,12 +87,8 @@ function(clusterer, instances)
                   "distributionForInstances",
                   .jcast(clusterer, "weka/clusterers/Clusterer"),
                   instances)
-    ## <FIXME>
-    ## Is there anything we can do about dimnames here?
-    ## At least, set colnames to 0 : clusterer.numberOfClusters() ...
     matrix(out, ncol = .jcall(clusterer, "I", "numberOfClusters"),
            byrow = TRUE)
-    ## </FIXME>
 }
 
 predict.Weka_clusterer <-
@@ -117,7 +112,12 @@ function(object, newdata = NULL,
     else {
         if(!.has_method(clusterer, "distributionForInstance"))
             stop("Clusterer cannot predict class memberships.")
-        .class_memberships_for_instances(clusterer, instances)
+        out <- .class_memberships_for_instances(clusterer, instances)
+        ## Weka uses class ids from 0 to the number of classes minus 1,
+        ## so let us set these as colnames.
+        dimnames(out) <-
+            list(rownames(newdata), seq_len(NCOL(out)) - 1L)
+        out
     }
 }
 
@@ -126,6 +126,6 @@ function(object, newdata = NULL,
 fitted.Weka_clusterer <-
 function (object, ...) 
 {
-        predict(object, ...)
+    predict(object, ...)
 }
 

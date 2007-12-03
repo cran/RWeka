@@ -75,7 +75,7 @@ function(object, newdata = NULL,
        result$detailsClass <-
            t(sapply(object$levels,
                     function(l, x) {
-                        k <- as.integer(which(object$levels == l) - 1)
+                        k <- as.integer(which(object$levels == l) - 1L)
                         extractValues(x, k)
                     },
                     c("falsePositiveRate", "falseNegativeRate",

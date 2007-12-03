@@ -39,7 +39,7 @@ print.WOW <- function(x, ...) {
                       sprintf("-%s", x$Name),
                       gsub("\t", " ", x$Description),
                       indent = 8)
-        if(any(ind <- (x$Length > 0)))
+        if(any(ind <- (x$Length > 0L)))
             out[ind] <- gettextf("%s\n\tNumber of arguments: %d.",
                                  out[ind], x$Length[ind])
         writeLines(out)

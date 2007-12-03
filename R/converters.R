@@ -24,7 +24,7 @@ function(name, handlers = list())
         ## to a *file*, given by its path.  More general connection
         ## stuff could be handled by saving to a temporary file first
         ## and then put its contents to the desired connection.
-        if(!is.character(file) || (length(file) != 1))
+        if(!is.character(file) || (length(file) != 1L))
             stop("Argument 'file' must be a character string.")
         ## Write the data to a temporary ARFF file.
         arfff <- tempfile()
@@ -54,7 +54,7 @@ function(name, handlers = list())
 ## function(name)
 ## {
 ##     function(x, file, control = NULL) {
-##         if(!is.character(file) || (length(file) != 1))
+##         if(!is.character(file) || (length(file) != 1L))
 ##             stop("Argument 'file' must be a character string.")
 ##         saver <- .jnew(name)
 ##         .jcall(saver, "V", "setInstances", read_data_into_Weka(x))
@@ -78,7 +78,7 @@ function(name)
 
     out <- function(file) {
         ## As usual, only files for the time being ...
-        if(!is.character(file) || (length(file) != 1))
+        if(!is.character(file) || (length(file) != 1L))
             stop("Argument 'file' must be a character string.")
         
         loader <- .jnew(name)

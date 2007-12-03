@@ -76,9 +76,9 @@ format.BibTeX_db <-
 function(x, offset = 0, ...)
 {
     n <- length(x)
-    if(n == 0) return(character())
+    if(n == 0L) return(character())
     unlist(mapply(c, rep.int(list(""), n),
-                  lapply(x, format.BibTeX_entry, offset = offset)))[-1]
+                  lapply(x, format.BibTeX_entry, offset = offset)))[-1L]
 }
 
 print.BibTeX_db <-
