@@ -33,6 +33,8 @@ export("read.arff",
        "Normalize", "Discretize",
        ## Stemmers
        "IteratedLovinsStemmer", "LovinsStemmer",
+       ## Tokenizers
+       "AlphabeticTokenizer", "NGramTokenizer", "WordTokenizer",
        ## Others ...
        "list_Weka_interfaces",
        "WOW",

@@ -176,6 +176,15 @@ IteratedLovinsStemmer <-
 LovinsStemmer <-
     make_Weka_stemmer("weka/core/stemmers/LovinsStemmer")
 
+### * Tokenizers
+
+AlphabeticTokenizer <-
+    make_Weka_tokenizer("weka/core/tokenizers/AlphabeticTokenizer")
+NGramTokenizer <-
+    make_Weka_tokenizer("weka/core/tokenizers/NGramTokenizer")
+WordTokenizer <-
+    make_Weka_tokenizer("weka/core/tokenizers/WordTokenizer")
+    
 
 ### Local variables: ***
 ### mode: outline-minor ***

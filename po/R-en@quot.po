@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: RWeka\n"
+"Report-Msgid-Bugs-To: Kurt.Hornik@R-project.org\n"
+"POT-Creation-Date: 2007-12-15 11:14\n"
+"PO-Revision-Date: 2007-12-15 11:59+0100\n"
+"Last-Translator: Kurt Hornik <Kurt.Hornik@R-project.org>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Argument 'file' must be a character string or connection."
+msgstr "Argument ‘file’ must be a character string or connection."
+
+msgid "Invalid attribute specification."
+msgstr "Invalid attribute specification."
+
+msgid "Type 'relational' currently not implemented."
+msgstr "Type ‘relational’ currently not implemented."
+
+msgid "Missing data section."
+msgstr "Missing data section."
+
+msgid "Missing attribute section."
+msgstr "Missing attribute section."
+
+msgid "Invalid type specification."
+msgstr "Invalid type specification."
+
+msgid "Associator cannot set control options."
+msgstr "Associator cannot set control options."
+
+msgid "Can only compute class probabilities for classification problems."
+msgstr "Can only compute class probabilities for classification problems."
+
+msgid "Clusterer cannot set control options."
+msgstr "Clusterer cannot set control options."
+
+msgid "Need 'newdata' to predict class memberships."
+msgstr "Need ‘newdata’ to predict class memberships."
+
+msgid "Clusterer cannot predict class memberships."
+msgstr "Clusterer cannot predict class memberships."
+
+msgid "All arguments must be named."
+msgstr "All arguments must be named."
+
+msgid "An empty list of Weka control options."
+msgstr "An empty list of Weka control options."
+
+msgid "A list of Weka control options (%s):"
+msgstr "A list of Weka control options (%s):"
+
+msgid "Argument 'file' must be a character string."
+msgstr "Argument ‘file’ must be a character string."
+
+msgid "Argument 'cost' must be a square matrix."
+msgstr "Argument ‘cost’ must be a square matrix."
+
+msgid "=== %d Fold Cross Validation ==="
+msgstr "=== %d Fold Cross Validation ==="
+
+msgid "=== Cost Matrix ==="
+msgstr "=== Cost Matrix ==="
+
+msgid "Cannot create dot description from 'x'."
+msgstr "Cannot create dot description from ‘x’."
+
+msgid "Cannot coerce n-ary trees."
+msgstr "Cannot coerce n-ary trees."
+
+msgid "Plotting Weka trees requires package 'party'."
+msgstr "Plotting Weka trees requires package ‘party’."
+
+msgid "Plotting of trees with multi-way splits is currently not implemented."
+msgstr "Plotting of trees with multi-way splits is currently not implemented."
+
+msgid ""
+"An R interface to Weka class '%s',\n"
+"which has information"
+msgstr ""
+"An R interface to Weka class ‘%s’,\n"
+"which has information"
+
+msgid "An R interface to Weka class '%s'."
+msgstr "An R interface to Weka class ‘%s’."
+
+msgid "Argument list:"
+msgstr "Argument list:"
+
+msgid "Returns objects inheriting from classes:"
+msgstr "Returns objects inheriting from classes:"
+
+msgid "Type 'string' currently not implemented."
+msgstr "Type ‘string’ currently not implemented."
+
+msgid "Type 'date' currently not implemented."
+msgstr "Type ‘date’ currently not implemented."
+
+msgid "Stemmer cannot set control options."
+msgstr "Stemmer cannot set control options."
+
+msgid "Tokenizer cannot set control options."
+msgstr "Tokenizer cannot set control options."
+
+msgid "Argument 'x' does not specify a known Weka method."
+msgstr "Argument ‘x’ does not specify a known Weka method."
+
+msgid ""
+"%s\n"
+"\tNumber of arguments: %d."
+msgstr ""
+"%s\n"
+"\tNumber of arguments: %d."
+
+msgid "No available information on options."
+msgstr "No available information on options."
