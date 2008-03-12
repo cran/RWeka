@@ -9,35 +9,38 @@ if test -z "${R_HOME}"; then
 fi
 
 ## Find the configured Java interpreter.
-## Argh.  R CMD config JAVA works only from 2.5.0 onwards ...
-JAVA=`"${R_HOME}/bin/R" CMD config | grep JAVA`
-if test -n "${JAVA}"; then
-  JAVA=`"${R_HOME}/bin/R" CMD config JAVA`
-else
-  ## Keep this in sync with what is used in R CMD javareconf.
-  ## Sort of ...
-  JAVA_PATH="${PATH}"
-  if test -n "${JAVA_HOME}" && test -d "${JAVA_HOME}"; then
-    JAVA_PATH="${JAVA_HOME}:${JAVA_HOME}/jre/bin:${JAVA_HOME}/bin:${JAVA_PATH}"
-  fi
-  JAVA_PATH="${JAVA_PATH}":/usr/java/bin:/usr/jdk/bin:/usr/lib/java/bin:/usr/lib/jdk/bin:/usr/local/java/bin:/usr/local/jdk/bin:/usr/local/lib/java/bin:/usr/local/lib/jdk/bin
-  save_IFS="${IFS}"
-  IFS=":"
-  for dir in ${JAVA_PATH}; do
-    test "${dir}" = "." && continue
-    if test -x "${dir}/java"; then
-      JAVA="${dir}/java"
-      break
-  fi
-  done
-  IFS="${save_IFS}"
-fi
+## If JAVA is set in the environment, use it.
 if test -z "${JAVA}"; then
-  echo "Could not determine the Java interpreter."
-  echo "Maybe run R CMD javareconf?"
-  exit 1
+  ## Argh.  R CMD config JAVA works only from 2.5.0 onwards ...
+  JAVA=`"${R_HOME}/bin/R" CMD config | grep JAVA`
+  if test -n "${JAVA}"; then
+    JAVA=`"${R_HOME}/bin/R" CMD config JAVA`
+  fi
+  if test -z "${JAVA}"; then
+    ## Keep this in sync with what is used in R CMD javareconf.
+    ## Sort of ...
+    JAVA_PATH="${PATH}"
+    if test -n "${JAVA_HOME}" && test -d "${JAVA_HOME}"; then
+      JAVA_PATH="${JAVA_HOME}:${JAVA_HOME}/jre/bin:${JAVA_HOME}/bin:${JAVA_PATH}"
+    fi
+    JAVA_PATH="${JAVA_PATH}":/usr/java/bin:/usr/jdk/bin:/usr/lib/java/bin:/usr/lib/jdk/bin:/usr/local/java/bin:/usr/local/jdk/bin:/usr/local/lib/java/bin:/usr/local/lib/jdk/bin
+    save_IFS="${IFS}"
+    IFS=":"
+    for dir in ${JAVA_PATH}; do
+      test "${dir}" = "." && continue
+      if test -x "${dir}/java"; then
+        JAVA="${dir}/java"
+        break
+    fi
+    done
+    IFS="${save_IFS}"
+  fi
+  if test -z "${JAVA}"; then
+    echo "Could not determine the Java interpreter."
+    echo "Maybe run R CMD javareconf?"
+    exit 1
+  fi
 fi
-
 ## Check whether Java is 1.5/5.0 as required by current development
 ## versions of Weka.
 RWeka_cv_java_version_5=no
