@@ -32,17 +32,17 @@ function(x, ...)
     ## (e.g., Cobweb for Weka 3.4.6), so be careful.
     o <- .jnew(name)
     if(.has_method(o, "globalInfo")) {
-        writeLines(c(gettextf("An R interface to Weka class '%s',\nwhich has information",
-                              as_qualified_name(name)),
+        writeLines(c(strwrap(gettextf("An R interface to Weka class '%s', which has information",
+                              as_qualified_name(name))),
                      "",
                      strwrap(.jcall(o, "S", "globalInfo"),
-                             indent = 2, exdent = 2)))
+                             indent = 2L, exdent = 2L)))
         if(.has_method(o, "getTechnicalInformation"))
             writeLines(c("",
                          "  BibTeX:",
                          "",
                          format(get_technical_information(o),
-                                offset = 2)))
+                                offset = 2L)))
     }
     else
         writeLines(gettextf("An R interface to Weka class '%s'.",
@@ -53,7 +53,7 @@ function(x, ...)
                  {
                      ax <- deparse(args(x))
                      strwrap(sub("^function *", fname, ax[-length(ax)]),
-                             indent = 2, exdent = 2)
+                             indent = 2L, exdent = 2L)
                  }))
     
     classes <- get_R_classes_returned(x)

@@ -1,29 +1,39 @@
+version 0.3-11
+
+* We support now reading of arff files with sparse data. (C)
+
+* We use now a more direct approach to exchange data with Weka.
+  This should reduce processing times considerably. (C)
+  
+* R logical is now mapped to Weka's enumeration type, i.e. to
+  {FALSE, TRUE}. (C)
+
 version 0.2-9
 
-* added XMeans to interface for clusterers. (C)
+* Added XMeans to interface for clusterers. (C)
 
 version 0.2-6
 
-* upgraded to weka-3.5.3, moved out persistence support as it 
+* Upgraded to Weka-3.5.3. Moved out persistence support as it 
   lacks support from R and others :-( (C)
 
 * Support for Weka control lists in make_class_name_expander(). (K)
 
 version 0.2-5
 
-* added interface to Weka filters, fixed RWekaInterfaces.java
-  to abstract class and its methods to class methods. added
+* Added interface to Weka filters, fixed RWekaInterfaces.java
+  to abstract class and its methods to class methods. Added
   escapes removal to read.arff. (C)
 
-* added evaluate_Weka_classifiers.R (C)
+* Added evaluate_Weka_classifiers.R (C)
 
-* added low level functions for RWeka Java object persistence. (C)
+* Added low level functions for RWeka Java object persistence. (C)
 
-* added Weka_control class. (K)
+* Added Weka_control class. (K)
 
 version 0.2-4
 
-* upgraded to Weka-3.5.2 (K)
+* Upgraded to Weka-3.5.2 (K)
 
 * Exception and missing value fixes in RWekaInterfaces.java, 
   classifiers.R, clusterers.R. Registered DBScan. (C)

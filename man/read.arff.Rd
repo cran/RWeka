@@ -1,5 +1,6 @@
 \name{read.arff}
 \alias{read.arff}
+\alias{read.arff.R}
 \title{Read Data from ARFF Files}
 \description{
   Reads data from Weka Attribute-Relation File Format (ARFF) files.

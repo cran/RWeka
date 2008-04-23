@@ -1,0 +1,10 @@
+% numeric only
+
+@relation test_sparse
+
+@attribute 'A' numeric
+@attribute 'B' numeric
+
+@data
+{1 0.5}
+{0 1, 1 0.1}
