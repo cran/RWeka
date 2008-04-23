@@ -1,5 +1,6 @@
 \name{write.arff}
 \alias{write.arff}
+\alias{write.arff.R}
 \title{Write Data into ARFF Files}
 \description{
   Writes data into Weka Attribute-Relation File Format (ARFF) files.

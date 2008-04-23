@@ -7,7 +7,7 @@
 \usage{
 evaluate_Weka_classifier(object, newdata = NULL, cost = NULL, 
                          numFolds = 0, complexity = FALSE,
-                         class = FALSE, ...)
+                         class = FALSE, seed = NULL, ...)
 }
 \arguments{
   \item{object}{a \code{Weka_classifier} object.}
@@ -18,6 +18,7 @@ evaluate_Weka_classifier(object, newdata = NULL, cost = NULL,
   \item{numFolds}{the number of folds to use in cross-validation.}
   \item{complexity}{option to include entropy-based statistics.}
   \item{class}{option to include class statistics.}
+  \item{seed}{optional seed for cross-validation.}
   \item{\dots}{further arguments passed to other methods (see details).}
 }
 \details{
@@ -62,7 +63,7 @@ m
 e <- evaluate_Weka_classifier(m,
                               cost = matrix(c(0,2,1,0), ncol = 2),
                               numFolds = 10, complexity = TRUE,
-                              class = TRUE)
+                              seed = 123, class = TRUE)
 e
 summary(e)
 e$details

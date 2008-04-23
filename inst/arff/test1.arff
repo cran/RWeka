@@ -1,0 +1,16 @@
+%comment
+
+@relation test
+	@attribute string	string
+@attribute enum {1,2,3}
+@attribute numeric numeric
+@attribute date date 'yyyy-MM-dd HH:mm:ss'
+
+@data
+'l 1',1,0,'2012-12-12 12:12:12'
+'l 2',2,1,'2012-12-12 12:12:12'
+'l 3',3,0.3,'2012-12-12 12:12:12'
+?,1,0,'2012-12-12 12:12:12'
+'l 2',?,1,'2012-12-12 12:12:12'
+'l 3',3,?,?
+%%%

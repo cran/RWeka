@@ -92,16 +92,19 @@ public abstract class RWekaInterfaces {
 	return(out);
     }
 
-    // populate Instances with data in column-major format. note that 
-    // we cannot check the length of an array and, hence, if nrow is 
-    // correct. also, we can call this more than once with the same 
-    // Instances object. so, use with care! (C)
+    // Populate Instances with data in column-major format. Use
+    // with care if called more than once with the same Instances
+    // object. (C)
     
     public static void addInstances(Instances instances, double[] data, 
 				    int nrow)
 	throws Exception
     {
 	int i, j, ncol = instances.numAttributes();
+
+	if (data.length / ncol != nrow) {
+	    throw new Exception("invalid number of rows 'nrow'");
+	}
 
 	for (i = 0; i < nrow; i++) {
 	    Instance instance = new Instance(ncol);
@@ -142,6 +145,42 @@ public abstract class RWekaInterfaces {
 	    out[i] = S.stem(words[i]);
 	}
 	return(out);
+    }
+
+    // Format or parse the data of a Weka 'date' attribute.
+    // Note that NA_character is assumed to be R's missing
+    // value code for character. (C)
+    public static String[] formatDate(Attribute A, double[] data,
+	String NA_character)
+    {
+	String[] out = new String[data.length];
+	for (int i = 0; i < data.length; i++) {
+	    if (Double.isNaN(data[i])) {
+		out[i] = NA_character;
+	    } else {
+		out[i] = A.formatDate(data[i]);
+	    }
+	}
+	return out;
+    }
+
+    public static double[] parseDate(Attribute A, String[] data,
+	String NA_character)
+    {
+	double[] out = new double[data.length];
+	for (int i = 0; i < data.length; i++) {
+	    try {
+		if (data[i].equals(NA_character)) {
+		    out[i] = Double.NaN;
+		} else {
+		    out[i] = A.parseDate(data[i]);
+		}
+	    }
+	    catch (Exception e) {
+		out[i] = Double.NaN;
+	    }
+	}
+	return out;
     }
     
 }

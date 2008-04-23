@@ -1,0 +1,8 @@
+@relation x
+@attribute NAMES {'A','B','C'}
+@attribute DATES date "yyyy-MM-dd HH:mm:ss"
+@attribute STRING string
+@data
+'A','2006-02-03 23:35:53',"A"
+'B','2006-06-03 23:35:54',?
+'C','2006-02-03 23:35:55',"B'\\C"

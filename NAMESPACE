@@ -11,8 +11,8 @@ import("utils")
 ## importFrom("rJava", ".jarray", ".jcall", ".jcast", ".jevalArray",
 ##            ".jinit", ".jnew")
 
-export("read.arff",
-       "write.arff",
+export("read.arff", "read.arff.R",
+       "write.arff", "write.arff.R",
        ## Associators
        "make_Weka_associator",
        "Apriori", "Tertius",

@@ -6,7 +6,7 @@
 evaluate_Weka_classifier <- 
 function(object, newdata = NULL,
          cost = NULL, numFolds = 0, complexity = FALSE, class = FALSE,
-         ...)
+         seed = NULL, ...)
 {
     ## For now the usual way ...
     if (is.null(newdata))
@@ -32,9 +32,12 @@ function(object, newdata = NULL,
                instances)
     else {
         ## Cross validation
+        random <- .jnew("java/util/Random")
+        if (!is.null(seed))
+            .jcall(random, "V", "setSeed", .jlong(seed))
         .jcall(evaluation,"V","crossValidateModel",
                .jcast(object$classifier,"weka/classifiers/Classifier"),
-               instances, as.integer(numFolds), .jnew("java/util/Random"))
+               instances, as.integer(numFolds), random)
         result$string <- 
             gettextf("=== %d Fold Cross Validation ===\n", numFolds)
     }

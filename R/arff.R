@@ -4,9 +4,10 @@
 ### String and evaluation types are enclosed by single quotes upon
 ### writing and enclosing single quotes are removed upon reading.
 ### Escaped single quotes inside single quotes may also occur.
+### Sparse data is enclosed by braces and all numeric.
 ### </NOTE>
 
-read.arff <-
+read.arff.R <-
 function(file)
 {
     ## See read.table().
@@ -66,7 +67,26 @@ function(file)
     if(length(col_names) !=
        length(grep("factor|numeric|character", col_types)))
         stop("Invalid type specification.")
-    
+   
+    ## Explode sparse data.
+    data <- readLines(file)
+    data <- lapply(data, function(line) {
+        if (regexpr("^[[:space:]]*\\{", line) > 0L) {
+            line <- chartr("{},", "   ", line)
+            ## parse into index and value
+            con <- textConnection(line) 
+            parse <- scan(con, list(integer(), double()), quiet = TRUE)
+            close(con)
+            line <- vector("double", length(col_types))
+            line[parse[[1]] + 1L] <- parse[[2]]
+            line <- paste(line, collapse = ",")
+        }
+        line
+    })
+    data <- unlist(data, use.names = FALSE)
+    close(file)
+    file <- textConnection(data)
+
     ## Get data.
     data <- read.table(file, sep = ",", na.strings = "?",
                        colClasses = col_types, comment.char = '%')
@@ -81,7 +101,7 @@ function(file)
     data
 }
 
-write.arff <-
+write.arff.R <-
 function(x, file, eol = "\n")
 {
     ## See write.table().
@@ -122,7 +142,7 @@ function(x, file, eol = "\n")
             x[[name]] <- squote((x[[name]]))
         } else if(inherits(x[[name]], "POSIXt")) {
             text <- paste(text, "date \"yyyy-MM-dd hh:mm:ss\"")
-            x[[name]] <- squote(format(x[[name]]))
+            x[[name]] <- squote(format(x[[name]], tz = ""))
         } else {
             text <- paste(text, "numeric")
         }
