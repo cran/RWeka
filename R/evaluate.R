@@ -11,8 +11,13 @@ function(object, newdata = NULL,
     ## For now the usual way ...
     if (is.null(newdata))
         mf <- model.frame(object)
-    else
+    else {
+        ## FIXME 
         mf <- model.frame(object, data = newdata)
+        levels <- levels(mf[[1]])
+        if (any(is.na(match(object$levels, levels))))
+            mf[[1]] <- factor(mf[[1]], levels = object$levels)
+    }
     instances  <- read_model_frame_into_Weka(mf)
     result <- list()
     ## Cost sensitive evaluation
@@ -85,7 +90,7 @@ function(object, newdata = NULL,
                       "precision", "recall", "fMeasure",
                       "areaUnderROC")))
     }
-    if (!is.null(cost))
+    if(!is.null(cost))
         result$string <-
             paste(result$string,
                   gettext("=== Cost Matrix ===\n"),
@@ -96,10 +101,10 @@ function(object, newdata = NULL,
               .jcall(evaluation, "S", "toMatrixString"),
               sep = "\n")
     result$confusionMatrix <-
-        ## Use matrix support in rJava >= 0.4-4
-        ## .jcall(evaluation,"[[D","confusionMatrix")
         t(sapply(.jcall(evaluation, "[[D", "confusionMatrix"),
                  .jevalArray))
+    if (any(dim(result$confusionMatrix) != length(object$levels)))
+        stop("cannot set dimnames on degenerate confusionMatrix")
     dimnames(result$confusionMatrix) <-
         list(object$levels, predicted = object$levels)
     class(result) <- "Weka_classifier_evaluation"
@@ -115,7 +120,9 @@ print.Weka_classifier_evaluation <- function(x, ...) {
 
 ## Internal functions
 
-read_costMatrix_into_Weka <- function(x, normalize = FALSE, ...) {
+read_costMatrix_into_Weka <-
+function(x, normalize = FALSE, ...)
+{
     ## Add number of rows and columns as header!
     file <- tempfile()
     on.exit(unlink(file))
@@ -130,5 +137,6 @@ read_costMatrix_into_Weka <- function(x, normalize = FALSE, ...) {
     x
 }
 
-is_square_matrix <- function(x, ...)
+is_square_matrix <-
+function(x, ...)
     is.matrix(x) && nrow(x) == ncol(x)

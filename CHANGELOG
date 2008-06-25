@@ -1,12 +1,85 @@
+version 0.3.12
+
+* Fix the problem that class levels may be missing in newdata
+  in evaluate_Weka_classifier. (C)
+
 version 0.3-11
 
-* We support now reading of arff files with sparse data. (C)
+* We support now reading of ARFF files with sparse data. (C)
 
 * We use now a more direct approach to exchange data with Weka.
   This should reduce processing times considerably. (C)
   
-* R logical is now mapped to Weka's enumeration type, i.e. to
+* R logical is now mapped to Weka's enumeration type, i.e., to
   {FALSE, TRUE}. (C)
+
+version 0.3-10
+
+* Improve configuration/installation. (K)
+
+version 0.3-9
+
+* Upgrade to Weka 3.5.7. (K)
+
+version 0.3-8
+
+* Add tokenizer interface. (K)
+
+version 0.3-7
+
+* Better expansion of base classifiers in meta learners. (K)
+
+* Require R >= 2.6.0. (K)
+
+version 0.3-6
+
+* Improve package startup code. (K)
+
+version 0.3-5
+
+* Improve Weka_control(), and allow for lists of control handlers. (K)
+
+version 0.3-4
+
+* Upgrade to Weka 3.5.6. (K)
+
+version 0.3-3
+
+* Minor documentation fixes. (K)
+
+version 0.3-2
+
+* Minor bug fixes. (K)
+
+version 0.3-1
+
+* Improve registration of stemmers and converters. (K)
+
+version 0.3-0
+
+* Add interfaces for stemmers and converters (loaders and savers). (K)
+
+* Use Weka technical information when printing R/Weka interfaces. (K)
+
+version 0.2-14
+
+* Upgrade to Weka 3.5.5. (K)
+
+version 0.2-13
+
+* Upgrade to Weka 3.5.4. (K)
+
+version 0.2-12
+
+* Minor code improvements. (K)
+
+version 0.2-11
+
+* Require R >= 2.4.0. (K)
+
+version 0.2-10 (K)
+
+* Adjust for recent changes in package e1071. (K)
 
 version 0.2-9
 
@@ -14,7 +87,7 @@ version 0.2-9
 
 version 0.2-6
 
-* Upgraded to Weka-3.5.3. Moved out persistence support as it 
+* Upgrade to Weka 3.5.3. Moved out persistence support as it 
   lacks support from R and others :-( (C)
 
 * Support for Weka control lists in make_class_name_expander(). (K)
@@ -33,7 +106,7 @@ version 0.2-5
 
 version 0.2-4
 
-* Upgraded to Weka-3.5.2 (K)
+* Upgrade to Weka 3.5.2. (K)
 
 * Exception and missing value fixes in RWekaInterfaces.java, 
   classifiers.R, clusterers.R. Registered DBScan. (C)
