@@ -10,10 +10,14 @@
   R interfaces to Weka regression and classification tree learners.
 }
 \usage{
-J48(formula, data, subset, na.action, control = Weka_control())
-LMT(formula, data, subset, na.action, control = Weka_control())
-M5P(formula, data, subset, na.action, control = Weka_control())
-DecisionStump(formula, data, subset, na.action, control = Weka_control())
+J48(formula, data, subset, na.action,
+    control = Weka_control(), options = NULL)
+LMT(formula, data, subset, na.action,
+    control = Weka_control(), options = NULL)
+M5P(formula, data, subset, na.action,
+    control = Weka_control(), options = NULL)
+DecisionStump(formula, data, subset, na.action,
+              control = Weka_control(), options = NULL)
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -23,9 +27,12 @@ DecisionStump(formula, data, subset, na.action, control = Weka_control())
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.}
-  \item{control}{an object of class \code{\link{Weka_control}}.
-    Available options can be obtained on-line using the Weka Option
-    Wizard \code{\link{WOW}}, or the Weka documentation.}
+  \item{control}{an object of class \code{\link{Weka_control}} giving
+    options to be passed to the Weka learner.  Available options can be
+    obtained on-line using the Weka Option Wizard \code{\link{WOW}}, or
+    the Weka documentation.}
+  \item{options}{a named list of further options, or \code{NULL}
+    (default).  See \bold{Details}.}
 }
 \value{
   A list inheriting from classes \code{Weka_tree} and
@@ -71,6 +78,13 @@ DecisionStump(formula, data, subset, na.action, control = Weka_control())
   \code{DecisionStump} implements decision stumps (trees with a single
   split only), which are frequently used as base learners for meta
   learners such as Boosting.
+
+  Argument \code{options} allows further customization.  Currently,
+  options \code{model} and \code{instances} (or partial matches for
+  these) are used: if set to \code{TRUE}, the model frame or the
+  corresponding Weka instances, respectively, are included in the fitted
+  model object, possibly speeding up subsequent computations on the
+  object.  By default, neither is included.
 }
 
 \references{

@@ -1,3 +1,7 @@
+version 0.3.13
+
+* Upgrade to Weka 3.5.8. (K)
+
 version 0.3.12
 
 * Fix the problem that class levels may be missing in newdata

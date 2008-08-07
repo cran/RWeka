@@ -9,10 +9,14 @@
   R interfaces to Weka rule learners.
 }
 \usage{
-JRip(formula, data, subset, na.action, control = Weka_control())
-M5Rules(formula, data, subset, na.action, control = Weka_control())
-OneR(formula, data, subset, na.action, control = Weka_control())
-PART(formula, data, subset, na.action, control = Weka_control())
+JRip(formula, data, subset, na.action,
+     control = Weka_control(), options = NULL)
+M5Rules(formula, data, subset, na.action,
+        control = Weka_control(), options = NULL)
+OneR(formula, data, subset, na.action,
+     control = Weka_control(), options = NULL)
+PART(formula, data, subset, na.action,
+     control = Weka_control(), options = NULL)
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -22,9 +26,12 @@ PART(formula, data, subset, na.action, control = Weka_control())
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.}
-  \item{control}{an object of class \code{\link{Weka_control}}.
-    Available options can be obtained on-line using the Weka
-    Option Wizard \code{\link{WOW}}, or the Weka documentation.}
+  \item{control}{an object of class \code{\link{Weka_control}} giving
+    options to be passed to the Weka learner.  Available options can be
+    obtained on-line using the Weka Option Wizard \code{\link{WOW}}, or
+    the Weka documentation.}
+  \item{options}{a named list of further options, or \code{NULL}
+    (default).  See \bold{Details}.}
 }
 \value{
   A list inheriting from classes \code{Weka_rules} and
@@ -57,6 +64,13 @@ PART(formula, data, subset, na.action, control = Weka_control())
 
   \code{PART} generates PART decision lists using the approach of Frank
   and Witten (1998).
+
+  Argument \code{options} allows further customization.  Currently,
+  options \code{model} and \code{instances} (or partial matches for
+  these) are used: if set to \code{TRUE}, the model frame or the
+  corresponding Weka instances, respectively, are included in the fitted
+  model object, possibly speeding up subsequent computations on the
+  object.  By default, neither is included.
 }
 \references{
   W. W. Cohen (1995).

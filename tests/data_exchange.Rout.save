@@ -1,13 +1,11 @@
 
-R version 2.7.0 Patched (2008-04-22 r45451)
+R version 2.8.0 Under development (unstable) (2008-08-02 r46213)
 Copyright (C) 2008 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -77,7 +75,7 @@ Loading required package: grid
 > 
 > # test the R parser
 > 
-> xx <- read.arff.R(f)
+> xx <- RWeka:::read.arff.R(f)
 > xx
   string enum numeric                date
 1    l 1    1     0.0 2012-12-12 12:12:12
@@ -110,7 +108,7 @@ Loading required package: grid
 > 
 > # test the R parser
 > 
-> all.equal(x, read.arff.R(f))	# TRUE
+> all.equal(x, RWeka:::read.arff.R(f))	# TRUE
 [1] TRUE
 > 
 > ## uppercase and quoting
@@ -156,9 +154,9 @@ Loading required package: grid
 > 
 > ## test the R parser and writer
 > temp <- tempfile()
-> write.arff.R(x, temp)
+> RWeka:::write.arff.R(x, temp)
 > 
-> zz <- read.arff.R(temp)
+> zz <- RWeka:::read.arff.R(temp)
 > unlink(temp)
 > zz
                 date1               date2

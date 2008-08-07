@@ -1,7 +1,9 @@
 ### Evaluate Weka fitted model objects.
 
-## fixme: we need to check if we got a fitted model because
-##        if Java throws R doesn't stop.
+## <FIXME>
+## We need to check if we got a fitted model because if Java throws R
+## does not stop.
+## </FIXME>
 
 evaluate_Weka_classifier <- 
 function(object, newdata = NULL,
@@ -31,10 +33,15 @@ function(object, newdata = NULL,
                            costMatrix)
     }
     ## evaluateModel returns fitted class values
-    if (numFolds == 0) 
+    if (numFolds == 0) {
+        ## Weka 3.5.8 has added a varargs argument:
+        ##   public double[]
+        ##   evaluateModel(Classifier classifier, Instances data,
+        ##                 java.lang.Object... forPredictionsPrinting)
         .jcall(evaluation, "[D", "evaluateModel",
                .jcast(object$classifier, "weka/classifiers/Classifier"),
-               instances)
+               instances, .jarray(list()))
+    }
     else {
         ## Cross validation
         random <- .jnew("java/util/Random")
@@ -42,7 +49,7 @@ function(object, newdata = NULL,
             .jcall(random, "V", "setSeed", .jlong(seed))
         .jcall(evaluation,"V","crossValidateModel",
                .jcast(object$classifier,"weka/classifiers/Classifier"),
-               instances, as.integer(numFolds), random)
+               instances, as.integer(numFolds), random, .jarray(list()))
         result$string <- 
             gettextf("=== %d Fold Cross Validation ===\n", numFolds)
     }
@@ -113,7 +120,9 @@ function(object, newdata = NULL,
 
 ##
 
-print.Weka_classifier_evaluation <- function(x, ...) {
+print.Weka_classifier_evaluation <-
+function(x, ...)
+{
     cat(x$string)
     invisible(x)
 }

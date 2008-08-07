@@ -35,7 +35,7 @@ all.equal(x, xx)    # TRUE
 
 # test the R parser
 
-xx <- read.arff.R(f)
+xx <- RWeka:::read.arff.R(f)
 xx
 
 all.equal(x, xx)    # TRUE
@@ -56,7 +56,7 @@ all.equal(x, xx)    # TRUE
 
 # test the R parser
 
-all.equal(x, read.arff.R(f))	# TRUE
+all.equal(x, RWeka:::read.arff.R(f))	# TRUE
 
 ## uppercase and quoting
 
@@ -91,9 +91,9 @@ all.equal(x, xx)
 
 ## test the R parser and writer
 temp <- tempfile()
-write.arff.R(x, temp)
+RWeka:::write.arff.R(x, temp)
 
-zz <- read.arff.R(temp)
+zz <- RWeka:::read.arff.R(temp)
 unlink(temp)
 zz
 
