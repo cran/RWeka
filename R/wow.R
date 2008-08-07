@@ -31,14 +31,16 @@ function(x)
     
 }
     
-print.WOW <- function(x, ...) {
+print.WOW <-
+function(x, ...)
+{
     if(length(x$Name)) {
         ## Note that we get nothing in case the Weka class has no
         ## listOptions() method.
         out <- mapply(formatDL,
                       sprintf("-%s", x$Name),
                       gsub("\t", " ", x$Description),
-                      indent = 8)
+                      indent = 8L)
         if(any(ind <- (x$Length > 0L)))
             out[ind] <- gettextf("%s\n\tNumber of arguments: %d.",
                                  out[ind], x$Length[ind])

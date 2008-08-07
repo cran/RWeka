@@ -10,11 +10,16 @@
   R interfaces to Weka meta learners.
 }
 \usage{
-AdaBoostM1(formula, data, subset, na.action, control = Weka_control())
-Bagging(formula, data, subset, na.action, control = Weka_control())
-LogitBoost(formula, data, subset, na.action, control = Weka_control())
-MultiBoostAB(formula, data, subset, na.action, control = Weka_control())
-Stacking(formula, data, subset, na.action, control = Weka_control())
+AdaBoostM1(formula, data, subset, na.action,
+           control = Weka_control(), options = NULL)
+Bagging(formula, data, subset, na.action,
+        control = Weka_control(), options = NULL)
+LogitBoost(formula, data, subset, na.action,
+           control = Weka_control(), options = NULL)
+MultiBoostAB(formula, data, subset, na.action,
+             control = Weka_control(), options = NULL)
+Stacking(formula, data, subset, na.action,
+         control = Weka_control(), options = NULL)
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -24,14 +29,16 @@ Stacking(formula, data, subset, na.action, control = Weka_control())
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.}
-  \item{control}{an object of class \code{\link{Weka_control}}.
-    Available options can be obtained on-line using the Weka
-    Option Wizard \code{\link{WOW}}, or the Weka documentation.
-    Base classifiers with an available R/Weka interface (see
-    \code{\link{list_Weka_interfaces}}), can be specified (using the
-    \option{W} option) via their \dQuote{base name} as shown
+  \item{control}{an object of class \code{\link{Weka_control}} giving
+    options to be passed to the Weka learner.  Available options can be
+    obtained on-line using the Weka Option Wizard \code{\link{WOW}}, or
+    the Weka documentation.  Base classifiers with an available R/Weka
+    interface (see \code{\link{list_Weka_interfaces}}), can be specified
+    (using the \option{W} option) via their \dQuote{base name} as shown
     in the interface registry (see the examples), or their interface
     function.}
+  \item{options}{a named list of further options, or \code{NULL}
+    (default).  See \bold{Details}.}
 }
 \value{
   A list inheriting from classes \code{Weka_meta} and
@@ -65,6 +72,13 @@ Stacking(formula, data, subset, na.action, control = Weka_control())
   \dQuote{wagging}.
 
   \code{Stacking} provides stacking (Wolpert, 1992).
+
+  Argument \code{options} allows further customization.  Currently,
+  options \code{model} and \code{instances} (or partial matches for
+  these) are used: if set to \code{TRUE}, the model frame or the
+  corresponding Weka instances, respectively, are included in the fitted
+  model object, possibly speeding up subsequent computations on the
+  object.  By default, neither is included.
 }
 \references{
   L. Breiman (1996).

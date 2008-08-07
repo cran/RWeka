@@ -141,7 +141,7 @@ function(o)
     if(is.numeric(o))
         o <- o - 1
     else if(is.character(o)
-            && (regexpr("^[[:digit:]]*$", o) > -1))
+            && (regexpr("^[[:digit:]]*$", o) > -1L))
         o <- as.numeric(o) - 1
     o
 }

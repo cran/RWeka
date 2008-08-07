@@ -62,21 +62,21 @@ function(..., list = NULL)
 }
 
 format.BibTeX_entry <-
-function(x, offset = 0, ...)
+function(x, offset = 0L, ...)
 {
     prefix <- paste(rep.int(" ", offset), collapse = "")
     fields <- x$fields
     c(sprintf("%s@%s{%s,", prefix, toupper(x$type), x$key),
       strwrap(sprintf("%s = {%s},", names(fields), fields),
-              indent = offset + 2, exdent = offset + 4),
+              indent = offset + 2L, exdent = offset + 4L),
       sprintf("%s}", prefix))
 }
 
 format.BibTeX_db <-
-function(x, offset = 0, ...)
+function(x, offset = 0L, ...)
 {
     n <- length(x)
-    if(n == 0L) return(character())
+    if(!n) return(character())
     unlist(mapply(c, rep.int(list(""), n),
                   lapply(x, format.BibTeX_entry, offset = offset)))[-1L]
 }

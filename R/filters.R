@@ -9,9 +9,6 @@
 make_Weka_filter <-
 function(name, class = NULL)
 {
-    ## <FIXME>
-    ## Do we need handlers?
-    ## </FIXME>
     classes <- c(class, "data.frame")
     kind <- "R_Weka_filter_interface"
     name <- as_JNI_name(name)
@@ -37,11 +34,11 @@ function(mf, control, name)
     ## We do not always need a response variable, e.g., for the class 
     ## of unsupervised filters.
 
-    ## <FIXME>
+    ## <NOTE>
     ## We do not check the Weka model class.  Thus, the formula may not
     ## fit the model class.  In this case Weka throws, but the rJava
     ## calls do not stop :-(
-    ## </FIXME>
+    ## </NOTE>
     
     if (attr(attr(mf, "terms"), "response") == 0)
        instances <- read_data_into_Weka(mf)

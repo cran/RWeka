@@ -31,7 +31,7 @@ function(name, class = NULL, handlers = list())
     Weka_interfaces[[Java_class_base_name(name)]] <- meta    
         
     out <- function(formula, data, subset, na.action,
-                    control = Weka_control())
+                    control = Weka_control(), options = NULL)
     {
         ## The "usual" way of creating a model frame from the call.
         mc <- match.call()
@@ -40,18 +40,23 @@ function(name, class = NULL, handlers = list())
         mf[[1L]] <- as.name("model.frame")
         mf <- eval(mf, parent.frame())
 	
-        structure(c(RWeka_build_classifier(mf, control, name, handlers),
-                    list(call = mc, terms = attr(mf, "terms"),
-                         levels = levels(mf[[1L]]))),
+        structure(c(RWeka_build_classifier(mf, control, name, handlers,
+                                           options),
+                    list(call = mc, handlers = handlers,
+                         levels = levels(mf[[1L]]),
+                         terms = attr(mf, "terms"))),
                   class = classes)
     }
     make_R_Weka_interface(out, meta)
 }
 
 RWeka_build_classifier <-
-function(mf, control, name, handlers)
+function(mf, control, name, handlers, options)
 {
+    mf <- .compose_and_funcall(handlers$data, mf)
     instances <- read_model_frame_into_Weka(mf)
+
+    options <- .expand_Weka_classifier_options(options)
 
     ## Build the classifier.
     classifier <- .jnew(name)
@@ -66,10 +71,30 @@ function(mf, control, name, handlers)
     if(!is.null(levels <- levels(mf[[1L]])))
         predictions <- factor(levels[predictions + 1L], levels = levels)
     
-    list(classifier = classifier, predictions = predictions)
+    out <- list(classifier = classifier, predictions = predictions)
+    if(identical(options$model, TRUE))
+        out$model <- mf
+    if(identical(options$instances, TRUE))
+        out$instances <- instances
+
+    out
 }
 
-print.Weka_classifier <- function(x, ...) {
+.expand_Weka_classifier_options <-
+function(x)
+{
+    x <- as.list(x)
+    ## List of currently supported options with defaults.
+    out <- list(model = FALSE, instances = FALSE)
+    ## Now match.
+    pos <- charmatch(names(x), names(out), nomatch = 0L)
+    out[pos] <- x[pos != 0L]
+    out
+}
+
+print.Weka_classifier <-
+function(x, ...)
+{
     writeLines(.jcall(x$classifier, "S", "toString"))
     invisible(x)
 }
@@ -129,30 +154,47 @@ function(object, newdata = NULL, type = c("class", "probability"), ...)
 
     if(type == "probability" && is.null(object$levels))
         stop("Can only compute class probabilities for classification problems.")
-
+    instances <- NULL
     if(is.null(newdata)) {
         ## Currently only the class predictions for the training data
         ## are stored:
         if(type == "class") return(object$predictions)
-        ## but not the probabilities.  Hence, we need to try something
-        ## fancy:
-	else newdata <-
-            eval(object$call$data, environment(formula(object)))
+        ## but not the probabilities.  Hence, check whether instances or
+        ## the model frame are already known, or try something fancy.
+	else {
+            instances <- object$instances
+            if(is.null(instances)) {
+                if(!is.null(mf <- object$model))
+                    instances <- read_model_frame_into_Weka(mf)
+                else
+                    newdata <-
+                        eval(object$call$data,
+                             environment(formula(object)))
+            }
+        }
     }
+        
+    if(is.null(instances)) {
+        mf <- model.frame(delete.response(terms(object)), newdata,
+                          na.action = object$call$na.action)
 
-    mf <- model.frame(delete.response(terms(object)), newdata,
-                      na.action = object$call$na.action)
+        ## Seems that Weka always needs to have a "class" with its
+        ## instances, and even know a factor by its levels ...
+        classes <- if(!is.null(object$levels))
+            factor(NA, levels = object$levels)
+        else {
+            ## Use anything *numeric* (could also use NaN or 0).  Just
+            ## 'NA' (logical by default) does not always work, as
+            ## spotted by Fernando Cela Diaz <fcela@sloan.mit.edu> for
+            ## learner weka/classifiers/functions/MultilayerPerceptron.
+            NA_real_
+        }
+        mf <- cbind(CLASS = classes, mf)
 
-    ## Seems that Weka always needs to have a "class" with its
-    ## instances, and even know a factor by its levels ...
-    classes <- if(!is.null(object$levels))
-        factor(NA, levels = object$levels)
-    else
-        NA
-    mf <- cbind(CLASS = classes, mf)
-
-    ## Get new instances into Weka.
-    instances <- read_model_frame_into_Weka(mf)
+        ## Get new instances into Weka.
+        mf <- .compose_and_funcall(object$handlers$data, mf)
+        instances <- read_model_frame_into_Weka(mf)
+    }
 
     switch(type,
            "class" = {
@@ -167,8 +209,10 @@ function(object, newdata = NULL, type = c("class", "probability"), ...)
            "probability" = {
                ## Get predictions from Weka.
                out <- .distribution_for_instances(object$classifier,
-                                                  instances)    
-               dimnames(out) <- list(rownames(mf), object$levels)    
+                                                  instances)
+               ## No Weka_instances class and dimnames method for now.
+               rnms <- attr(instances, ".dimnames")[[1L]]
+               dimnames(out) <- list(rnms, object$levels)    
            })
     
     out
@@ -180,3 +224,16 @@ function (object, ...)
     predict(object, ...)
 }
 
+model.frame.Weka_classifier <-
+function(formula, ...)
+{
+    if(!is.null(mf <- formula$model)) return(mf)
+    mf <- formula$call
+    mf <- mf[c(1L, match(c("formula", "data", "subset", "na.action"),
+                         names(mf), 0L))]
+    mf$drop.unused.levels <- TRUE
+    mf[[1L]] <- as.name("model.frame")
+    if(is.null(env <- environment(formula$terms)))
+        env <- parent.frame()
+    .compose_and_funcall(formula$handlers$data, eval(mf, env))
+}

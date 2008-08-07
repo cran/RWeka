@@ -36,9 +36,10 @@ function(mf)
 write.arff <-
 function(x, file, eol = "\n")
 {
-    ## NOTE we could also write from Weka. However, in
-    ##      case of a connection we would have to write
-    ##      to a temporary file and then copy back.
+    ## <NOTE>
+    ## We could also write from Weka.  However, in case of a connection
+    ## we would have to write to a temporary file and then copy back.
+    ## </NOTE>
     if (file == "")
         file <- stdout()
     if(is.character(file)) {
@@ -61,6 +62,14 @@ function(x, file, eol = "\n")
     writeLines(text, file, sep = eol)
 }
 
+## <NOTE>
+## Ideally, we would have a common R/Weka data frame object which can be
+## used bidirectionally, and only converts from R data frame to Weka
+## instances and vice versa when needed to optimize performance (e.g.,
+## when repeatedly using Weka filters).  Currently, this is not really
+## possible.
+## </NOTE>
+
 read_instances_from_Weka <-
 function(x)
 {
@@ -68,7 +77,7 @@ function(x)
 
     ## Get attribute information
     out <- vector("list", .jcall(x, "I", "numAttributes"))
-    for (i in seq_len(length(out))) {
+    for (i in seq_along(out)) {
         ## In Weka missing values are coded as NaN and the cast 
         ## to double should ensure this for all attribute types.
         out[[i]] <- .jcall(x, "[D", "attributeToDoubleArray",
@@ -138,16 +147,23 @@ function(x)
 }
 
 read_data_into_Weka <-
-function(x, classIndex = 0) {
-    ## See the Weka 3-5-7 source code for this insanity
-    ## (e.g. string). Note that the class index, if any,
-    ## must be set as an attribute.
+function(x, classIndex = 0L)
+{
+    ## See the Weka 3-5-7 source code for this insanity (e.g., string).
+    ## Note that the class index, if any, must be set as an attribute.
+
+    ## As Weka instance objects do not have case/row names, we store
+    ## such information in the R container for the Weka instances.  For
+    ## simplicity, we store the dimnames including the (variable) names
+    ## also contained in the Weka instances.
+    dx <- dim(x)
+    dnx <- dimnames(x)
 
     ## Build attribute information
     attname <- names(x)
     attinfo <- .jnew("weka/core/FastVector", 
                      as.integer(length(x)))
-    for (i in seq_len(length(x))) {
+    for (i in seq_along(x)) {
         ## Make logicals into Weka nominals.
         if (is.logical(x[[i]]))
             x[[i]] <- factor(x[[i]])
@@ -200,7 +216,7 @@ function(x, classIndex = 0) {
                        as.integer(n))   # capacity
     
     ## Set class index.
-    if (classIndex)
+    if (classIndex > 0L)
        .jcall(instances, "V", "setClassIndex",
               as.integer(classIndex - 1L))
 
@@ -209,8 +225,62 @@ function(x, classIndex = 0) {
     x[is.na(x)] <- NaN                  # Weka missing value.
     .jcall("RWekaInterfaces", "V", "addInstances",
            instances, .jarray(x), as.integer(n))
-    
-    instances
+
+    ## Note that using dim and dimnames attributes would result in a
+    ## matrix, which seems a bad idea.
+    structure(instances, .dim = dx, .dimnames = dnx)
 }
 
-###
+## <NOTE>
+## Ideally we would like to add an S3 class to Weka instance objects
+## (i.e., jobjRefs to weka.core.Instances objects), but this does not
+## work seemlessly (yet?).  E.g., when doing
+##   structure(instances,
+##             class = unique(c("Weka_instances", class(instances))))
+## a subsequent
+##   .jcast(instances, "weka/core/Instances")
+## will fail with
+##   Error in getClass(cl) : 
+##   c("\"Weka_instances\" is not a defined class", "\"jobjRef\" is not a defined class")
+##  Calls: example ... .jcast -> @<- -> slot<- -> checkSlotAssignment -> getClass
+## Not clear if this should work or not, and note that of course things
+## would work along the lines of
+##   .jcast(structure(instances, class = "jobjRef"),
+##          "weka/core/Instances")
+## Alternatively, we could have a container class
+##   structure(.Data = instances, .Meta = list(......),
+##             class = "Weka_instances")
+## and directly extract the data "slot" in package computations ...
+##
+## If we start exposing Weka instances to some extent (e.g., optionally
+## in a fitted classifier) then something classed would be good.  We
+## could then provide methods like the following:
+dim.Weka_instances <-
+function(x)
+    attr(x, ".dim")
+dimnames.Weka_instances <-
+function(x)
+    attr(x, ".dimnames")
+print.Weka_instances <-
+function(x, ...)
+{
+    writeLines(.jcall(x, "S", "toString"))
+    invisible(x)
+}
+summary.Weka_instances <-
+function(x, ...)
+{
+    writeLines(.jcall(x, "S", "toSummaryString"))
+}
+## (Not perfect because this returns nothing useful.  We could of course
+## parse the toSummaryString() results ...)
+as.data.frame.Weka_instances <-
+function(x, row.names = NULL, ...)
+{
+    if(is.null(row.names))
+        row.names <- attr(x, ".dimnames")[[1L]]
+    structure(read_instances_from_Weka(x), row.names = row.names)
+}
+## and so on ...
+    
+

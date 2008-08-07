@@ -7,8 +7,10 @@
   R interfaces to Weka lazy learners.
 }
 \usage{
-IBk(formula, data, subset, na.action, control = Weka_control())
-LBR(formula, data, subset, na.action, control = Weka_control())
+IBk(formula, data, subset, na.action,
+    control = Weka_control(), options = NULL)
+LBR(formula, data, subset, na.action,
+    control = Weka_control(), options = NULL)
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -18,9 +20,12 @@ LBR(formula, data, subset, na.action, control = Weka_control())
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
     the data contain \code{NA}s.}
-  \item{control}{an object of class \code{\link{Weka_control}}.
-    Available options can be obtained on-line using the Weka
-    Option Wizard \code{\link{WOW}}, or the Weka documentation.}
+  \item{control}{an object of class \code{\link{Weka_control}} giving
+    options to be passed to the Weka learner.  Available options can be
+    obtained on-line using the Weka Option Wizard \code{\link{WOW}}, or
+    the Weka documentation.}
+  \item{options}{a named list of further options, or \code{NULL}
+    (default).  See \bold{Details}.}
 }
 \value{
   A list inheriting from classes \code{Weka_lazy} and
@@ -46,6 +51,13 @@ LBR(formula, data, subset, na.action, control = Weka_control())
   \code{LBR} (\dQuote{Lazy Bayesian Rules}) implements a lazy learning
   approach to lessening the attribute-independence assumption of naive
   Bayes as suggested by Zheng \& Webb (2000).
+
+  Argument \code{options} allows further customization.  Currently,
+  options \code{model} and \code{instances} (or partial matches for
+  these) are used: if set to \code{TRUE}, the model frame or the
+  corresponding Weka instances, respectively, are included in the fitted
+  model object, possibly speeding up subsequent computations on the
+  object.  By default, neither is included.
 }
 \references{
   D. Aha and D. Kibler (1991).

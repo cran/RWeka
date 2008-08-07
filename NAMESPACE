@@ -11,8 +11,8 @@ import("utils")
 ## importFrom("rJava", ".jarray", ".jcall", ".jcast", ".jevalArray",
 ##            ".jinit", ".jnew")
 
-export("read.arff", "read.arff.R",
-       "write.arff", "write.arff.R",
+export("read.arff", # "read.arff.R",
+       "write.arff", # "write.arff.R",
        ## Associators
        "make_Weka_associator",
        "Apriori", "Tertius",
@@ -44,6 +44,7 @@ export("read.arff", "read.arff.R",
 
 S3method("fitted", "Weka_classifier")
 S3method("fitted", "Weka_clusterer")
+S3method("model.frame", "Weka_classifier")
 S3method("plot", "Weka_tree")
 S3method("predict", "Weka_classifier")
 S3method("predict", "Weka_clusterer")
