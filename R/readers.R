@@ -4,7 +4,7 @@ function(file)
     ## Copy the data from a connection to a temporary file.
     if (!is.character(file)) {
         if (!inherits(file, "connection"))
-            stop("'file' must be a character string or connection")
+            stop("Argument 'file' must be a character string or connection.")
         if (!isOpen(file, "r")) {
             open(file, "r")
             on.exit(close(file))

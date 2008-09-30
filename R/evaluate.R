@@ -14,11 +14,10 @@ function(object, newdata = NULL,
     if (is.null(newdata))
         mf <- model.frame(object)
     else {
-        ## FIXME 
         mf <- model.frame(object, data = newdata)
-        levels <- levels(mf[[1]])
+        levels <- levels(mf[[1L]])
         if (any(is.na(match(object$levels, levels))))
-            mf[[1]] <- factor(mf[[1]], levels = object$levels)
+            mf[[1L]] <- factor(mf[[1L]], levels = object$levels)
     }
     instances  <- read_model_frame_into_Weka(mf)
     result <- list()
@@ -111,7 +110,7 @@ function(object, newdata = NULL,
         t(sapply(.jcall(evaluation, "[[D", "confusionMatrix"),
                  .jevalArray))
     if (any(dim(result$confusionMatrix) != length(object$levels)))
-        stop("cannot set dimnames on degenerate confusionMatrix")
+        stop("Cannot set dimnames on degenerate confusion matrix.")
     dimnames(result$confusionMatrix) <-
         list(object$levels, predicted = object$levels)
     class(result) <- "Weka_classifier_evaluation"
