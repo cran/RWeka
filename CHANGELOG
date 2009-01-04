@@ -1,3 +1,13 @@
+version 0.3-15
+
+* Upgrade to Weka 3.6.0. (K)
+
+version 0.3-14
+
+* Fix bug in model.frame.Weka_classifier(). (K)
+
+* Standardize/update message catalogs. (K)
+
 version 0.3-13
 
 * Upgrade to Weka 3.5.8. (K)
