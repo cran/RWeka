@@ -28,7 +28,11 @@ function(name, class = NULL, handlers = list())
     kind <- "R_Weka_classifier_interface"
     name <- as_JNI_name(name)
     meta <- make_R_Weka_interface_metadata(name, kind, classes)
-    Weka_interfaces[[Java_class_base_name(name)]] <- meta    
+    Weka_interfaces[[Java_class_base_name(name)]] <- meta
+
+    ## Provide a default data handler.
+    if(is.na(match("data", names(handlers))))
+        handlers$data <- .default_data_handler_for_classifiers
         
     out <- function(formula, data, subset, na.action,
                     control = Weka_control(), options = NULL)
@@ -177,6 +181,7 @@ function(object, newdata = NULL, type = c("class", "probability"), ...)
     if(is.null(instances)) {
         mf <- model.frame(delete.response(terms(object)), newdata,
                           na.action = object$call$na.action)
+        mf <- .compose_and_funcall(object$handlers$data, mf)        
 
         ## Seems that Weka always needs to have a "class" with its
         ## instances, and even know a factor by its levels ...
@@ -192,7 +197,6 @@ function(object, newdata = NULL, type = c("class", "probability"), ...)
         mf <- cbind(CLASS = classes, mf)
 
         ## Get new instances into Weka.
-        mf <- .compose_and_funcall(object$handlers$data, mf)
         instances <- read_model_frame_into_Weka(mf)
     }
 
@@ -240,4 +244,23 @@ function(formula, ...)
     if(is.null(env <- environment(formula$terms)))
         env <- parent.frame()
     .compose_and_funcall(formula$handlers$data, eval(mf, env))
+}
+
+.default_data_handler_for_classifiers <-
+function(mf)
+{
+    ## A default data handler for classifiers which rejects interaction
+    ## terms and drops unused variables, so that e.g.
+    ##   J48(Species ~ . - - Petal.Width, data = iris)
+    ## works "as expected".
+    ## Issue raised by David Gleich <dgleich@stanford.edu>.
+    
+    terms <- attr(mf, "terms")
+    ## No interactions.
+    if(any(attr(terms, "order") > 1L))
+        stop("Interactions are not allowed.")
+    factors <- attr(terms, "factors")
+    varnms <- rownames(factors)[c(TRUE, rowSums(factors)[-1L] > 0)]
+    ## Remove backticks from non-syntactic names.
+    mf[, sub("^`(.*)`$", "\\1", varnms)]
 }
