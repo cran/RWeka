@@ -73,6 +73,9 @@ Stacking(formula, data, subset, na.action,
 
   \code{Stacking} provides stacking (Wolpert, 1992).
 
+  The model formulae should only use the \samp{+} and \samp{-} operators
+  to indicate the variables to be included or not used, respectively.
+
   Argument \code{options} allows further customization.  Currently,
   options \code{model} and \code{instances} (or partial matches for
   these) are used: if set to \code{TRUE}, the model frame or the

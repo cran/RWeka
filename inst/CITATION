@@ -4,7 +4,7 @@ citHeader("When using RWeka in publications, please cite both the RWeka interfac
 if(!exists("meta") || is.null(meta)) meta <- packageDescription("RWeka")
 
 year <- sub("-.*", "", meta$Date)
-note <- sprintf("R package version %s", meta$Version)
+note <- sprintf("R package version %s.", meta$Version)
 
 citEntry(entry = "Manual",
          title = "RWeka: An R Interface to Weka",
@@ -14,14 +14,14 @@ citEntry(entry = "Manual",
 			     as.person("Christian Buchta")),
          year         = year,
          note         = note,
-	 url          = "http://CRAN.R-project.org/",
+	 url          = "http://CRAN.R-project.org/package=RWeka",
 	 
          textVersion = 
          paste("Kurt Hornik, Achim Zeileis, Torsten Hothorn and Christian Buchta",
                sprintf("(%s).", year),
                "RWeka: An R Interface to Weka.",
-	       paste(note, ".", sep = ""),
-	       "URL http://CRAN.R-project.org/"),
+	       note,
+	       "URL http://CRAN.R-project.org/package=RWeka"),
 	 header = "To cite RWeka, the R interface to Weka, please use:"
 )
 

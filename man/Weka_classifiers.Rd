@@ -15,7 +15,9 @@
   \code{data}, \code{subset}, \code{na.action}, and \code{control}
   (default: none), where the first four have the \dQuote{usual} meanings
   for statistical modeling functions in R, and the last again specifies
-  the control options to be employed by the Weka learner.
+  the control options to be employed by the Weka learner.  By default,
+  the model formulae should only use the \samp{+} and \samp{-} operators
+  to indicate the variables to be included or not used, respectively.
 
   Objects created by these interfaces always inherit from class
   \code{Weka_classifier}, and have at least suitable \code{print},

@@ -59,8 +59,8 @@ SMO(formula, data, subset, na.action,
   RBF kernels.  Multi-class problems are solved using pairwise
   classification.  
 
-  The model formulae should only use \samp{+} to indicate the variables
-  to be included.
+  The model formulae should only use the \samp{+} and \samp{-} operators
+  to indicate the variables to be included or not used, respectively.
 
   Argument \code{options} allows further customization.  Currently,
   options \code{model} and \code{instances} (or partial matches for

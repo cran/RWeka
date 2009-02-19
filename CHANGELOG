@@ -1,3 +1,7 @@
+version 0.3-16
+
+* Add default formula/data handler for classifiers. (K)
+
 version 0.3-15
 
 * Upgrade to Weka 3.6.0. (K)
