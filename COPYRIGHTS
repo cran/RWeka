@@ -1,12 +1,7 @@
-COPYRIGHT STATUS
-----------------
+The source code in this package is
 
-The R code in this package is
+  Copyright (C) 2006 Kurt Hornik, Achim Zeileis, Torsten Hothorn,
+                     Christian Buchta
 
-  Copyright (C) 2006 Kurt Hornik, Achim Zeileis, Torsten Hothorn, Christian Buchta
-
-The copyright for the Weka code is
-
-  Copyright (C) 1998-2005 University of Waikato
-  
-All code is subject to the GNU General Public License, Version 2.
+The copyright for Weka belongs to its original authors, see the Weka
+sources for details.

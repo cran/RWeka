@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.3.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2008-08-27 08:16\n"
+"POT-Creation-Date: 2009-02-24 11:53\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,9 @@ msgid "Associator cannot set control options."
 msgstr ""
 
 msgid "Can only compute class probabilities for classification problems."
+msgstr ""
+
+msgid "Interactions are not allowed."
 msgstr ""
 
 msgid "Clusterer cannot set control options."
