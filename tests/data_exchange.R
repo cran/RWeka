@@ -14,7 +14,7 @@ x <- data.frame(R = runif(10),
 x
 
 jx <- RWeka:::read_data_into_Weka(x, length(x))
-.jcall(jx, "I", "classIndex")
+rJava::.jcall(jx, "I", "classIndex")
 
 xj <- RWeka:::read_instances_from_Weka(jx)
 all.equal(x, xj)    # TRUE

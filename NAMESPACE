@@ -5,14 +5,18 @@ importFrom("graphics", "plot")
 ##   importFrom("utils", "read.table", "write.table")
 ## Let's just import utils to keep things simple.
 import("utils")
-## rJava now has a namespace, but we get errors like
+## When using rJava without attaching the package we used to get errors
+## like
 ##   "jarrayRef" is not a defined class
-## when using it without attaching the package ...
-## importFrom("rJava", ".jarray", ".jcall", ".jcast", ".jevalArray",
-##            ".jinit", ".jnew")
+## but apparently things improved ...
+importFrom("rJava", ".jarray", ".jcall", ".jcast", ".jevalArray",
+           ".jfindClass", ".jinit", ".jlong", ".jnew", ".jnull")
+## Only needed for plotting Weka_tree objects, which requires party
+## which in turn depends on (hence attaches) grid, but in any case ...
+import("grid")
 
-export("read.arff", # "read.arff.R",
-       "write.arff", # "write.arff.R",
+export("read.arff",                     # "read.arff.R",
+       "write.arff",                    # "write.arff.R",
        ## Associators
        "make_Weka_associator",
        "Apriori", "Tertius",

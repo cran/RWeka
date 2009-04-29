@@ -1,3 +1,7 @@
+version 0.3-17
+
+* Import rJava but do not attach it. (K)
+
 version 0.3-16
 
 * Add default formula/data handler for classifiers. (K)

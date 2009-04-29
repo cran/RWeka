@@ -21,7 +21,7 @@ citEntry(entry = "Manual",
                sprintf("(%s).", year),
                "RWeka: An R Interface to Weka.",
 	       note,
-	       "URL http://CRAN.R-project.org/package=RWeka"),
+	       "URL http://CRAN.R-project.org/package=RWeka."),
 	 header = "To cite RWeka, the R interface to Weka, please use:"
 )
 
