@@ -19,9 +19,11 @@ function(name)
 
     out <- function(x, control = NULL) {
         tokenizer <- .jnew(name)
+        x <- Filter(nzchar, as.character(x))
+        if(!length(x)) return(character())
         .jcall("weka/core/tokenizers/Tokenizer", "[S", "tokenize",
                .jcast(tokenizer, "weka/core/tokenizers/Tokenizer"),
-               .jarray(c(as.character(control), as.character(x))))
+               .jarray(c(as.character(control), x)))
     }
 
     make_R_Weka_interface(out, meta)

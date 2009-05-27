@@ -67,7 +67,7 @@ LBR(formula, data, subset, na.action,
   Instance-based learning algorithms.
   \emph{Machine Learning}, \bold{6}, 37--66.
   
-  Z. Zheng & G. Webb, (2000).
+  Z. Zheng and G. Webb (2000).
   Lazy learning of Bayesian rules.
   \emph{Machine Learning}, \bold{41}/1, 53--84.
 }

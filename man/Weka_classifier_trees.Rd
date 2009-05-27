@@ -97,7 +97,7 @@ DecisionStump(formula, data, subset, na.action,
   Freiburg, Germany.
   \url{http://www.informatik.uni-freiburg.de/~ml/thesis_landwehr2003.html}
 
-  N. Landwehr, M. Hall and E. Frank (2005).
+  N. Landwehr, M. Hall, and E. Frank (2005).
   Logistic Model Trees.
   \emph{Machine Learning}, \bold{59}, 161--205.
   

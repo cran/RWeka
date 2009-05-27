@@ -1,27 +1,22 @@
 citHeader("When using RWeka in publications, please cite both the RWeka interface and Weka itself:")
 
-## R >= 2.8.0 passes package metadata to citation().
-if(!exists("meta") || is.null(meta)) meta <- packageDescription("RWeka")
-
-year <- sub("-.*", "", meta$Date)
-note <- sprintf("R package version %s.", meta$Version)
-
-citEntry(entry = "Manual",
-         title = "RWeka: An R Interface to Weka",
+citEntry(entry = "Article",
+         title = "Open-Source Machine Learning: {R} Meets {Weka}",
          author = personList(as.person("Kurt Hornik"), 
-                             as.person("Achim Zeileis"),
-			     as.person("Torsten Hothorn"),
-			     as.person("Christian Buchta")),
-         year         = year,
-         note         = note,
-	 url          = "http://CRAN.R-project.org/package=RWeka",
+			     as.person("Christian Buchta"),
+                             as.person("Achim Zeileis")),
+         journal      = "Computational Statistics",
+         year         = "2009",
+	 volume       = "24",
+	 number       = "2",
+	 pages        = "225--232",
+	 doi          = "10.1007/s00180-008-0119-7",
 	 
          textVersion = 
-         paste("Kurt Hornik, Achim Zeileis, Torsten Hothorn and Christian Buchta",
-               sprintf("(%s).", year),
-               "RWeka: An R Interface to Weka.",
-	       note,
-	       "URL http://CRAN.R-project.org/package=RWeka."),
+         paste("Kurt Hornik, Christian Buchta, Achim Zeileis (2009)",
+               "Open-Source Machine Learning: R Meets Weka.",
+	       "Computational Statistics, 24(2), 225-232.",
+	       "doi:10.1007/s00180-008-0119-7"),
 	 header = "To cite RWeka, the R interface to Weka, please use:"
 )
 

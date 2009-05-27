@@ -76,6 +76,11 @@ list_Weka_interfaces()
   It is straightforward to register new interfaces in addition to the
   ones package \pkg{RWeka} provides by default.
 }
+\references{
+  K. Hornik, C. Buchta, and A. Zeileis (2009).
+  Open-source machine learning: R meets Weka.
+  \emph{Computational Statistics}, \bold{24}/2, 225--232,
+}
 \examples{
 ## Create an interface to Weka's Naive Bayes classifier.
 NB <- make_Weka_classifier("weka/classifiers/bayes/NaiveBayes")
