@@ -17,7 +17,7 @@ write.arff(x, file, eol = "\n")
 }
 \references{
   Attribute-Relation File Format
-  \url{http://www.cs.waikato.ac.nz/~ml/weka/arff.html}
+  \url{http://weka.wiki.sourceforge.net/ARFF}
 }  
 \seealso{
   \code{\link{read.arff}}

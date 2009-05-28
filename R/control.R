@@ -78,6 +78,9 @@ function(options, fun, ...)
     ## arbitrary R objects.
 
     ## This is not intended to validate the given control options.
+
+    ## Force promises:
+    options; fun
     
     function(x) {
         if(inherits(x, "Weka_control")) {
@@ -100,10 +103,12 @@ function(options, fun, ...)
 }
 
 .control_handlers <-
-function(...)
+function(olist, flist)
 {
     ## A little utility to enhance code legibility.
-    x <- list(...)
-    list(control = mapply(make_Weka_control_handler, names(x), x))
+    if(!is.list(olist)) olist <- list(olist)
+    if(!is.list(flist)) flist <- list(flist)
+    if((len <- length(olist)) != length(flist))
+        stop("Argument lengths differ.")
+    list(control = Map(make_Weka_control_handler, olist, flist))
 }
-         

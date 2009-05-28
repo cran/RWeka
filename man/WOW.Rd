@@ -19,6 +19,11 @@ WOW(x)
   See \code{\link{list_Weka_interfaces}} for the available interface
   functions.
 }
+\references{
+  K. Hornik, C. Buchta, and A. Zeileis (2009).
+  Open-source machine learning: R meets Weka.
+  \emph{Computational Statistics}, \bold{24}/2, 225--232,
+}
 \examples{
 ## The name of an "existing" (registered) interface.
 WOW("J48")

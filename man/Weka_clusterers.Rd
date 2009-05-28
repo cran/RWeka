@@ -69,7 +69,7 @@ DBScan(x, control = NULL)
   Knowledge acquisition via incremental conceptual clustering.
   \emph{Machine Learning}, \bold{2}/2, 139--172.
 
-  J. Gennari, P. Langley and D. H. Fisher (1989).
+  J. Gennari, P. Langley, and D. H. Fisher (1989).
   Models of incremental concept formation.
   \emph{Artificial Intelligence}, \bold{40}, 11--62.
   

@@ -41,7 +41,7 @@ Logistic <-
 SMO <-
     make_Weka_classifier("weka/classifiers/functions/SMO",
                          c("SMO", "Weka_functions"),
-                         .control_handlers("-K" = .expand_kernel_class_name))
+                         .control_handlers("-K", .expand_kernel_class_name))
 
 ### ** Lazy
 IBk <- make_Weka_classifier("weka/classifiers/lazy/IBk",
@@ -90,7 +90,7 @@ function(e)
         get_Java_class(e)
 }
 .Weka_meta_classifier_handlers <-
-    .control_handlers("-W" = .expand_base_learner_spec)
+    .control_handlers("-W", .expand_base_learner_spec)
 AdaBoostM1 <-
     make_Weka_classifier("weka/classifiers/meta/AdaBoostM1",
                          c("AdaBoostM1", "Weka_meta"),
@@ -110,8 +110,25 @@ MultiBoostAB <-
 Stacking <-
     make_Weka_classifier("weka/classifiers/meta/Stacking",
                          c("Stacking", "Weka_meta"),
-                         .control_handlers("-B" = .expand_class_name,
-                                           "-M" = .expand_class_name))
+                         .control_handlers(c("-B", "-M"),
+                                           .expand_class_name))
+
+.matrix_to_Matlab_text <-
+function(M) 
+{
+   if (is.character(M))
+       M
+   else
+       sprintf("[%s]",
+               paste(apply(as.matrix(M), 1, paste, collapse = " "),
+                     collapse = ";"))
+}
+CostSensitiveClassifier <- 
+    make_Weka_classifier("weka/classifiers/meta/CostSensitiveClassifier", 
+                         c("CostSensitiveClassifier", "Weka_meta"),
+                         .control_handlers(list("-cost-matrix", "-W"),
+                                           list(.matrix_to_Matlab_text,
+                                                .expand_base_learner_spec)))
 
 ### * Clusterers
 
@@ -146,7 +163,7 @@ function(o)
     o
 }
 .Weka_file_saver_handlers <-
-    .control_handlers("-c" = .decrement_number_by_one)
+    .control_handlers("-c", .decrement_number_by_one)
 C45Saver <- make_Weka_file_saver("weka/core/converters/C45Saver",
                                  .Weka_file_saver_handlers)
 XRFFSaver <- make_Weka_file_saver("weka/core/converters/XRFFSaver",

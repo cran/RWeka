@@ -5,6 +5,7 @@
 \alias{LogitBoost}
 \alias{MultiBoostAB}
 \alias{Stacking}
+\alias{CostSensitiveClassifier}
 \title{R/Weka Meta Learners}
 \description{
   R interfaces to Weka meta learners.
@@ -20,6 +21,8 @@ MultiBoostAB(formula, data, subset, na.action,
              control = Weka_control(), options = NULL)
 Stacking(formula, data, subset, na.action,
          control = Weka_control(), options = NULL)
+CostSensitiveClassifier(formula, data, subset, na.action,
+                        control = Weka_control(), options = NULL)
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -72,6 +75,9 @@ Stacking(formula, data, subset, na.action,
   \dQuote{wagging}.
 
   \code{Stacking} provides stacking (Wolpert, 1992).
+
+  \code{CostSensitiveClassifier} makes its base classifier
+  cost-sensitive.
 
   The model formulae should only use the \samp{+} and \samp{-} operators
   to indicate the variables to be included or not used, respectively.

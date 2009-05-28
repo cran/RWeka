@@ -1,3 +1,7 @@
+version 0.3-18
+
+* Bug fixes for tokenizers and control handlers. (K)
+
 version 0.3-17
 
 * Import rJava but do not attach it. (K)
