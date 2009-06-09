@@ -131,17 +131,20 @@ function(x, ...)
 read_costMatrix_into_Weka <-
 function(x, normalize = FALSE, ...)
 {
-    ## Add number of rows and columns as header!
     file <- tempfile()
     on.exit(unlink(file))
-    write.table(rbind(dim(x),x), file, row.names = FALSE, 
-                                       col.names = FALSE)
-    ##
+
+    ## Add number of rows and columns as header.
+    cat(dim(x), "\n", file = file)
+    write.table(x, file, append = TRUE,
+                row.names = FALSE, col.names = FALSE)
+
     reader <- .jnew("java/io/FileReader", file)
     x <- .jnew("weka/classifiers/CostMatrix",
                .jcast(reader, "java/io/Reader"))
     if (normalize)
        .jcall(x, "V", "normalize")
+
     x
 }
 

@@ -10,7 +10,8 @@ import("utils")
 ##   "jarrayRef" is not a defined class
 ## but apparently things improved ...
 importFrom("rJava", ".jarray", ".jcall", ".jcast", ".jevalArray",
-           ".jfindClass", ".jinit", ".jlong", ".jnew", ".jnull")
+           ".jfindClass", ".jinit", ".jlong", ".jnew", ".jnull",
+           ".jpackage")
 ## Only needed for plotting Weka_tree objects, which requires party
 ## which in turn depends on (hence attaches) grid, but in any case ...
 import("grid")
