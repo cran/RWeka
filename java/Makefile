@@ -20,16 +20,16 @@ JAR = jar
 ##   $(JAVAC) -target 1.5 -source 1.5
 ## for compilation.
 .java.class:
-	$(JAVAC) -target 1.5 -source 1.5 -cp ../inst/jar/weka.jar $<
+	$(JAVAC) -target 1.5 -source 1.5 -cp ../inst/java/weka.jar $<
 ## </NOTE>
 
 all: $(JARS)
 
 RWeka.jar: $(OBJECTS)
 	$(JAR) cvf $@ $(OBJECTS)
-$(OBJECTS): ../inst/jar/weka.jar
+$(OBJECTS): ../inst/java/weka.jar
 
 install: all
-	@mv $(JARS) ../inst/jar
+	@mv $(JARS) ../inst/java
 clean:
 	-@rm -f $(OBJECTS) $(JARS)

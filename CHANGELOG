@@ -1,3 +1,9 @@
+version 0.3-19
+
+* Upgrade to Weka 3.6.0. (K)
+
+* Move to .jpackage() initialization. (K)
+
 version 0.3-18
 
 * Bug fixes for tokenizers and control handlers. (K)
