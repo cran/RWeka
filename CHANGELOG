@@ -1,6 +1,10 @@
+version 0.3-20
+
+* Bug fixes for classifier model frame handling. (K)
+
 version 0.3-19
 
-* Upgrade to Weka 3.6.0. (K)
+* Upgrade to Weka 3.6.1. (K)
 
 * Move to .jpackage() initialization. (K)
 
