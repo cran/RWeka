@@ -2,16 +2,16 @@ read.arff <-
 function(file)
 {
     ## Copy the data from a connection to a temporary file.
-    if (!is.character(file)) {
-        if (!inherits(file, "connection"))
+    if(!is.character(file)) {
+        if(!inherits(file, "connection"))
             stop("Argument 'file' must be a character string or connection.")
-        if (!isOpen(file, "r")) {
+        if(!isOpen(file, "r")) {
             open(file, "r")
             on.exit(close(file))
         }
         rf <- file
         file <- tempfile()
-        on.exit(unlink(file))
+        on.exit(unlink(file), add = TRUE)
         wf <- file(file, "w")
         writeLines(readLines(rf), wf)
         close(wf)
@@ -40,20 +40,20 @@ function(x, file, eol = "\n")
     ## We could also write from Weka.  However, in case of a connection
     ## we would have to write to a temporary file and then copy back.
     ## </NOTE>
-    if (file == "")
+    if(file == "")
         file <- stdout()
-    if(is.character(file)) {
+    else if(is.character(file)) {
         file <- file(file, 'w')
         on.exit(close(file))
     }
-    if (!inherits(file, "connection")) 
-        stop("Argument 'file' must be a character string or connection.")
-    if (!isOpen(file, "w")) {
+    else if(!isOpen(file, "w")) {
         open(file, "w")
         on.exit(close(file))
     }
+    if(!inherits(file, "connection"))
+        stop("Argument 'file' must be a character string or connection.")
 
-    if (!is.data.frame(x) && !is.matrix(x))
+    if(!is.data.frame(x) && !is.matrix(x))
         x <- data.frame(x)
 
     instances <- read_data_into_Weka(x)
@@ -101,7 +101,7 @@ function(x)
                    sapply(idx, function(k)
                           .jcall(attribute, "S", "value", as.integer(k)))
                ## Assume logical (see below).
-               if (all(match(levels(out[[i]]), c("FALSE", "TRUE"),
+               if(all(match(levels(out[[i]]), c("FALSE", "TRUE"),
                        nomatch = 0L)))
                    out[[i]] <- out[[i]] == "TRUE"
            },
@@ -139,7 +139,7 @@ function(x)
     }
     ## NOTE that Weka codes a missing class attribute as -1.
     classIndex <- .jcall(x, "I", "classIndex") + 1L
-    if (classIndex && classIndex != length(out))
+    if(classIndex && classIndex != length(out))
         out <- c(out[-classIndex], out[classIndex])
 
     ## Prevent garbling of attribute names, etc.
@@ -165,10 +165,10 @@ function(x, classIndex = 0L)
                      as.integer(length(x)))
     for (i in seq_along(x)) {
         ## Make logicals into Weka nominals.
-        if (is.logical(x[[i]]))
+        if(is.logical(x[[i]]))
             x[[i]] <- factor(x[[i]])
         attribute <- 
-            if (is.factor(x[[i]])) {
+            if(is.factor(x[[i]])) {
                levels <- .jnew("weka/core/FastVector", 
                                as.integer(nlevels(x[[i]])))
                sapply(levels(x[[i]]), function(k)
@@ -179,19 +179,19 @@ function(x, classIndex = 0L)
                x[[i]] <- as.double(x[[i]]) - 1
                .jnew("weka/core/Attribute", attname[i], levels)
             }
-            else if (is.character(x[[i]])) {
+            else if(is.character(x[[i]])) {
                att <- .jnew("weka/core/Attribute", attname[i],
                             .jnull("weka/core/FastVector"))
                x[[i]] <- as.factor(x[[i]])
                index <- sapply(levels(x[[i]]), function(k)
                                .jcall(att, "I", "addStringValue", k))
-               if (any(index < 0))
+               if(any(index < 0))
                    stop("pushing to Type 'string' failed")
                x[[i]] <- as.double(index[as.integer(x[[i]])])
 
                att
             }
-            else if (inherits(x[[i]], "POSIXt")) {
+            else if(inherits(x[[i]], "POSIXt")) {
                att <- .jnew("weka/core/Attribute", attname[i],
                             "yyyy-MM-dd HH:mm:ss")
                ## Normalize to local time.
@@ -200,7 +200,7 @@ function(x, classIndex = 0L)
                                 NA_character_)
                att
             }
-            else if (is.numeric(x[[i]]))
+            else if(is.numeric(x[[i]]))
                .jnew("weka/core/Attribute", attname[i])
             else
                 stop("Type not implemented")
@@ -216,7 +216,7 @@ function(x, classIndex = 0L)
                        as.integer(n))   # capacity
     
     ## Set class index.
-    if (classIndex > 0L)
+    if(classIndex > 0L)
        .jcall(instances, "V", "setClassIndex",
               as.integer(classIndex - 1L))
 

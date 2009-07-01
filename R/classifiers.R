@@ -57,10 +57,17 @@ function(name, class = NULL, handlers = list())
 RWeka_build_classifier <-
 function(mf, control, name, handlers, options)
 {
-    mf <- .compose_and_funcall(handlers$data, mf)
-    instances <- read_model_frame_into_Weka(mf)
+    out <- list()
 
     options <- .expand_Weka_classifier_options(options)
+
+    ## If needed save original model frame first, as data handlers might
+    ## modify it.
+    if(identical(options$model, TRUE))
+        out$model <- mf
+
+    mf <- .compose_and_funcall(handlers$data, mf)
+    instances <- read_model_frame_into_Weka(mf)
 
     ## Build the classifier.
     classifier <- .jnew(name)
@@ -75,9 +82,8 @@ function(mf, control, name, handlers, options)
     if(!is.null(levels <- levels(mf[[1L]])))
         predictions <- factor(levels[predictions + 1L], levels = levels)
     
-    out <- list(classifier = classifier, predictions = predictions)
-    if(identical(options$model, TRUE))
-        out$model <- mf
+    out <- c(out,
+             list(classifier = classifier, predictions = predictions))
     if(identical(options$instances, TRUE))
         out$instances <- instances
 
@@ -243,7 +249,7 @@ function(formula, ...)
     mf[names(nargs)] <- nargs
     if(is.null(env <- environment(formula$terms)))
         env <- parent.frame()
-    .compose_and_funcall(formula$handlers$data, eval(mf, env))
+    eval(mf, env)
 }
 
 .default_data_handler_for_classifiers <-
@@ -251,7 +257,7 @@ function(mf)
 {
     ## A default data handler for classifiers which rejects interaction
     ## terms and drops unused variables, so that e.g.
-    ##   J48(Species ~ . - - Petal.Width, data = iris)
+    ##   J48(Species ~ . - Petal.Width, data = iris)
     ## works "as expected".
     ## Issue raised by David Gleich <dgleich@stanford.edu>.
     
