@@ -41,7 +41,7 @@ LBR(formula, data, subset, na.action,
   \item{call}{the matched call.}
 }
 \details{
-  There are a \code{\link[predict.Weka_classifier]{predict}} method for
+  There are a \code{\link[=predict.Weka_classifier]{predict}} method for
   predicting from the fitted models, and a \code{summary} method based
   on \code{\link{evaluate_Weka_classifier}}.
 

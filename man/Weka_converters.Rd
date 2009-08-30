@@ -30,7 +30,7 @@ XRFFSaver(x, file, control = NULL)
 }
 \details{
   \code{C45Loader} and \code{C45Saver} use the format employed by the
-  C4.5 algorithm/software, where data is stored in two seperate
+  C4.5 algorithm/software, where data is stored in two separate
   \file{.names} and \file{.data} files.
 
   \code{XRFFLoader} and \code{XRFFSaver} handle XRFF (eXtensible

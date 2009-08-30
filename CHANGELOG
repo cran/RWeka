@@ -1,3 +1,7 @@
+version 0.3-21
+
+* Rd fixes. (K)
+
 version 0.3-20
 
 * Bug fixes for classifier model frame handling. (K)
