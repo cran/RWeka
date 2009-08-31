@@ -19,7 +19,7 @@ write_to_dot(x, con = stdout(), \dots)
   Graphviz (\url{http://www.graphviz.org}) is open source graph
   visualization software providing several main graph layout programs,
   of which \code{dot} makes \dQuote{hierarchical} or layered drawings of
-  directed graphs, and hence is typically most suitable for vizualizing
+  directed graphs, and hence is typically most suitable for visualizing
   classification trees.
 
   Using \code{dot}, the representation in file \file{foo.dot} can be

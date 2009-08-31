@@ -22,7 +22,7 @@
   Objects created by these interfaces always inherit from class
   \code{Weka_classifier}, and have at least suitable \code{print},
   \code{summary} (via \code{\link{evaluate_Weka_classifier}}), and
-  \code{\link[predict.Weka_classifier]{predict}} methods.
+  \code{\link[=predict.Weka_classifier]{predict}} methods.
 }
 \seealso{
   Available \dQuote{standard} interface functions are documented in

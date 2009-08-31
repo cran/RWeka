@@ -6,7 +6,7 @@
 \alias{make_Weka_filter}
 \alias{list_Weka_interfaces}
 \description{
-  Create an R interface to an exisiting Weka learner/filter, or show the
+  Create an R interface to an existing Weka learner/filter, or show the
   available interfaces.
 }
 \usage{
@@ -35,7 +35,7 @@ list_Weka_interfaces()
   these interface functions always inherit from classes
   \code{Weka_associator} and \code{Weka_clusterer}, respectively,
   and have at least suitable \code{print} methods.  Fitted clusterers
-  also have a \code{\link[predict.Weka_clusterer]{predict}} method.
+  also have a \code{\link[=predict.Weka_clusterer]{predict}} method.
 
   \code{make_Weka_classifier} creates an interface function for a Weka
   classifier, with formals \code{formula}, \code{data}, \code{subset},
@@ -45,7 +45,7 @@ list_Weka_interfaces()
   employed by the Weka learner.  Objects created by these interfaces
   always inherit from class \code{Weka_classifier}, and have at least
   suitable \code{print} and
-  \code{\link[predict.Weka_classifier]{predict}} methods.
+  \code{\link[=predict.Weka_classifier]{predict}} methods.
 
   \code{make_Weka_filter} creates an interface function for a Weka
   filter, with formals \code{formula}, \code{data}, \code{subset},

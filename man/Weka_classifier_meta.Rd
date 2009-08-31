@@ -57,11 +57,11 @@ CostSensitiveClassifier(formula, data, subset, na.action,
   \item{call}{the matched call.}
 }
 \details{
-  There are a \code{\link[predict.Weka_classifier]{predict}} method for
+  There are a \code{\link[=predict.Weka_classifier]{predict}} method for
   predicting from the fitted models, and a \code{summary} method based
   on \code{\link{evaluate_Weka_classifier}}.
 
-  \code{AdaBoostM1} implements the Adaboost M1 method of Freund and
+  \code{AdaBoostM1} implements the AdaBoost M1 method of Freund and
   Schapire (1996).
 
   \code{Bagging} provides bagging (Breiman, 1996).

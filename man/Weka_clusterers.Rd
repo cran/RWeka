@@ -35,7 +35,7 @@ DBScan(x, control = NULL)
     instance).}
 }
 \details{
-  There is a \code{\link[predict.Weka_clusterer]{predict}} method for
+  There is a \code{\link[=predict.Weka_clusterer]{predict}} method for
   predicting class ids or memberships from the fitted clusterers.
   
   \code{Cobweb} implements the Cobweb (Fisher, 1987) and Classit
@@ -43,7 +43,7 @@ DBScan(x, control = NULL)
   
   \code{FarthestFirst} provides the \dQuote{farthest first traversal
     algorithm} by Hochbaum and Shmoys, which works as a fast simple
-  approximate clusterer modelled after simple \eqn{k}-means.
+  approximate clusterer modeled after simple \eqn{k}-means.
 
   \code{SimpleKMeans} provides clustering with the \eqn{k}-means
   algorithm.
