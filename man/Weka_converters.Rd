@@ -33,9 +33,9 @@ XRFFSaver(x, file, control = NULL)
   C4.5 algorithm/software, where data is stored in two separate
   \file{.names} and \file{.data} files.
 
-  \code{XRFFLoader} and \code{XRFFSaver} handle XRFF (eXtensible
-  attribute-Relation File Format, an \acronym{XML}-based extension of
-  Weka's native Attribute-Relation File Format) files.
+  \code{XRFFLoader} and \code{XRFFSaver} handle \acronym{XRFF}
+  (eXtensible attribute-Relation File Format, an \acronym{XML}-based
+  extension of Weka's native Attribute-Relation File Format) files.
 }
 \seealso{
   \code{\link{read.arff}},

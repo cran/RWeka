@@ -117,7 +117,7 @@ CostSensitiveClassifier(formula, data, subset, na.action,
   \emph{Neural Networks}, \bold{5}, 241--259.
 }
 \seealso{
-  \link[=Weka_classifiers]{Weka\_classifiers}  
+  \link[=Weka_classifiers]{Weka_classifiers}  
 }
 \examples{
 ## Use AdaBoostM1 with decision stumps.

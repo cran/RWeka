@@ -26,13 +26,13 @@
 }
 \seealso{
   Available \dQuote{standard} interface functions are documented in
-  \link[=Weka_classifier_functions]{Weka\_classifier\_functions}
+  \link[=Weka_classifier_functions]{Weka_classifier_functions}
   (regression and classification function learners),
-  \link[=Weka_classifier_lazy]{Weka\_classifier\_lazy} (lazy learners),
-  \link[=Weka_classifier_meta]{Weka\_classifier\_meta} (meta learners),
-  \link[=Weka_classifier_rules]{Weka\_classifier\_rules} (rule learners),
+  \link[=Weka_classifier_lazy]{Weka_classifier_lazy} (lazy learners),
+  \link[=Weka_classifier_meta]{Weka_classifier_meta} (meta learners),
+  \link[=Weka_classifier_rules]{Weka_classifier_rules} (rule learners),
   and
-  \link[=Weka_classifier_trees]{Weka\_classifier\_trees} (regression and
+  \link[=Weka_classifier_trees]{Weka_classifier_trees} (regression and
   classification tree learners).
 }
 \keyword{models}

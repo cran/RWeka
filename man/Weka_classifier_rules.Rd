@@ -110,7 +110,7 @@ PART(formula, data, subset, na.action,
   2nd Edition, Morgan Kaufmann, San Francisco. 
 }
 \seealso{
-  \link[=Weka_classifiers]{Weka\_classifiers}  
+  \link[=Weka_classifiers]{Weka_classifiers}  
 }
 \examples{
 M5Rules(mpg ~ ., data = mtcars)

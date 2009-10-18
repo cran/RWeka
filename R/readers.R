@@ -228,7 +228,7 @@ function(x, classIndex = 0L)
 
     ## Note that using dim and dimnames attributes would result in a
     ## matrix, which seems a bad idea.
-    structure(instances, .dim = dx, .dimnames = dnx)
+    .structure(instances, .dim = dx, .dimnames = dnx)
 }
 
 ## <NOTE>
@@ -279,7 +279,7 @@ function(x, row.names = NULL, ...)
 {
     if(is.null(row.names))
         row.names <- attr(x, ".dimnames")[[1L]]
-    structure(read_instances_from_Weka(x), row.names = row.names)
+    .structure(read_instances_from_Weka(x), row.names = row.names)
 }
 ## and so on ...
     

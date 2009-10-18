@@ -72,7 +72,7 @@ LBR(formula, data, subset, na.action,
   \emph{Machine Learning}, \bold{41}/1, 53--84.
 }
 \seealso{
-  \link[=Weka_classifiers]{Weka\_classifiers}  
+  \link[=Weka_classifiers]{Weka_classifiers}  
 }
 \keyword{models}
 \keyword{regression}

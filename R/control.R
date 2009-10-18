@@ -5,7 +5,7 @@ function(...)
     if((length(rval) > 0L)
        && (is.null(names(rval)) || !all(nzchar(names(rval)))))
         stop("All arguments must be named.")
-    structure(rval, class = "Weka_control")
+    `class<-`(rval, "Weka_control")
 }
 
 print.Weka_control <-

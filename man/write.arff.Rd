@@ -3,7 +3,8 @@
 \alias{write.arff.R}
 \title{Write Data into ARFF Files}
 \description{
-  Writes data into Weka Attribute-Relation File Format (ARFF) files.
+  Writes data into Weka Attribute-Relation File Format (\acronym{ARFF})
+  files.
 }
 \usage{
 write.arff(x, file, eol = "\n")

@@ -61,7 +61,7 @@ DecisionStump(formula, data, subset, na.action,
   Provided the Weka classification tree learner implements the
   \dQuote{Drawable} interface (i.e., provides a \code{graph} method),
   \code{\link{write_to_dot}} can be used to create a DOT representation
-  of the tree for visualization via GraphViz or the \pkg{Rgraphviz}
+  of the tree for visualization via Graphviz or the \pkg{Rgraphviz}
   package.
 
   \code{J48} generates unpruned or pruned C4.5 decision trees (Quinlan,
@@ -123,7 +123,7 @@ DecisionStump(formula, data, subset, na.action,
   2nd Edition, Morgan Kaufmann, San Francisco. 
 }
 \seealso{
-  \link[=Weka_classifiers]{Weka\_classifiers}
+  \link[=Weka_classifiers]{Weka_classifiers}
 }
 \examples{
 m1 <- J48(Species ~ ., data = iris)
@@ -136,7 +136,7 @@ table(iris$Species, predict(m1)) # by hand
 ## visualization
 ## use party package
 if(require("party", quietly = TRUE)) plot(m1)
-## or GraphViz
+## or Graphviz
 write_to_dot(m1)
 ## or Rgraphviz
 \dontrun{

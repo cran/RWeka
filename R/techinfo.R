@@ -50,15 +50,15 @@ function(x)
 
 BibTeX_entry <-
 function(type, key = "", fields)
-    structure(list(type = type, key = key, fields = fields),
-              class = "BibTeX_entry")
+    .structure(list(type = type, key = key, fields = fields),
+               class = "BibTeX_entry")
 
 BibTeX_db <-
 function(..., list = NULL)
 {
     ## For the time being, assume that we are given lists of BibTeX
     ## entries.
-    structure(c(list(...), list), class = "BibTeX_db")
+    `class<-`(c(list(...), list), "BibTeX_db")
 }
 
 format.BibTeX_entry <-
