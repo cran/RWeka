@@ -34,7 +34,7 @@ function(x, plainleaf = TRUE)
     nval[, 1L] <- sapply(strsplit(nodes, " "), "[", 1L)
     nval[, 2L] <- sapply(strsplit(nodes, "\""), "[", 2L)
     if(plainleaf)
-        nval[grep("(", nval[, 2L], extended = FALSE), 2L] <- ""
+        nval[grep("(", nval[, 2L], fixed = TRUE), 2L] <- ""
     
     eval <- matrix(rep("", 3L * length(edges)), ncol = 3L)
     colnames(eval) <- c("from", "to", "label")
