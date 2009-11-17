@@ -4,7 +4,7 @@
 \title{Create DOT Representations}
 \description{
   Write a DOT language representation of an object for processing via
-  GraphViz.
+  Graphviz.
 }
 \usage{
 write_to_dot(x, con = stdout(), \dots)

@@ -56,7 +56,7 @@ SMO(formula, data, subset, na.action,
 
   \code{SMO} implements John C. Platt's sequential minimal optimization
   algorithm for training a support vector classifier using polynomial or
-  RBF kernels.  Multi-class problems are solved using pairwise
+  \acronym{RBF} kernels.  Multi-class problems are solved using pairwise
   classification.  
 
   The model formulae should only use the \samp{+} and \samp{-} operators
@@ -82,7 +82,7 @@ SMO(formula, data, subset, na.action,
   2nd Edition, Morgan Kaufmann, San Francisco. 
 }
 \seealso{
-  \link[=Weka_classifiers]{Weka\_classifiers}  
+  \link[=Weka_classifiers]{Weka_classifiers}
 }
 \examples{
 ## Linear regression:

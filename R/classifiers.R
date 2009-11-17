@@ -44,12 +44,12 @@ function(name, class = NULL, handlers = list())
         mf[[1L]] <- as.name("model.frame")
         mf <- eval(mf, parent.frame())
 	
-        structure(c(RWeka_build_classifier(mf, control, name, handlers,
-                                           options),
-                    list(call = mc, handlers = handlers,
-                         levels = levels(mf[[1L]]),
-                         terms = attr(mf, "terms"))),
-                  class = classes)
+        .structure(c(RWeka_build_classifier(mf, control, name, handlers,
+                                            options),
+                     list(call = mc, handlers = handlers,
+                          levels = levels(mf[[1L]]),
+                          terms = attr(mf, "terms"))),
+                   class = classes)
     }
     make_R_Weka_interface(out, meta)
 }

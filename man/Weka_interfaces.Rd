@@ -18,7 +18,7 @@ list_Weka_interfaces()
 }
 \arguments{
   \item{name}{a character string giving the fully qualified name of
-    a Weka learner/filter class in JNI notation.}
+    a Weka learner/filter class in \acronym{JNI} notation.}
   \item{class}{\code{NULL} (default), or a character vector giving the
     names of R classes the objects returned by the interface function
     should inherit from in addition to the default ones (for

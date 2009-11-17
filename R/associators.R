@@ -12,8 +12,8 @@ function(name, class = NULL)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta
         
     out <- function(x, control = NULL) {
-        structure(RWeka_build_associator(x, control, name),
-                  class = classes)
+        .structure(RWeka_build_associator(x, control, name),
+                   class = classes)
     }
     make_R_Weka_interface(out, meta)
 }

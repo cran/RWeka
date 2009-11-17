@@ -21,9 +21,9 @@ function(object, name)
 
 make_R_Weka_interface <-
 function(f, meta)
-    structure(f,
-              class = unique(c(meta$kind, "R_Weka_interface")),
-              meta = meta)
+    .structure(f,
+               class = unique(c(meta$kind, "R_Weka_interface")),
+               meta = meta)
 
 make_R_Weka_interface_metadata <-
 function(name, kind, class = NULL)
@@ -104,3 +104,7 @@ function(flist, x)
         x
     }
 }
+
+.structure <-
+function(x, ...)
+    `attributes<-`(x, c(attributes(x), list(...)))

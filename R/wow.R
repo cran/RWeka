@@ -24,10 +24,10 @@ function(x)
         }
     }
 
-    structure(list(Name = names,
+    `class<-`(list(Name = names,
                    Length = lengths,
                    Description = descriptions),
-              class = "WOW")
+              "WOW")
     
 }
     
