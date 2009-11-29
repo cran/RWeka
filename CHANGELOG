@@ -1,3 +1,11 @@
+version 0.3-24
+
+* Bug fix for classifier default data handler. (K)
+
+version 0.3-23
+
+* Stop using deprecated/defunct 'extended' in grep() and friends. (K)
+
 version 0.3-22
 
 * Code cleanups. (K)

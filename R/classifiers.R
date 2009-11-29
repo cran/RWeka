@@ -268,5 +268,5 @@ function(mf)
     factors <- attr(terms, "factors")
     varnms <- rownames(factors)[c(TRUE, rowSums(factors)[-1L] > 0)]
     ## Remove backticks from non-syntactic names.
-    mf[, sub("^`(.*)`$", "\\1", varnms)]
+    mf[, sub("^`(.*)`$", "\\1", varnms), drop = FALSE]
 }
