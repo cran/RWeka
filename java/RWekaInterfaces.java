@@ -5,6 +5,9 @@ import weka.core.stemmers.*;
 import java.lang.*;
 import java.io.*;
 
+import weka.core.tokenizers.*;
+import java.util.*;
+
 // changed to abstract class and class methods. (C)
 
 public abstract class RWekaInterfaces {
@@ -182,7 +185,28 @@ public abstract class RWekaInterfaces {
 	}
 	return out;
     }
-    
+   
+   public static String[] tokenize(Tokenizer tokenizer, String[] options,
+							String[] data)
+	throws Exception 
+    {
+	Vector<String> out, tmp;
+
+	tokenizer.setOptions(options);
+
+	out = new Vector<String>();
+
+	for (int i = 0; i < data.length; i++) {
+	    if (data[i].length() != 0) {
+		tokenizer.tokenize(data[i]);
+		tmp = new Vector<String>();
+		while (tokenizer.hasMoreElements())
+		    tmp.add((String) tokenizer.nextElement());
+		out.addAll(tmp);
+	    }
+	}
+	return out.toArray(new String[out.size()]);
+   }
 }
 
 //

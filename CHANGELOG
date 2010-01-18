@@ -1,3 +1,9 @@
+version 0.3-25
+
+* Upgrade to Weka 3.6.2. (K)
+
+* Rewrite tokenizer interfaces to cleanly split options from text. (C)
+
 version 0.3-24
 
 * Bug fix for classifier default data handler. (K)
