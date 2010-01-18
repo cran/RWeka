@@ -40,11 +40,11 @@ $(OBJECTS): ../inst/java/weka.jar
 ../inst/java/weka.jar: FORCE
 	@echo -n "updating $@ ..."
 	@(pfile="weka/gui/GenericPropertiesCreator.props"; \
-	  $(JAR) -f $@ -x $${pfile} ; \
+	  $(JAR) xf $@ $${pfile} ; \
 	  mv $${pfile} $${pfile}.in ; \
 	  sed 's/^UseDynamic=true/UseDynamic=false/' $${pfile}.in \
 	    > $${pfile}; \
-	  $(JAR) -f $@ -u $${pfile} ; \
+	  $(JAR) uf $@ $${pfile} ; \
 	  rm -rf weka)
 	@echo " done"
 FORCE:
