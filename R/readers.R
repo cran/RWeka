@@ -149,6 +149,10 @@ function(x)
 read_data_into_Weka <-
 function(x, classIndex = 0L)
 {
+    ## FastVector was deprecated in Weka >= 3-7-1. Now we have to use
+    ## the List interface (see the cast of ArrayList in the Attribute
+    ## constructor).
+
     ## See the Weka 3-5-7 source code for this insanity (e.g., string).
     ## Note that the class index, if any, must be set as an attribute.
 
@@ -161,7 +165,7 @@ function(x, classIndex = 0L)
 
     ## Build attribute information
     attname <- names(x)
-    attinfo <- .jnew("weka/core/FastVector", 
+    attinfo <- .jnew("java/util/ArrayList", 
                      as.integer(length(x)))
     for (i in seq_along(x)) {
         ## Make logicals into Weka nominals.
@@ -169,19 +173,20 @@ function(x, classIndex = 0L)
             x[[i]] <- factor(x[[i]])
         attribute <- 
             if(is.factor(x[[i]])) {
-               levels <- .jnew("weka/core/FastVector", 
+               levels <- .jnew("java/util/ArrayList", 
                                as.integer(nlevels(x[[i]])))
                sapply(levels(x[[i]]), function(k)
-                      .jcall(levels, "V", "addElement", 
+                      .jcall(levels, "Z", "add", 
                              .jcast(.jnew("java/lang/String", k),
                                     "java/lang/Object")))
                ## shift to Weka's internal coding
                x[[i]] <- as.double(x[[i]]) - 1
-               .jnew("weka/core/Attribute", attname[i], levels)
+               .jnew("weka/core/Attribute", attname[i], 
+		     .jcast(levels, "java/util/List"))
             }
             else if(is.character(x[[i]])) {
                att <- .jnew("weka/core/Attribute", attname[i],
-                            .jnull("weka/core/FastVector"))
+                            .jnull("java/util/List"))
                x[[i]] <- as.factor(x[[i]])
                index <- sapply(levels(x[[i]]), function(k)
                                .jcall(att, "I", "addStringValue", k))
@@ -204,7 +209,7 @@ function(x, classIndex = 0L)
                .jnew("weka/core/Attribute", attname[i])
             else
                 stop("Type not implemented")
-        .jcall(attinfo, "V", "addElement",
+        .jcall(attinfo, "Z", "add",
                .jcast(attribute, "java/lang/Object"))
     }
     

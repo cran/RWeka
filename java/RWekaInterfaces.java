@@ -98,7 +98,9 @@ public abstract class RWekaInterfaces {
     // Populate Instances with data in column-major format. Use
     // with care if called more than once with the same Instances
     // object. (C)
-    
+    //
+    // Instance is now an Interface, Weka >= 3-7-1. The equivalent
+    // class seems to be DenseInstance.
     public static void addInstances(Instances instances, double[] data, 
 				    int nrow)
 	throws Exception
@@ -110,7 +112,7 @@ public abstract class RWekaInterfaces {
 	}
 
 	for (i = 0; i < nrow; i++) {
-	    Instance instance = new Instance(ncol);
+	    Instance instance = new DenseInstance(ncol);
 	    for (j = 0; j < ncol; j++) 
 		instance.setValue(j, data[i+j*nrow]);
 	    instances.add(instance);
@@ -185,9 +187,12 @@ public abstract class RWekaInterfaces {
 	}
 	return out;
     }
-   
-   public static String[] tokenize(Tokenizer tokenizer, String[] options,
-							String[] data)
+
+
+    // Rewrite that separates options and data to avoid problems
+    // with data strings with a leading hyphn. (C)
+    public static String[] tokenize(Tokenizer tokenizer, String[] options,
+							 String[] data)
 	throws Exception 
     {
 	Vector<String> out, tmp;
