@@ -1,3 +1,7 @@
+version 0.4-2
+
+* Split the Weka jar into a separate package RWekajars. (K)
+
 version 0.4-1
 
 * Upgrade to Weka 3.7.1.

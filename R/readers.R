@@ -53,13 +53,70 @@ function(x, file, eol = "\n")
     if(!inherits(file, "connection"))
         stop("Argument 'file' must be a character string or connection.")
 
+    .write_ARFF_to_con(x, file, eol)
+}
+
+.write_ARFF_to_con <-
+function(x, con, eol)
+    UseMethod(".write_ARFF_to_con")
+
+.write_ARFF_to_con.default <-
+function(x, con, eol)
+{
     if(!is.data.frame(x) && !is.matrix(x))
         x <- data.frame(x)
 
     instances <- read_data_into_Weka(x)
     text <- .jcall(instances, "Ljava/lang/String;", "toString")
 
-    writeLines(text, file, sep = eol)
+    writeLines(text, con, sep = eol)
+}
+
+.write_ARFF_to_con.simple_triplet_matrix <-
+function(x, con, eol)
+{
+    ## Suggested by Stefan Wilhelm <wilhelm@financial.com>.
+    
+    ## Extract attribute names from x,
+    ## If colnames(x) is NULL, use dummy variable names "V1", "V2"...
+    ## Use low-level access as further below we do this anyways.    
+    cnames <- x$dimnames[[2L]]
+    if(is.null(cnames))
+        cnames <- sprintf("V%d", seq_len(x$ncol))
+
+    ## Data types for attributes in ARFF.
+    ## Since we have a matrix, all columns have the same data type.
+    dtype <- switch(EXPR = mode(x$v),
+                    character = "string",
+                    numeric = "numeric",
+                    logical = "{0,1}",
+                    "string")
+
+    ## Write ARFF Header
+    writeLines(c("@relation R_simple_triplet_matrix", ""),
+               con, sep = eol)
+
+    ## Write ARFF Attributes
+    writeLines(c(sprintf("@attribute '%s' %s", cnames, dtype), ""),
+               con, sep = eol)
+
+    ## Write ARFF Data
+    writeLines("@data", con, sep = eol)
+    ## Logical values TRUE/FALSE will be represented as 1/0.
+    if(mode(x$v) == "logical")
+        x$v <- as.numeric(x$v)
+    for(i in seq_len(x$nrow)) {
+        ind <- x$i == i
+        ## Note that missing values are encoded as "?".
+        ## (http://weka.wikispaces.com/ARFF+%28developer+version%29)
+        v <- x$v[ind]
+        v[is.na(v)] <- "?"
+        ## Note that index in sparse ARFF starts with 0.    
+        writeLines(sprintf("{%s}",
+                           paste(sprintf("%d %s", x$j[ind] - 1L, v),
+                                 collapse = ",")),
+                   con, sep = eol)
+    }
 }
 
 ## <NOTE>

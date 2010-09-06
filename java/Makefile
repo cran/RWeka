@@ -5,6 +5,7 @@ JARS = RWeka.jar
 
 JAVAC = javac
 JAR = jar
+WEKAJAR = ../../RWekajars/inst/java/weka.jar
 
 .SUFFIXES:
 .SUFFIXES: .class .java
@@ -20,34 +21,14 @@ JAR = jar
 ##   $(JAVAC) -target 1.5 -source 1.5
 ## for compilation.
 .java.class:
-	$(JAVAC) -target 1.5 -source 1.5 -cp ../inst/java/weka.jar $<
+	$(JAVAC) -target 1.5 -source 1.5 -cp $(WEKAJAR) $<
 ## </NOTE>
 
 all: $(JARS)
 
 RWeka.jar: $(OBJECTS)
 	$(JAR) cvf $@ $(OBJECTS)
-$(OBJECTS): ../inst/java/weka.jar
-
-## <ARGH>
-## Ensure that dynamic class discovery is off: otherwise, the Weka class
-## loader is unhappy and writes 
-##   [GenericPropertiesCreator]
-##   classloader in use is not the system classloader:
-##   using static entries in weka/gui/GenericObjectEditor.props rather
-##   than dynamic class discovery
-## to stdout which in turn makes everyone else unhappy ...
-../inst/java/weka.jar: FORCE
-	@echo -n "updating $@ ..."
-	@(pfile="weka/gui/GenericPropertiesCreator.props"; \
-	  $(JAR) xf $@ $${pfile} ; \
-	  mv $${pfile} $${pfile}.in ; \
-	  sed 's/^UseDynamic=true/UseDynamic=false/' $${pfile}.in \
-	    > $${pfile}; \
-	  $(JAR) uf $@ $${pfile} ; \
-	  rm -rf weka)
-	@echo " done"
-FORCE:
+$(OBJECTS): $(WEKAJAR)
 
 install: all
 	@mv $(JARS) ../inst/java
