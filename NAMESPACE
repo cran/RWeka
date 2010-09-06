@@ -1,3 +1,4 @@
+import("RWekajars")
 import("stats")
 importFrom("graphics", "plot")
 ## For 2.5.0 or later, read.table() and friends were moved to utils, so

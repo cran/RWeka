@@ -54,6 +54,6 @@ then
 fi
 
 if test "${RWeka_cv_java_version_5}" = no; then
-  echo "RWeka needs at least Java version 1.5/5.0."
+  echo "Need at least Java version 1.5/5.0."
   exit 1
 fi
