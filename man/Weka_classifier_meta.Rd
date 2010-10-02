@@ -119,6 +119,10 @@ CostSensitiveClassifier(formula, data, subset, na.action,
 \seealso{
   \link[=Weka_classifiers]{Weka_classifiers}  
 }
+\note{
+  \code{multiBoostAB} requires Weka package \pkg{multiBoostAB} to be
+  installed.
+}
 \examples{
 ## Use AdaBoostM1 with decision stumps.
 m1 <- AdaBoostM1(Species ~ ., data = iris,

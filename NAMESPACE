@@ -10,9 +10,9 @@ import("utils")
 ## like
 ##   "jarrayRef" is not a defined class
 ## but apparently things improved ...
-importFrom("rJava", ".jarray", ".jcall", ".jcast", ".jevalArray",
-           ".jfindClass", ".jinit", ".jlong", ".jnew", ".jnull",
-           ".jpackage")
+importFrom("rJava", ".jaddClassPath", ".jarray", ".jcall", ".jcast",
+           ".jevalArray", ".jfield", ".jfindClass", ".jinit", ".jlong",
+           ".jnew", ".jnull", ".jpackage")
 ## Only needed for plotting Weka_tree objects, which requires party
 ## which in turn depends on (hence attaches) grid, but in any case ...
 import("grid")
@@ -45,6 +45,7 @@ export("read.arff",                     # "read.arff.R",
        ## Others ...
        "list_Weka_interfaces",
        "WOW",
+       "WPM",
        "Weka_control",
        "write_to_dot",
        "evaluate_Weka_classifier")

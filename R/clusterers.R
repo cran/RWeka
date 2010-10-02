@@ -1,5 +1,5 @@
 make_Weka_clusterer <-
-function(name, class = NULL)
+function(name, class = NULL, init = NULL)
 {
     ## Return a function interfacing the Weka cluster learner class
     ## 'name'.
@@ -8,19 +8,21 @@ function(name, class = NULL)
     classes <- c(class, "Weka_clusterer")
     kind <- "R_Weka_clusterer_interface"
     name <- as_JNI_name(name)
-    meta <- make_R_Weka_interface_metadata(name, kind, classes)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes, init)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta
     
     out <- function(x, control = NULL) {
-        .structure(RWeka_build_clusterer(x, control, name),
+        .structure(RWeka_build_clusterer(x, control, name, init),
                    class = classes)
     }
     make_R_Weka_interface(out, meta)
 }
 
 RWeka_build_clusterer <-
-function(x, control, name)
+function(x, control, name, init)
 {
+    if(is.function(init)) init()
+    
     instances <- read_data_into_Weka(x)
 
     ## Build the clusterer.
@@ -42,7 +44,9 @@ function(x, control, name)
     list(clusterer = clusterer, class_ids = class_ids)
 }
 
-print.Weka_clusterer <- function(x, ...) {
+print.Weka_clusterer <-
+function(x, ...)
+{
     writeLines(.jcall(x$clusterer, "S", "toString"))
     invisible(x)
 }
@@ -128,4 +132,3 @@ function (object, ...)
 {
     predict(object, ...)
 }
-

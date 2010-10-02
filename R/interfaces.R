@@ -27,6 +27,9 @@ function(x, ...)
         ""
     
     name <- get_Java_class(x)
+
+    if(is.function(init <- attr(x, "meta")$init))
+        init()
     
     ## Seems that not all Weka learners have a globalInfo() method
     ## (e.g., Cobweb for Weka 3.4.6), so be careful.

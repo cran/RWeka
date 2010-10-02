@@ -12,7 +12,7 @@
 ## to safely call these methods.
 
 make_Weka_classifier <-
-function(name, class = NULL, handlers = list())
+function(name, class = NULL, handlers = list(), init = NULL)
 {
     
     ## Return a function interfacing the Weka classification learner
@@ -27,7 +27,7 @@ function(name, class = NULL, handlers = list())
     classes <- c(class, "Weka_classifier")
     kind <- "R_Weka_classifier_interface"
     name <- as_JNI_name(name)
-    meta <- make_R_Weka_interface_metadata(name, kind, classes)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes, init)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta
 
     ## Provide a default data handler.
@@ -45,7 +45,7 @@ function(name, class = NULL, handlers = list())
         mf <- eval(mf, parent.frame())
 	
         .structure(c(RWeka_build_classifier(mf, control, name, handlers,
-                                            options),
+                                            options, init),
                      list(call = mc, handlers = handlers,
                           levels = levels(mf[[1L]]),
                           terms = attr(mf, "terms"))),
@@ -55,8 +55,10 @@ function(name, class = NULL, handlers = list())
 }
 
 RWeka_build_classifier <-
-function(mf, control, name, handlers, options)
+function(mf, control, name, handlers, options, init)
 {
+    if(is.function(init)) init()
+
     out <- list()
 
     options <- .expand_Weka_classifier_options(options)

@@ -7,12 +7,12 @@
 ## ceeboo 2006
 
 make_Weka_filter <-
-function(name, class = NULL)
+function(name, class = NULL, init = NULL)
 {
     classes <- c(class, "data.frame")
     kind <- "R_Weka_filter_interface"
     name <- as_JNI_name(name)
-    meta <- make_R_Weka_interface_metadata(name, kind, classes)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes, init)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta    
 
     out <- function(formula, data, subset, na.action, control = NULL) {
@@ -22,15 +22,17 @@ function(name, class = NULL)
         mf[[1L]] <- as.name("model.frame")
         mf <- eval(mf, parent.frame())
         
-        RWeka_use_filter(mf, control, name)
+        RWeka_use_filter(mf, control, name, init)
     }
 
     make_R_Weka_interface(out, meta)
 }
 
 RWeka_use_filter <-
-function(mf, control, name)
+function(mf, control, name, init)
 {
+    if(is.function(init)) init()
+    
     ## We do not always need a response variable, e.g., for the class 
     ## of unsupervised filters.
 

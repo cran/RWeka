@@ -210,7 +210,8 @@ function(object, data, response, ...)
     out
 }
 
-node_Weka <- function(treeobj, digits = 3, abbreviate = FALSE,
+node_Weka <-
+function(treeobj, digits = 3, abbreviate = FALSE,
          fill = c("lightgray", "white"), linebreaks = TRUE, id = FALSE)
 {
     fill <- rep(fill, length.out = 2L)

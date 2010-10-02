@@ -5,16 +5,18 @@
 \alias{make_Weka_clusterer}
 \alias{make_Weka_filter}
 \alias{list_Weka_interfaces}
+\alias{make_Weka_package_loader}
 \description{
   Create an R interface to an existing Weka learner/filter, or show the
   available interfaces.
 }
 \usage{
-make_Weka_associator(name, class = NULL)
-make_Weka_classifier(name, class = NULL, handlers = list())
-make_Weka_clusterer(name, class = NULL)
-make_Weka_filter(name, class = NULL)
+make_Weka_associator(name, class = NULL, init = NULL)
+make_Weka_classifier(name, class = NULL, handlers = list(), init = NULL)
+make_Weka_clusterer(name, class = NULL, init = NULL)
+make_Weka_filter(name, class = NULL, init = NULL)
 list_Weka_interfaces()
+make_Weka_package_loader(p)
 }
 \arguments{
   \item{name}{a character string giving the fully qualified name of
@@ -25,6 +27,13 @@ list_Weka_interfaces()
     representing associators, classifiers, and clusterers).}
   \item{handlers}{a named list of special handler functions, see
     \bold{Details}.}
+  \item{init}{\code{NULL}, or a function with no arguments to be called
+    when the interface is used for building the learner/filter, or
+    queried for available options via \code{\link{WOW}}.  Typically,
+    this is used for loading Weka packages when interfacing
+    functionality in these.}
+  \item{p}{a character string naming a Weka package to be loaded via
+    \code{\link{WPM}}.}
 }
 \details{
   \code{make_Weka_associator} and \code{make_Weka_clusterer} create an R
@@ -72,6 +81,9 @@ list_Weka_interfaces()
   for the interfaces.
 
   \code{list_Weka_interfaces} lists the \emph{available} interfaces.
+
+  Finally, \code{make_Weka_package_loader} generates init hooks for
+  loading required and already installed Weka packages.
 
   It is straightforward to register new interfaces in addition to the
   ones package \pkg{RWeka} provides by default.
