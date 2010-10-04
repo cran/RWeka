@@ -33,6 +33,9 @@ Tertius(x, control = NULL)
 
   See the references for more information on these algorithms.
 }
+\note{
+  \code{Tertius} requires Weka package \pkg{tertius} to be installed.
+}
 \references{
   R. Agrawal and R. Srikant (1994).
   Fast algorithms for mining association rules in large databases.
@@ -57,10 +60,13 @@ Apriori(x)
 % Apriori(x, c("-N", "20"))
 Apriori(x, Weka_control(N = 20))
 
+\dontrun{
+## Requires Weka package 'Tertius' to be installed.
 ## Tertius with defaults.
 Tertius(x)
 ## Some options: only classification rules (single item in the RHS).
 % Tertius(x, "-S")
 Tertius(x, Weka_control(S = TRUE))
+}
 }
 \keyword{models}

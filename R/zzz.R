@@ -2,7 +2,8 @@
 Apriori <-
     make_Weka_associator("weka/associations/Apriori", "Apriori")
 Tertius <-
-    make_Weka_associator("weka/associations/Tertius", "Tertius")
+    make_Weka_associator("weka/associations/Tertius", "Tertius",
+                         init = make_Weka_package_loader("tertius"))
 
 ### * Classifiers
 
@@ -44,28 +45,39 @@ SMO <-
                          .control_handlers("-K", .expand_kernel_class_name))
 
 ### ** Lazy
-IBk <- make_Weka_classifier("weka/classifiers/lazy/IBk",
-                            c("IBk", "Weka_lazy"))
-LBR <- make_Weka_classifier("weka/classifiers/lazy/LBR",
-                            c("LBR", "Weka_lazy"))
+IBk <-
+    make_Weka_classifier("weka/classifiers/lazy/IBk",
+                         c("IBk", "Weka_lazy"))
+LBR <-
+    make_Weka_classifier("weka/classifiers/lazy/LBR",
+                         c("LBR", "Weka_lazy"),
+                         init = make_Weka_package_loader("lazyBayesianRules"))
+                            
 
 ### ** Rules
-JRip <- make_Weka_classifier("weka/classifiers/rules/JRip",
-                             c("JRip", "Weka_rules"))
-M5Rules <- make_Weka_classifier("weka/classifiers/rules/M5Rules",
-                                c("M5Rules", "Weka_rules"))
-OneR <- make_Weka_classifier("weka/classifiers/rules/OneR",
-                             c("OneR", "Weka_rules"))
-PART <- make_Weka_classifier("weka/classifiers/rules/PART",
-                             c("PART", "Weka_rules"))
+JRip <-
+    make_Weka_classifier("weka/classifiers/rules/JRip",
+                         c("JRip", "Weka_rules"))
+M5Rules <-
+    make_Weka_classifier("weka/classifiers/rules/M5Rules",
+                         c("M5Rules", "Weka_rules"))
+OneR <-
+    make_Weka_classifier("weka/classifiers/rules/OneR",
+                         c("OneR", "Weka_rules"))
+PART <-
+    make_Weka_classifier("weka/classifiers/rules/PART",
+                         c("PART", "Weka_rules"))
 
 ### ** Trees
-J48 <- make_Weka_classifier("weka/classifiers/trees/J48",
-                            c("J48", "Weka_tree"))
-M5P <- make_Weka_classifier("weka/classifiers/trees/M5P",
-                            c("M5P", "Weka_tree"))
-LMT <- make_Weka_classifier("weka/classifiers/trees/LMT",
-                            c("LMT", "Weka_tree"))
+J48 <-
+    make_Weka_classifier("weka/classifiers/trees/J48",
+                         c("J48", "Weka_tree"))
+M5P <-
+    make_Weka_classifier("weka/classifiers/trees/M5P",
+                         c("M5P", "Weka_tree"))
+LMT <-
+    make_Weka_classifier("weka/classifiers/trees/LMT",
+                         c("LMT", "Weka_tree"))
 DecisionStump <-
     make_Weka_classifier("weka/classifiers/trees/DecisionStump",
                          c("DecisionStump", "Weka_tree"))
@@ -106,7 +118,8 @@ LogitBoost <-
 MultiBoostAB <-
     make_Weka_classifier("weka/classifiers/meta/MultiBoostAB",
                          c("MultiBoostAB", "Weka_meta"),
-                         .Weka_meta_classifier_handlers)
+                         .Weka_meta_classifier_handlers,
+                         init = make_Weka_package_loader("multiBoostAB"))
 Stacking <-
     make_Weka_classifier("weka/classifiers/meta/Stacking",
                          c("Stacking", "Weka_meta"),
@@ -139,9 +152,11 @@ FarthestFirst <-
 SimpleKMeans <-
     make_Weka_clusterer("weka/clusterers/SimpleKMeans", "SimpleKMeans")
 XMeans <-
-    make_Weka_clusterer("weka/clusterers/XMeans", "XMeans")
+    make_Weka_clusterer("weka/clusterers/XMeans", "XMeans",
+                        init = make_Weka_package_loader("XMeans"))
 DBScan <-
-    make_Weka_clusterer("weka/clusterers/DBScan", "DBScan")
+    make_Weka_clusterer("weka/clusterers/DBScan", "DBScan",
+                        init = make_Weka_package_loader("optics_dbScan"))
 
 ### * Converters
 
@@ -164,18 +179,22 @@ function(o)
 }
 .Weka_file_saver_handlers <-
     .control_handlers("-c", .decrement_number_by_one)
-C45Saver <- make_Weka_file_saver("weka/core/converters/C45Saver",
-                                 .Weka_file_saver_handlers)
-XRFFSaver <- make_Weka_file_saver("weka/core/converters/XRFFSaver",
-                                  .Weka_file_saver_handlers)
+C45Saver <-
+    make_Weka_file_saver("weka/core/converters/C45Saver",
+                         .Weka_file_saver_handlers)
+XRFFSaver <-
+    make_Weka_file_saver("weka/core/converters/XRFFSaver",
+                         .Weka_file_saver_handlers)
 ## </FIXME>
 ## Could also provide interfaces to ArffSaver, CSVSaver, and
 ## LibSVMSaver.
 
 ### ** Loaders
 
-C45Loader <- make_Weka_file_loader("weka/core/converters/C45Loader")
-XRFFLoader <- make_Weka_file_loader("weka/core/converters/XRFFLoader")
+C45Loader <-
+    make_Weka_file_loader("weka/core/converters/C45Loader")
+XRFFLoader <-
+    make_Weka_file_loader("weka/core/converters/XRFFLoader")
 
 ### * Filters
 

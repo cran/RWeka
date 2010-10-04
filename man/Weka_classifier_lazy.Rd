@@ -74,6 +74,10 @@ LBR(formula, data, subset, na.action,
 \seealso{
   \link[=Weka_classifiers]{Weka_classifiers}  
 }
+\note{
+  \code{LBR} requires Weka package \pkg{lazyBayesianRules} to be
+  installed.
+}
 \keyword{models}
 \keyword{regression}
 \keyword{classif}

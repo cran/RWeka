@@ -26,8 +26,8 @@ function(f, meta)
                meta = meta)
 
 make_R_Weka_interface_metadata <-
-function(name, kind, class = NULL)
-    list(name = name, kind = kind, class = class)
+function(name, kind, class = NULL, init = NULL)
+    list(name = name, kind = kind, class = class, init = init)
 
 as_JNI_name <-
 function(x)

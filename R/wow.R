@@ -6,6 +6,11 @@ function(x)
     name <- get_Java_class(x)
     if(is.null(name))
         stop("Argument 'x' does not specify a known Weka method.")
+
+    if(inherits(x, "R_Weka_interface")) {
+        if(is.function(init <- attr(x, "meta")$init))
+            init()
+    }
     
     x <- .jnew(name)
 

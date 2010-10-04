@@ -1,0 +1,192 @@
+\documentclass[fleqn]{article}
+\usepackage[round,longnamesfirst]{natbib}
+\usepackage{hyperref}
+\usepackage{a4wide}
+
+\newcommand{\pkg}[1]{{\normalfont\fontseries{b}\selectfont #1}}
+\newcommand{\file}[1]{`{\textsf{#1}}'}
+
+%% \VignetteIndexEntry{RWeka Odds and Ends}
+\title{RWeka Odds and Ends}
+\author{Kurt Hornik}
+
+\begin{document}
+
+<<echo=FALSE>>=
+require("RWeka")
+@ 
+
+\maketitle
+
+\pkg{RWeka} is an R interface to Weka \citep{RWeka:Witten+Frank:2005}, a
+collection of machine learning algorithms for data mining tasks written
+in Java, containing tools for data pre-processing, classification,
+regression, clustering, association rules, and visualization.  Building
+on the low-level R/Java interface functionality of package \pkg{rJava}
+\citep{RWeka:Urbanek:2010}, \pkg{RWeka} provides R ``interface
+generators'' for setting up interface functions with the usual ``R look
+and feel'', re-using Weka's standardized interface of learner classes
+(including classifiers, clusterers, associators, filters, loaders,
+savers, and stemmers) with associated methods.
+\cite{RWeka:Hornik+Buchta+Zeileis:2009} discuss the design philosophy of
+the interface, and illustrate how to use the package.
+
+Here, we discuss several important items not covered in this reference:
+Weka packages, persistence issues, and possibilities of using Weka's
+visualization and GUI functionality.
+
+\section{Weka packages}
+
+On 2010-07-30, Weka 3.7.2 was released, with a new package management
+system its key innovation.
+% (\url{http://forums.pentaho.com/showthread.php?77634-New-Weka-3.4.17-3.6.3-and-3.7.2-releases}).
+This moves a lot of algorithms and tools out of the main Weka
+distribution and into ``packages'', featuring functionality very similar
+to the R package management system.  Packages are provided as zip files
+downloadable from a central repository.  By default, Weka stores
+packages and ther information in the directory specified by the
+environment variable \verb|WEKA_HOME|; if this is not set, the
+\file{wekafiles} subdirectory of the user's home directory is used.
+Inside this directory, subdirectory \file{packages} holds installed
+packages (each contained its own subdirectory), and \file{repCache}
+holds the cached copy of the meta data from the central package
+repository.  Weka users can access the package management system via the
+command line interface of the \verb|weka.core.WekaPackageManager| class,
+or a GUI.  See e.g.\
+\url{http://weka.wikispaces.com/How+do+I+use+the+package+manager\%3F} for
+more information.
+
+For the R/Weka interface, we have thus added \verb|WPM()| for
+manipulating Weka packages from within R.  One starts by building (or
+refreshing) the package metadata cache via
+<<eval=FALSE>>=
+WPM("refresh-cache")
+@ 
+and can then list already installed packages 
+<<>>=
+WPM("list-packages", "installed")
+@ 
+or list all packages available for additional installation by
+<<eval=FALSE>>=
+WPM("list-packages", "available")
+@ 
+Packages can be installed by calling \verb|WPM()| with the
+\verb|"install-package"| action and the package name, and similarly be
+removed using the \verb|"remove-package"| action.  Finally, packages can
+be ``loaded'' (i.e., having their jars added to the class path) using
+the \verb|"load-package"| action.
+
+The advent of Weka's package management system adds both flexibility and
+complexity.  Package \pkg{RWeka} not only provides the ``raw'' interface
+generation functionality, but in fact registers interfaces to the most
+commonly used Weka learners, such as J4.8 and M5'.  Some of these
+learners were moved to separate Weka packages.  For example, the Weka
+classes providing the Lazy Bayesian Rules classifier interfaced by
+\verb|LBR()| are now in Weka package \pkg{lazyBayesianRules}.  Hence,
+when \verb|LBR()| is used for building the classifier (or queried for
+available options via \verb|WOW()|), the Weka package must be loaded
+(and hence have already been installed).  We have thus enhanced the
+interface registration mechanism to allow the optional specification of
+an \verb|init| hook function to be run before instantiating the Weka
+learner class being interfaced.  E.g., the \pkg{RWeka} registration code
+now does
+<<eval=false>>=
+LBR <-
+make_Weka_classifier("weka/classifiers/lazy/LBR",
+                     c("LBR", "Weka_lazy"),
+                     init = make_Weka_package_loader("lazyBayesianRules"))
+@ 
+
+(Other function affected are \verb|DBScan|, \verb|MultiBoostAB|,
+\verb|Tertius|, and \verb|XMeans|, for which the corresponding Java
+classes are now provided by Weka packages \pkg{optics\_dbScan},
+\pkg{multiBoostAB}, \pkg{tertius}, and \pkg{XMeans}, respectively.)
+
+\section{Persistence}
+
+A typical R work flow is fitting models and them saving them for later
+re-use using \verb|save()|.  It then comes as an unpleasant surprise
+that when the models were obtained using interfaces to Weka learners,
+restoring via \verb|load()| gives ``nothing''.  For example,
+<<>>=
+m1 <- J48(Species ~ ., data = iris)
+writeLines(rJava::.jstrVal(m1$classifier))
+save(m1, file = "m1.rda")
+load("m1.rda")
+rJava::.jstrVal(m1$classifier)
+@ 
+
+From the R side, the generated classifier is a reference to an external
+Java object.  As such objects do not persist across sessions, they will
+be restored as `null' references.  Fortunately, \pkg{rJava} has added a
+\verb|.jcache()| mechanism providing an R-side cache of such objects in
+serialized form, which is attached to the object and hence saved when
+the Java object is saved, and can be restored via \pkg{rJava} mechanisms
+for unserializing Java references if they are `null' references and have
+a cache attached.  One most be cautious when creating such persistent
+references, though; see \verb|?.jcache| for more information.  
+
+In our ``simple'' case, we can simply do
+<<>>=
+m1 <- J48(Species ~ ., data = iris)
+rJava::.jcache(m1$classifier)
+save(m1, file = "m1.rda")
+load("m1.rda")
+writeLines(rJava::.jstrVal(m1$classifier))
+@ 
+to achieve the desired persistence (note that the R reference object
+must directly be cached, not an R object containing it).
+
+<<echo=false>>=
+unlink("m1.rda")
+@ 
+
+\section{Interfacing Weka Graphics}
+
+\pkg{RWeka} currently provides no interfaces to Weka's visualization and
+GUI functionality: after all, its main purpose is use Weka's
+functionality in the usual ``R look and feel''.  In principle,
+creating such interfaces is not too hard: for example, a simple
+interface to Weka' graph visualizer could be obtained as
+<<>>=
+graphVisualizer <-
+function(file, width = 400, height = 400,
+         title = substitute(file), ...)
+{
+    ## Build the graph visualizer
+    visualizer <- .jnew("weka/gui/graphvisualizer/GraphVisualizer")
+    reader <- .jnew("java/io/FileReader", file)
+    .jcall(visualizer, "V", "readDOT",
+          .jcast(reader, "java/io/Reader"))
+    .jcall(visualizer, "V", "layoutGraph")
+    ## and put it into a frame.
+    frame <- .jnew("javax/swing/JFrame",
+                   paste("graphVisualizer:", title))
+    container <- .jcall(frame, "Ljava/awt/Container;", "getContentPane")
+    .jcall(container, "Ljava/awt/Component;", "add", 
+           .jcast(visualizer, "java/awt/Component"))
+    .jcall(frame, "V", "setSize", as.integer(width), as.integer(height))
+    .jcall(frame, "V", "setVisible", TRUE)
+}
+@ 
+and then used via
+<<eval=false>>=
+write_to_dot(m1, "m1.dot")
+graphVisualizer("m1.dot")
+@ 
+(Currently, this fails to find the menu icon images.)  Obviously, one
+could wrap this into plot methods for classification trees obtained via
+Weka's tree learners.  But this would result in an R graphics window
+actually no longer controllable by R, which we find rather confusing.
+We are not aware of R graphics devices which can be used as canvas for
+capturing Java graphics.
+
+Similar considerations apply for interfacing other Weka GUI
+functionality (such as its ARFF viewer).
+
+{\small
+  \bibliographystyle{abbrvnat}
+  \bibliography{RWeka}
+}
+
+\end{document}

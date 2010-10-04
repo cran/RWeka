@@ -88,16 +88,25 @@ DBScan(x, control = NULL)
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
   2nd Edition, Morgan Kaufmann, San Francisco.
 }
+\note{
+  \code{XMeans} requires Weka package \pkg{XMeans} to be installed.
+
+  \code{DBScan} requires Weka package \pkg{optics\_dbScan} to be
+  installed.
+}
 \examples{
 cl1 <- SimpleKMeans(iris[, -5], Weka_control(N = 3))
 cl1
 table(predict(cl1), iris$Species)
 
+\dontrun{
+## Requires Weka package 'XMeans' to be installed.
 ## Use XMeans with a KDTree.
 cl2 <- XMeans(iris[, -5],
               c("-L", 3, "-H", 7, "-use-kdtree",
                 "-K", "weka.core.neighboursearch.KDTree -P"))
 cl2
 table(predict(cl2), iris$Species)
+}
 }
 \keyword{cluster}
