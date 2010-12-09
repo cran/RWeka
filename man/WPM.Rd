@@ -33,7 +33,7 @@ WPM(cmd, ...)
       \code{"installed"} (print info on the installed version), or a
       unique abbreviation thereof.}
     \item{\code{"install-package"}}{install a package as specified by an
-      addtional character string giving its name.  (In principle, one
+      additional character string giving its name.  (In principle, one
       could also provide a file path or URL to a zip file.)}
     \item{\code{"remove-package"}}{remove a given (installed) package.}
     \item{\code{"load-package"}}{load a given package by adding its jars

@@ -20,16 +20,27 @@ function(object, newdata = NULL,
             mf[[1L]] <- factor(mf[[1L]], levels = object$levels)
     }
     instances  <- read_model_frame_into_Weka(mf)
+
+    ## Determine type of class attribute
+    result <- .jcall(instances, "Lweka/core/Attribute;", "classAttribute")
+    has_numeric_class <-
+	    .jcall(result, "Z", "isNumeric")
+    if (!has_numeric_class &&
+	!.jcall(result, "Z", "isNominal"))
+	stop("type of class attribute not supported")
+	
     result <- list()
     ## Cost sensitive evaluation
     if (is.null(cost))
         evaluation <- .jnew("weka/classifiers/Evaluation", instances)
     else {
-       if(!is_square_matrix(cost))
-           stop("Argument 'cost' must be a square matrix.")
-       costMatrix <- read_costMatrix_into_Weka(cost, ...)
-       evaluation <- .jnew("weka/classifiers/Evaluation", instances, 
-                           costMatrix)
+	if (has_numeric_class)
+	    stop("'cost' not applicable")
+	if (!is_square_matrix(cost))
+	    stop("Argument 'cost' must be a square matrix.")
+	costMatrix <- read_costMatrix_into_Weka(cost, ...)
+	evaluation <- .jnew("weka/classifiers/Evaluation", instances, 
+                            costMatrix)
     }
     ## evaluateModel returns fitted class values
     if (numFolds == 0) {
@@ -59,60 +70,74 @@ function(object, newdata = NULL,
     ## Extractor function
     extractValues <- function(x, ...)
         sapply(x, function(x) .jcall(evaluation, "D", x, ...))
-    result$details <-
-        extractValues(c("pctCorrect", "pctIncorrect", "pctUnclassified",
-                        "kappa", "meanAbsoluteError",
-                        "rootMeanSquaredError",
-                        "relativeAbsoluteError",
-                        "rootRelativeSquaredError"))
-    if (!is.null(cost))
-       result$detailsCost <- extractValues(c("avgCost"))
-    ## <FIXME>
-    ## For classifiers which only provide hard probabilistic
-    ## predictions, i.e., from {0,1}, the class entropy | scheme can be
-    ## meaningless because, according to the source code, if a 
-    ## probability is zero 1074 = log2(Double.MIN_VALUE) is added to 
-    ## the sum instead of setting to -Inf (Weka versions 3.4.7 + 3.5.2).
-    ## this should be fixed in the source code because as each classifier 
-    ## implements a distributionForInstance method but does not provide a 
-    ## "type" method trapping such output seems to to be difficult ...
-    ## </FIXME>
-    if (complexity) 
-        result$detailsComplexity <-
-            extractValues(c("KBInformation", "KBRelativeInformation",
-                            "SFPriorEntropy", "SFSchemeEntropy")) 
-    if (class) {
-       result$string <-
-           paste(result$string, 
-                 .jcall(evaluation, "S", "toClassDetailsString"),
-                 sep = "\n")
-       result$detailsClass <-
-           t(sapply(object$levels,
-                    function(l, x) {
-                        k <- as.integer(which(object$levels == l) - 1L)
-                        extractValues(x, k)
-                    },
-                    c("falsePositiveRate", "falseNegativeRate",
-                      "precision", "recall", "fMeasure",
-                      "areaUnderROC")))
+
+    ## Numeric class
+    if (has_numeric_class) {
+	result$details <-
+	    extractValues(c("correlationCoefficient",
+			    "meanAbsoluteError",
+                            "rootMeanSquaredError",
+                            "relativeAbsoluteError",
+                            "rootRelativeSquaredError"))
+    } 
+    else {
+    ## Nominal class
+	result$details <-
+	    extractValues(c("pctCorrect", "pctIncorrect", "pctUnclassified",
+			    "kappa", "meanAbsoluteError",
+			    "rootMeanSquaredError",
+			    "relativeAbsoluteError",
+			    "rootRelativeSquaredError"))
+
+	if (!is.null(cost))
+	    result$detailsCost <- extractValues(c("avgCost"))
+	## <FIXME>
+	## For classifiers which only provide hard probabilistic
+	## predictions, i.e., from {0,1}, the class entropy | scheme can be
+	## meaningless because, according to the source code, if a 
+	## probability is zero 1074 = log2(Double.MIN_VALUE) is added to 
+	## the sum instead of setting to -Inf (Weka versions 3.4.7 + 3.5.2).
+	## this should be fixed in the source code because as each classifier 
+	## implements a distributionForInstance method but does not provide a 
+	## "type" method trapping such output seems to to be difficult ...
+	## </FIXME>
+	if (complexity) 
+	    result$detailsComplexity <-
+		extractValues(c("KBInformation", "KBRelativeInformation",
+				"SFPriorEntropy", "SFSchemeEntropy")) 
+	if (class) {
+	    result$string <-
+		paste(result$string, 
+		      .jcall(evaluation, "S", "toClassDetailsString"),
+		      sep = "\n")
+	    result$detailsClass <-
+		t(sapply(object$levels, 
+			 function(l, x) {
+			     k <- as.integer(which(object$levels == l) - 1L)
+			     extractValues(x, k)
+			 },
+			 c("falsePositiveRate", "falseNegativeRate",
+			   "precision", "recall", "fMeasure",
+			   "areaUnderROC")))
+	}
+	if(!is.null(cost))
+	    result$string <-
+		paste(result$string,
+		      gettext("=== Cost Matrix ===\n"),
+		      .jcall(costMatrix, "S", "toString"),
+		      sep = "\n")
+	result$string <-
+	    paste(result$string,
+		  .jcall(evaluation, "S", "toMatrixString"),
+		  sep = "\n")
+	result$confusionMatrix <-
+		t(sapply(.jcall(evaluation, "[[D", "confusionMatrix"),
+			 .jevalArray))
+	if (any(dim(result$confusionMatrix) != length(object$levels)))
+	    stop("Cannot set dimnames on degenerate confusion matrix.")
+	dimnames(result$confusionMatrix) <-
+	    list(object$levels, predicted = object$levels)
     }
-    if(!is.null(cost))
-        result$string <-
-            paste(result$string,
-                  gettext("=== Cost Matrix ===\n"),
-                  .jcall(costMatrix, "S", "toString"),
-                  sep = "\n")
-    result$string <-
-        paste(result$string,
-              .jcall(evaluation, "S", "toMatrixString"),
-              sep = "\n")
-    result$confusionMatrix <-
-        t(sapply(.jcall(evaluation, "[[D", "confusionMatrix"),
-                 .jevalArray))
-    if (any(dim(result$confusionMatrix) != length(object$levels)))
-        stop("Cannot set dimnames on degenerate confusion matrix.")
-    dimnames(result$confusionMatrix) <-
-        list(object$levels, predicted = object$levels)
     class(result) <- "Weka_classifier_evaluation"
     result
 }
