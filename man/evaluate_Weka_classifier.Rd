@@ -29,6 +29,10 @@ evaluate_Weka_classifier(object, newdata = NULL, cost = NULL,
   Currently argument \code{\dots} only supports the logical variable
   \code{normalize} which tells Weka to normalize the cost matrix so that
   the cost of a correct classification is zero.
+
+  Note that if the class variable is numeric only a subset of the statistics
+  are available. Arguments \code{complexity} and \code{class} are then
+  not applicable and therefore ignored. 
 }
 \value{
   An object of class \code{Weka_classifier_evaluation}, a list of the

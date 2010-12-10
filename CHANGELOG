@@ -1,3 +1,12 @@
+
+version 0.4-4
+
+* Evaluation can now handle classifiers with numeric class attributes.
+
+version 0.4-3
+
+* Added support for Weka package infrastructure (K).
+
 version 0.4-2
 
 * Split the Weka jar into a separate package RWekajars. (K)
