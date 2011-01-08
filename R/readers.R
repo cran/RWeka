@@ -181,6 +181,8 @@ function(x)
                out[[i]] <- .jcall("RWekaInterfaces", "[Ljava/lang/String;",
                                   "formatDate", attribute, .jarray(out[[i]]),
                                   NA_character_)
+	       ## Fix for R >= 2.13.x
+	       is.na(out[[i]]) <- out[[i]] == "NA"
                ## Represent date in local time.
                out[[i]] <- as.POSIXct(out[[i]], tz = "")
            },
