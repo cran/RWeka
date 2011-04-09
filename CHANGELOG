@@ -1,3 +1,8 @@
+version 0.4-7
+
+* Enhance .onLoad() to ensure Weka dynamic class discovery works on
+  (headless) Java runtimes with no AWT [suggested by SU] (K).
+
 version 0.4-6
 
 * Fixed problem with reading dates from weka in upcoming R 2.13.x (C).
