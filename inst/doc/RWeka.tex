@@ -1,0 +1,68 @@
+\documentclass[fleqn]{article}
+\usepackage[round,longnamesfirst]{natbib}
+\usepackage{hyperref}
+\usepackage{a4wide}
+
+\newcommand{\pkg}[1]{{\normalfont\fontseries{b}\selectfont #1}}
+\newcommand{\file}[1]{`{\textsf{#1}}'}
+
+%% \VignetteIndexEntry{RWeka Odds and Ends}
+\title{RWeka Odds and Ends}
+\author{Kurt Hornik}
+
+\usepackage{Sweave}
+\begin{document}
+
+
+\maketitle
+
+\pkg{RWeka} is an R interface to Weka \citep{RWeka:Witten+Frank:2005}, a
+collection of machine learning algorithms for data mining tasks written
+in Java, containing tools for data pre-processing, classification,
+regression, clustering, association rules, and visualization.  Building
+on the low-level R/Java interface functionality of package \pkg{rJava}
+\citep{RWeka:Urbanek:2010}, \pkg{RWeka} provides R ``interface
+generators'' for setting up interface functions with the usual ``R look
+and feel'', re-using Weka's standardized interface of learner classes
+(including classifiers, clusterers, associators, filters, loaders,
+savers, and stemmers) with associated methods.
+\cite{RWeka:Hornik+Buchta+Zeileis:2009} discuss the design philosophy of
+the interface, and illustrate how to use the package.
+
+Here, we discuss several important items not covered in this reference:
+Weka packages, persistence issues, and possibilities of using Weka's
+visualization and GUI functionality.
+
+\section{Weka packages}
+
+On 2010-07-30, Weka 3.7.2 was released, with a new package management
+system its key innovation.
+% (\url{http://forums.pentaho.com/showthread.php?77634-New-Weka-3.4.17-3.6.3-and-3.7.2-releases}).
+This moves a lot of algorithms and tools out of the main Weka
+distribution and into ``packages'', featuring functionality very similar
+to the R package management system.  Packages are provided as zip files
+downloadable from a central repository.  By default, Weka stores
+packages and ther information in the directory specified by the
+environment variable \verb|WEKA_HOME|; if this is not set, the
+\file{wekafiles} subdirectory of the user's home directory is used.
+Inside this directory, subdirectory \file{packages} holds installed
+packages (each contained its own subdirectory), and \file{repCache}
+holds the cached copy of the meta data from the central package
+repository.  Weka users can access the package management system via the
+command line interface of the \verb|weka.core.WekaPackageManager| class,
+or a GUI.  See e.g.\
+\url{http://weka.wikispaces.com/How+do+I+use+the+package+manager\%3F} for
+more information.
+
+For the R/Weka interface, we have thus added \verb|WPM()| for
+manipulating Weka packages from within R.  One starts by building (or
+refreshing) the package metadata cache via
+\begin{Schunk}
+\begin{Sinput}
+> WPM("refresh-cache")
+\end{Sinput}
+\end{Schunk}
+and can then list already installed packages 
+\begin{Schunk}
+\begin{Sinput}
+> WPM("list-packages", "installed")
