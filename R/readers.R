@@ -232,37 +232,45 @@ function(x, classIndex = 0L)
             x[[i]] <- factor(x[[i]])
         attribute <- 
             if(is.factor(x[[i]])) {
-               levels <- .jnew("java/util/ArrayList", 
-                               as.integer(nlevels(x[[i]])))
-               sapply(levels(x[[i]]), function(k)
-                      .jcall(levels, "Z", "add", 
-                             .jcast(.jnew("java/lang/String", k),
-                                    "java/lang/Object")))
-               ## shift to Weka's internal coding
-               x[[i]] <- as.double(x[[i]]) - 1
-               .jnew("weka/core/Attribute", attname[i], 
-		     .jcast(levels, "java/util/List"))
+                levels <- .jnew("java/util/ArrayList", 
+                                as.integer(nlevels(x[[i]])))
+                sapply(levels(x[[i]]), function(k)
+                       .jcall(levels, "Z", "add", 
+                              .jcast(.jnew("java/lang/String", k),
+                                     "java/lang/Object")))
+                ## shift to Weka's internal coding
+                x[[i]] <- as.double(x[[i]]) - 1
+                .jnew("weka/core/Attribute", attname[i], 
+                      .jcast(levels, "java/util/List"))
             }
             else if(is.character(x[[i]])) {
-               att <- .jnew("weka/core/Attribute", attname[i],
-                            .jnull("java/util/List"))
-               x[[i]] <- as.factor(x[[i]])
-               index <- sapply(levels(x[[i]]), function(k)
-                               .jcall(att, "I", "addStringValue", k))
-               if(any(index < 0))
-                   stop("pushing to Type 'string' failed")
-               x[[i]] <- as.double(index[as.integer(x[[i]])])
+                att <- .jnew("weka/core/Attribute", attname[i],
+                             .jnull("java/util/List"))
+                x[[i]] <- as.factor(x[[i]])
+                index <- sapply(levels(x[[i]]), function(k)
+                                .jcall(att, "I", "addStringValue", k))
+                if(any(index < 0))
+                    stop("pushing to Type 'string' failed")
+                x[[i]] <- as.double(index[as.integer(x[[i]])])
 
-               att
+                att
+            }
+            else if(inherits(x[[i]], "Date")) {
+                att <- .jnew("weka/core/Attribute", attname[i],
+                             "yyyy-MM-dd")
+                x[[i]] <- .jcall("RWekaInterfaces", "[D", "parseDate", att,
+                                 .jarray(format(x[[i]])),
+                                 NA_character_)
+                att
             }
             else if(inherits(x[[i]], "POSIXt")) {
-               att <- .jnew("weka/core/Attribute", attname[i],
-                            "yyyy-MM-dd HH:mm:ss")
-               ## Normalize to local time.
-               x[[i]] <- .jcall("RWekaInterfaces", "[D", "parseDate", att,
-                                .jarray(format(x[[i]], tz = "")),
-                                NA_character_)
-               att
+                att <- .jnew("weka/core/Attribute", attname[i],
+                             "yyyy-MM-dd HH:mm:ss")
+                ## Normalize to local time.
+                x[[i]] <- .jcall("RWekaInterfaces", "[D", "parseDate", att,
+                                 .jarray(format(x[[i]], tz = "")),
+                                 NA_character_)
+                att
             }
             else if(is.numeric(x[[i]]))
                .jnew("weka/core/Attribute", attname[i])
