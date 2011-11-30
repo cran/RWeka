@@ -1,3 +1,9 @@
+version 0.4-9
+
+* Upgrade to Weka 3.7.5.
+
+* Have write.arff() handle Date objects in addition to POSIXt ones.
+
 version 0.4-8
 
 * Upgrade to Weka 3.7.4.
