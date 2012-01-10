@@ -1,3 +1,8 @@
+version 0.4.10
+
+* Do not call WPM() in the vignette examples, as this may write to the
+  user's home directory in violation of CRAN's policy.
+
 version 0.4-9
 
 * Upgrade to Weka 3.7.5.
