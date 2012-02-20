@@ -35,7 +35,7 @@ Here, we discuss several important items not covered in this reference:
 Weka packages, persistence issues, and possibilities of using Weka's
 visualization and GUI functionality.
 
-\section{Weka packages}
+\section{Weka Packages}
 
 On 2010-07-30, Weka 3.7.2 was released, with a new package management
 system its key innovation.
@@ -183,6 +183,54 @@ capturing Java graphics.
 
 Similar considerations apply for interfacing other Weka GUI
 functionality (such as its ARFF viewer).
+
+\section{Controlling Weka Options}
+
+The available options for the interfaced Weka classes can be queried
+using \verb|WOW()|, and specified using the \verb|control| argument to
+the interface functions, typically using \verb|Weka_control()|, for
+which interface function arguments are replaced by their corresponding
+Weka Java class name, and built-in interfaces can provide additional
+convenience control handlers.
+
+For example, many Weka meta learners need to distinguish options for
+themselves from options to be passed to the base learner, and use a
+special `\verb|--|' option to separate the two sets of options.
+As an illustration consider the specification of J4.8 base learners with
+minimal leaf size of~30 in adaptive boosting.  The control sequence that
+needs to be sent to Weka's \verb|AdaBoostM1| classifier is
+<<results=hide>>=
+c("-W", "weka.classifiers.trees.J48", "--", "-M", 30)
+@
+In \pkg{RWeka}, this can be passed to classifiers directly or generated
+more conveniently using
+<<results=hide>>=
+Weka_control(W = J48, "--", M = 30)
+@
+where \verb|J48()| is the registered R interface to \verb|weka.classifiers.trees.J48|. 
+Hence, the following calls yield the same output:
+<<results=hide>>=
+myAB <- make_Weka_classifier("weka/classifiers/meta/AdaBoostM1")
+myAB(Species ~ ., data = iris,
+     control = c("-W", "weka.classifiers.trees.J48", "--", "-M", 30))
+myAB(Species ~ ., data = iris,
+     control = Weka_control(W = J48, "--", M = 30))
+@
+As an additional convenience the `\verb|--|' in \verb|Weka_control()|
+can be omitted in \pkg{RWeka}'s built-in meta-learner interfaces because
+these apply some additional internal magic to Weka control lists. Thus,
+the following calls yield the same output as above:
+<<results=hide>>=
+AdaBoostM1(Species ~ ., data = iris,
+           control = Weka_control(W = list(J48, "--", M = 30)))
+AdaBoostM1(Species ~ ., data = iris,
+           control = Weka_control(W = list(J48, M = 30)))
+@
+The latter example is also used on the \verb|AdaBoostM1()| manual page.
+See also the help page for \verb|SMO()| for another example of magic
+performed by built-in interfaces, and the help page for \verb|XMeans()|
+for another example of a low level control specification.
+
 
 {\small
   \bibliographystyle{abbrvnat}

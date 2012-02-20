@@ -3,7 +3,8 @@ function(...)
 {
     rval <- list(...)
     if((length(rval) > 0L)
-       && (is.null(names(rval)) || !all(nzchar(names(rval)))))
+       && (is.null(names(rval)) ||
+           !all(nzchar(names(rval)) | sapply(rval, identical, "--"))))
         stop("All arguments must be named.")
     `class<-`(rval, "Weka_control")
 }
@@ -50,6 +51,8 @@ function(x, ...)
         else if(is.logical(val)) {
             if(val) tag
         }
+        else if(inherits(val, "R_Weka_interface"))
+            c(tag, get_Java_class(val))
         else
             c(tag, as.character(val))
         out

@@ -91,7 +91,7 @@ DBScan(x, control = NULL)
 \note{
   \code{XMeans} requires Weka package \pkg{XMeans} to be installed.
 
-  \code{DBScan} requires Weka package \pkg{optics\_dbScan} to be
+  \code{DBScan} requires Weka package \pkg{optics_dbScan} to be
   installed.
 }
 \examples{

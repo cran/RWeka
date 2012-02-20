@@ -1,7 +1,13 @@
+version 0.4.11
+
+* Improvements and clarifications for Weka_control().
+
+* Improvements for WOW().
+
 version 0.4.10
 
 * Do not call WPM() in the vignette examples, as this may write to the
-  user's home directory in violation of CRAN's policy.
+  user's home directory in violation of CRAN's Repository Policy.
 
 version 0.4-9
 

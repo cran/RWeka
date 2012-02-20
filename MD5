@@ -1,13 +1,13 @@
-da5103aa24ad649b8fbaebecb71fa9a5 *CHANGELOG
+14e00eba709fe7336f0f7f29ab67c81d *CHANGELOG
 c9c4cac6ac31bfc58c004e9b93465dd8 *COPYRIGHTS
-57482cbc8e32846c43727e32897cb02a *DESCRIPTION
+f39349784b1c7f2aad76cee321fe3dcb *DESCRIPTION
 e53f0fcc76205aad27f37246b12fc076 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 fd2173d17ed55c1b333f1129a2c10d87 *R/arff.R
 e38560dfd0be25bf3aad5a5f91afbc62 *R/associators.R
 c9caaf1c9d0656be9ba0d06cc73bec21 *R/classifiers.R
 eddde550ee52877d167b524f452a6e43 *R/clusterers.R
-95989dcf95ada507f1d95bdb41a15c90 *R/control.R
+81618aaeffe8dd3dfaf4342e95bc9460 *R/control.R
 5ac48c34717c3017a50bd38eeb2878f3 *R/converters.R
 4c5135183a52124546d7470a38dbc0ac *R/evaluate.R
 afd67296e7e83d98bf2f182ddf5a2e0e *R/filters.R
@@ -19,9 +19,9 @@ b619c4cbff08209bfc849e5964776098 *R/readers.R
 79272361b3aaaabe64197308868d987f *R/techinfo.R
 c491e41958780d4ab1a0944420a99128 *R/tokenizers.R
 23570bd8c2763cb57d063121ae939b8e *R/utils.R
-6d0c312b6544f76cc72b237c6ab12cb1 *R/wow.R
+da6b5da585e30c67b36009e46c76f2f2 *R/wow.R
 7278dabee7b03ed9e678d49def391b8a *R/wpm.R
-009da4ce20e50628f7b7a63c973da407 *R/zzz.R
+4133ca6ec042e82f89dcd45a68826412 *R/zzz.R
 ac3656e1e4503b3e7d2b43de3db0353e *configure
 b2f00fd4d3162f7345ca6a14db8bd1df *getsp.class
 d98d48a1d5c1bbec93a7a584509199e6 *getsp.java
@@ -43,8 +43,8 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 3c16059c5b92f6551f720f97d0eccc09 *inst/arff/vote.arff
 772c551b8486b932aed784a582b9c1b1 *inst/arff/weather.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
-e677ffd5b85746bb5f0763eb8c16e326 *inst/doc/RWeka.Rnw
-fed7ca9c854a382744f2a276f50d40bb *inst/doc/RWeka.pdf
+2831c5bdad092fc8c72fb8cdda3829fc *inst/doc/RWeka.Rnw
+4f1781bb8af09b3908f5622b09b88d20 *inst/doc/RWeka.pdf
 2467fc4e73ee64c1d23a15ab516fd6b4 *inst/java/RWeka.jar
 51b244ce77488721602046820ff3de79 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 7acd1ec41342efda10dbed67366b255f *java/Makefile
@@ -59,7 +59,7 @@ fbd8977ceb68224d698da553ac46148b *man/Weka_classifier_lazy.Rd
 767e418b6d763bbf2a1f3a425bb31a26 *man/Weka_classifier_rules.Rd
 69dde0f066ae68e69193dede25cd07c3 *man/Weka_classifier_trees.Rd
 43987938717894deb10715a5c866a656 *man/Weka_classifiers.Rd
-9c9ae7ffd5928b8e6c1011797e987682 *man/Weka_clusterers.Rd
+f95a30158eb8308dff452ac929e1fe0b *man/Weka_clusterers.Rd
 bb45d9c853587cd0df4511673e306e45 *man/Weka_control.Rd
 034e71fef2d2438b32e4b2ed33577f96 *man/Weka_converters.Rd
 299cab05316dc60dda5a78ca095867ce *man/Weka_filters.Rd
@@ -76,5 +76,5 @@ cdc21ddb317cfaf5b698735528e92bfc *man/write.arff.Rd
 91c4b74f044b4db42f53ff9f49834005 *po/R-en@quot.po
 216aa1e958764fff76dfcfc8621d7ee4 *tests/data_exchange.R
 1e8561450f7aaee1eacbf8e5f7c85f68 *tests/data_exchange.Rout.save
-e677ffd5b85746bb5f0763eb8c16e326 *vignettes/RWeka.Rnw
+2831c5bdad092fc8c72fb8cdda3829fc *vignettes/RWeka.Rnw
 edac6531e9b5465017b888d7b5c6d8ba *vignettes/RWeka.bib
