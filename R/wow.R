@@ -14,7 +14,7 @@ function(x)
     
     x <- .jnew(name)
 
-    names <- descriptions <- character()
+    names <- descriptions <- synopses <- character()
     lengths <- integer()
 
     if(.has_method(x, "listOptions")) {
@@ -25,13 +25,15 @@ function(x)
             names <- c(names, .jcall(o, "S", "name"))
             descriptions <-
                 c(descriptions, .jcall(o, "S", "description"))
+            synopses <- c(synopses, .jcall(o, "S", "synopsis"))
             lengths <- c(lengths, .jcall(o, "I", "numArguments"))
         }
     }
 
     `class<-`(list(Name = names,
                    Length = lengths,
-                   Description = descriptions),
+                   Description = descriptions,
+                   Synopsis = synopses),
               "WOW")
     
 }
@@ -43,7 +45,7 @@ function(x, ...)
         ## Note that we get nothing in case the Weka class has no
         ## listOptions() method.
         out <- mapply(formatDL,
-                      sprintf("-%s", x$Name),
+                      x$Synopsis,
                       gsub("\t", " ", x$Description),
                       indent = 8L)
         if(any(ind <- (x$Length > 0L)))

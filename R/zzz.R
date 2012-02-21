@@ -92,11 +92,16 @@ function(e)
     ## this.  Let us be nice and make specifications like
     ##   Weka_control(W = list(J48, M = 50))
     ## work in this case, which means having the control handler convert
-    ## to character and insert the '--'.
+    ## to character and insert the '--' if needed.
     if(is.list(e)) {
-        c(get_Java_class(e[[1L]]),
-          if(length(e) > 1L)
-          c("--", as.character(do.call("Weka_control", e[-1L]))))
+        init <- get_Java_class(e[[1L]])
+        if(length(e) > 1L) {
+            rest <- as.character(do.call("Weka_control", e[-1L]))
+            if(is.na(match("--", rest)))
+                rest <- c("--", rest)
+            init <- c(init, rest)
+        }
+        init
     }
     else
         get_Java_class(e)
