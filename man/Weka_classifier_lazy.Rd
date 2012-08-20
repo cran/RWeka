@@ -45,12 +45,12 @@ LBR(formula, data, subset, na.action,
   predicting from the fitted models, and a \code{summary} method based
   on \code{\link{evaluate_Weka_classifier}}.
 
-  \code{IBk} provides a \eqn{k}-nearest neighbors classifier, see Aha \&
+  \code{IBk} provides a \eqn{k}-nearest neighbors classifier, see Aha &
   Kibler (1991).
 
   \code{LBR} (\dQuote{Lazy Bayesian Rules}) implements a lazy learning
   approach to lessening the attribute-independence assumption of naive
-  Bayes as suggested by Zheng \& Webb (2000).
+  Bayes as suggested by Zheng & Webb (2000).
 
   The model formulae should only use the \samp{+} and \samp{-} operators
   to indicate the variables to be included or not used, respectively.
