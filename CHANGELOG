@@ -1,3 +1,7 @@
+version 0.4.12
+
+* Upgrade to Weka 3.7.7.
+
 version 0.4.11
 
 * Improvements and clarifications for Weka_control().

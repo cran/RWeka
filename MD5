@@ -1,6 +1,6 @@
-14e00eba709fe7336f0f7f29ab67c81d *CHANGELOG
+11c3228c59782e09b2cc101b0ba122e2 *CHANGELOG
 c9c4cac6ac31bfc58c004e9b93465dd8 *COPYRIGHTS
-f39349784b1c7f2aad76cee321fe3dcb *DESCRIPTION
+2559560715037aa96fcbad019cde0d62 *DESCRIPTION
 e53f0fcc76205aad27f37246b12fc076 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 fd2173d17ed55c1b333f1129a2c10d87 *R/arff.R
@@ -44,8 +44,8 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 772c551b8486b932aed784a582b9c1b1 *inst/arff/weather.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 2831c5bdad092fc8c72fb8cdda3829fc *inst/doc/RWeka.Rnw
-4f1781bb8af09b3908f5622b09b88d20 *inst/doc/RWeka.pdf
-2467fc4e73ee64c1d23a15ab516fd6b4 *inst/java/RWeka.jar
+b2e52bce2df6e6a59637f13c95d463b0 *inst/doc/RWeka.pdf
+635c35e15cdc428a9b9e11829890f9cb *inst/java/RWeka.jar
 51b244ce77488721602046820ff3de79 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 7acd1ec41342efda10dbed67366b255f *java/Makefile
 d38299d914da253b8a9eeba3ed05f344 *java/RWekaInterfaces.class
@@ -54,7 +54,7 @@ c000b7e3e89ede64d3ca3e7add1bf44d *man/WOW.Rd
 58174cd6cdb46a812849af4599867b44 *man/WPM.Rd
 f6119a4a261c7d1e04b96b1822fc6ae4 *man/Weka_associators.Rd
 766c41fe4b50cd98bf90dd89ed482f9d *man/Weka_classifier_functions.Rd
-fbd8977ceb68224d698da553ac46148b *man/Weka_classifier_lazy.Rd
+b1bc5264e67a1ddc911106f29eee07e6 *man/Weka_classifier_lazy.Rd
 503c27503b4d4a77b22b8ea21f79db8d *man/Weka_classifier_meta.Rd
 767e418b6d763bbf2a1f3a425bb31a26 *man/Weka_classifier_rules.Rd
 69dde0f066ae68e69193dede25cd07c3 *man/Weka_classifier_trees.Rd
