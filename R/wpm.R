@@ -3,7 +3,7 @@ function(cmd, ...)
 {
     cmd <- cmd[1L]
     cmds <- c("refresh-cache", "list-packages", "install-package",
-              "remove-package", "load-package")
+              "remove-package", "load-package", "package-info")
     pos <- pmatch(tolower(cmd), cmds)
     if(is.na(pos))
         stop(gettextf("Invalid package manager command '%s'.", cmd))
@@ -38,18 +38,28 @@ function(cmd, ...)
     ##   weka.core.WekaPackageManager.refreshCache(java.io.PrintStream[])
     ## We could try to capture progress into a suitable output stream,
     ## but for now simply allow writing to stdout ... sort of.
-    ##   .jcall(wpm, "Ljava/lang/Exception;", "refreshCache",
-    ##          .jarray(.jfield("java/lang/System", , "out"),
-    ##                  "Ljava/io/PrintStream;"))
     ## Messy ... similar for the others.
+
+    ## Note that as of 8982 the WekaPackageManager class main() method
+    ## calls System.exit(0), so using main() is no longer feasible.  We
+    ## currently patch the upstream Weka sources for RWekajars, but
+    ## should really rewrite the WPM() code to use the appropriate
+    ## WekaPackageManager methods directly, instead of main().
+
+    if(cmd == "refresh-cache") {
+        .jcall(wpm,
+               "Ljava/lang/Exception;",
+               "refreshCache",
+               .jarray(.jfield("java/lang/System", , "out"),
+                       "java/io/PrintStream"))
+        return(invisible())
+    }
+    
     ## Let us use main() for now, but make sure we call it reasonably,
     ## as the Weka 3.7.2 release in fact does System.exit(1) in case of
     ## misuse ...
 
     switch(EXPR = cmd,
-           "refresh-cache" = {
-               args <- "-refresh-cache"
-           },
            "list-packages" = {
                arg <- c(args, "all")[1L]
                tab <- c("all", "installed", "available")
@@ -83,29 +93,24 @@ function(cmd, ...)
                args <- c("-remove-package", arg)
            })
 
-    ## Capture Java output unless refreshing the cache.
-    refreshing <- cmd == "refresh-cache"
-    if(!refreshing) {
-        bos <- .jnew("java/io/ByteArrayOutputStream")
-        out <- .jfield("java/lang/System", , "out")
-        .jcall("java/lang/System", "V", "setOut",
-               .jnew("java/io/PrintStream",
-                     .jcast(bos,"java/io/OutputStream")))
-        err <- .jfield("java/lang/System", , "err")
-        .jcall("java/lang/System", "V", "setErr",
-               .jnew("java/io/PrintStream",
-                     .jcast(bos,"java/io/OutputStream")))
-    }
-    
+    ## Capture Java output.
+    bos <- .jnew("java/io/ByteArrayOutputStream")
+    out <- .jfield("java/lang/System", , "out")
+    .jcall("java/lang/System", "V", "setOut",
+           .jnew("java/io/PrintStream",
+                 .jcast(bos,"java/io/OutputStream")))
+    err <- .jfield("java/lang/System", , "err")
+    .jcall("java/lang/System", "V", "setErr",
+           .jnew("java/io/PrintStream",
+                 .jcast(bos,"java/io/OutputStream")))
+
     .jcall(wpm, "V", "main", .jarray(args))
 
-    if(!refreshing) {
-        ## Stop redirecting Java messages.
-        .jcall("java/lang/System", "V", "setOut", out)
-        .jcall("java/lang/System", "V", "setErr", err)
-        ## And display them.
-        message(.jcall(bos, "Ljava/lang/String;", "toString"))
-    }
+    ## Stop redirecting Java messages.
+    .jcall("java/lang/System", "V", "setOut", out)
+    .jcall("java/lang/System", "V", "setErr", err)
+    ## And display them.
+    message(.jcall(bos, "Ljava/lang/String;", "toString"))
 }
 
 Weka_packages_loaded <-
