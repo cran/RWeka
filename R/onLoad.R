@@ -10,4 +10,14 @@ function(libname, pkgname)
     if(nzchar(Sys.getenv("NOAWT")))
         .jcall("java/lang/System", "S",
                "setProperty", "java.awt.headless", "true")
+
+    ## If the directory given by WEKA_HOME (or its default
+    ## $HOME/wekafiles) was not created yet, make sure it gets created
+    ## in tempdir().
+    if(is.na(isdir <-
+             file.info(Sys.getenv("WEKA_HOME",
+                                  file.path(path.expand("~"),
+                                            "wekafiles")))$isdir) ||
+       !isdir)
+        Sys.setenv(WEKA_HOME = tempfile("RWeka"))
 }

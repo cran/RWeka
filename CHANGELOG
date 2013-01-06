@@ -1,3 +1,12 @@
+version 0.4.13
+
+* Ensure that WPM() does not terminate R (by calling Weka methods which
+  call System.exit()).
+
+* Have .onLoad() ensure that if the directory given by WEKA_HOME (or its
+  default $HOME/wekafiles) was not created yet, it gets created in
+  tempdir().
+
 version 0.4.12
 
 * Upgrade to Weka 3.7.7.
