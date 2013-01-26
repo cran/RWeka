@@ -1,3 +1,7 @@
+version 0.4.14
+
+* Upgrade to Weka 3.7.8.
+
 version 0.4.13
 
 * Ensure that WPM() does not terminate R (by calling Weka methods which
