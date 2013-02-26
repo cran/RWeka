@@ -46,6 +46,7 @@ export("read.arff",                     # "read.arff.R",
        "list_Weka_interfaces",
        "WOW",
        "WPM",
+       "make_Weka_package_loader",
        "Weka_control",
        "write_to_dot",
        "evaluate_Weka_classifier")
