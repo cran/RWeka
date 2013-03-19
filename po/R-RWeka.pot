@@ -1,8 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: R 2.9.0\n"
-"Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2009-06-09 09:58\n"
+"Project-Id-Version: RWeka 0.4-15\n"
+"POT-Creation-Date: 2013-03-19 14:56\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,6 +61,12 @@ msgstr ""
 msgid "Argument 'file' must be a character string."
 msgstr ""
 
+msgid "type of class attribute not supported"
+msgstr ""
+
+msgid "'cost' not applicable"
+msgstr ""
+
 msgid "Argument 'cost' must be a square matrix."
 msgstr ""
 
@@ -114,4 +119,28 @@ msgid "%s\n\tNumber of arguments: %d."
 msgstr ""
 
 msgid "No available information on options."
+msgstr ""
+
+msgid "Invalid package manager command '%s'."
+msgstr ""
+
+msgid "No package given."
+msgstr ""
+
+msgid "Unavailable package '%s'."
+msgstr ""
+
+msgid "Invalid package manager command '%s %s'"
+msgstr ""
+
+msgid "Invalid package manager command '%s %s %s'"
+msgstr ""
+
+msgid "Ljava/lang/String;"
+msgstr ""
+
+msgid "toString"
+msgstr ""
+
+msgid "Required Weka package '%s' is not installed."
 msgstr ""

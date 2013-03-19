@@ -12,7 +12,8 @@
 }
 \usage{
 make_Weka_associator(name, class = NULL, init = NULL)
-make_Weka_classifier(name, class = NULL, handlers = list(), init = NULL)
+make_Weka_classifier(name, class = NULL, handlers = list(),
+                     init = NULL)
 make_Weka_clusterer(name, class = NULL, init = NULL)
 make_Weka_filter(name, class = NULL, init = NULL)
 list_Weka_interfaces()
