@@ -1,5 +1,5 @@
-824bce2356733518ad57eb1de13a29ec *CHANGELOG
-1de38bc512038f6e3bbe054c403164f6 *DESCRIPTION
+73a2cb4259d16ed3dd87b06476a8c61d *CHANGELOG
+e4edf384e27b2b7c1aedcdd30314efd9 *DESCRIPTION
 494ca3f6b8c2e084d9caf467f9fd9a5f *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 fd2173d17ed55c1b333f1129a2c10d87 *R/arff.R
@@ -43,9 +43,9 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 772c551b8486b932aed784a582b9c1b1 *inst/arff/weather.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 2831c5bdad092fc8c72fb8cdda3829fc *inst/doc/RWeka.Rnw
-03eddc95f0e7d99ea657917b9ae2dc10 *inst/doc/RWeka.pdf
-406b7cee2485a3fbddbd029990f0245a *inst/java/RWeka.jar
-51b244ce77488721602046820ff3de79 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
+ec84501df611043a2cefe6e6ea439b34 *inst/doc/RWeka.pdf
+9e4fd24b0c87ed09d368aa6c42abe7a4 *inst/java/RWeka.jar
+d6e40e537e8fdbea7311411ac4c045a2 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 7acd1ec41342efda10dbed67366b255f *java/Makefile
 d38299d914da253b8a9eeba3ed05f344 *java/RWekaInterfaces.class
 ff37760200816dcf95490230dd1f3f0b *java/RWekaInterfaces.java
@@ -62,7 +62,7 @@ f95a30158eb8308dff452ac929e1fe0b *man/Weka_clusterers.Rd
 bb45d9c853587cd0df4511673e306e45 *man/Weka_control.Rd
 034e71fef2d2438b32e4b2ed33577f96 *man/Weka_converters.Rd
 299cab05316dc60dda5a78ca095867ce *man/Weka_filters.Rd
-62c753d471df7c1525e654817ae7d683 *man/Weka_interfaces.Rd
+1351cc39a3b7185c0c4f27baeefe9890 *man/Weka_interfaces.Rd
 341b58de99cb30e60d52e1c36e8a2572 *man/Weka_stemmers.Rd
 5bbc86c3ccca44eebc7d41e07015ba29 *man/Weka_tokenizers.Rd
 8fc033b87ce0a4093f12f50a11711ff8 *man/dot.Rd
@@ -71,7 +71,7 @@ c57894e3164249a47123b6917ce098de *man/predict_Weka_classifier.Rd
 0e4bda8f277906665ee191898c6f301e *man/predict_Weka_clusterer.Rd
 89ac4f06499c15684528eb488a4dbfd7 *man/read.arff.Rd
 cdc21ddb317cfaf5b698735528e92bfc *man/write.arff.Rd
-7af3eb3617ce3c6e1251a016f76a78cc *po/R-RWeka.pot
+79c06f3d43f02dc95fcca73faf0fc1de *po/R-RWeka.pot
 91c4b74f044b4db42f53ff9f49834005 *po/R-en@quot.po
 216aa1e958764fff76dfcfc8621d7ee4 *tests/data_exchange.R
 1e8561450f7aaee1eacbf8e5f7c85f68 *tests/data_exchange.Rout.save

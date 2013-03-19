@@ -1,3 +1,7 @@
+version 0.4.16
+
+* Upgrade to Weka 3.7.9.
+
 version 0.4.15
 
 * Export make_Weka_package_loader().
