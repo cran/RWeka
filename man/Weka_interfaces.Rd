@@ -1,17 +1,19 @@
 \name{Weka_interfaces}
 \title{R/Weka interfaces}
 \alias{make_Weka_associator}
+\alias{make_Weka_attribute_evaluator}
 \alias{make_Weka_classifier}
 \alias{make_Weka_clusterer}
 \alias{make_Weka_filter}
 \alias{list_Weka_interfaces}
 \alias{make_Weka_package_loader}
 \description{
-  Create an R interface to an existing Weka learner/filter, or show the
-  available interfaces.
+  Create an R interface to an existing Weka learner, attribute evaluator
+  or filter, or show the available interfaces.
 }
 \usage{
 make_Weka_associator(name, class = NULL, init = NULL)
+make_Weka_attribute_evaluator(name, class = NULL, init = NULL)
 make_Weka_classifier(name, class = NULL, handlers = list(),
                      init = NULL)
 make_Weka_clusterer(name, class = NULL, init = NULL)
@@ -67,6 +69,11 @@ make_Weka_package_loader(p)
   created by these interface functions are (currently) always of class
   \code{\link{data.frame}}.
 
+  \code{make_Weka_attribute_evaluator} creates an interface function for
+  a Weka attribute evaluation class which implements the
+  \code{AttributeEvaluator} interface, with formals as for the
+  classifier interface functions.
+  
   Certain aspects of the interface function can be customized by
   providing handlers.  Currently, only \emph{control} handlers
   (functions given as the \code{control} component of the list of

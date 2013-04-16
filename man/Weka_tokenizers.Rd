@@ -25,7 +25,7 @@ WordTokenizer(x, control = NULL)
   \code{NGramTokenizer} splits strings into \eqn{n}-grams with given
   minimal and maximal numbers of grams.
 
-  \code{WordTokenizers} is a simple word tokenizer.
+  \code{WordTokenizer} is a simple word tokenizer.
 }
 \value{
   A character vector with the tokenized strings.

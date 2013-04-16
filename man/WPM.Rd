@@ -10,8 +10,9 @@ WPM(cmd, ...)
 \arguments{
   \item{cmd}{a character string specifying the action to be performed.
     Must be one of \code{"refresh-cache"}, \code{"list-packages"},
-    \code{"install-package"}, \code{"remove-package"}, or
-    \code{"load-package"} (or a unique abbreviation thereof).}
+    \code{"package-info"}, \code{"install-package"},
+    \code{"remove-package"}, or \code{"load-package"} (or a unique
+    abbreviation thereof).}
   \item{...}{character strings giving further arguments required for the
     action to be performed.  See \bold{Details}.}
 }

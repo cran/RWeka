@@ -17,7 +17,8 @@ Discretize(formula, data, subset, na.action, control = NULL)
   \item{subset}{an optional vector specifying a subset of observations
     to be used in the fitting process.}
   \item{na.action}{a function which indicates what should happen when
-    the data contain \code{NA}s.}
+    the data contain \code{NA}s.  See \code{\link{model.frame}} for
+    details.}
   \item{control}{an object of class \code{\link{Weka_control}}, or a
     character vector of control options, or \code{NULL} (default).
     Available options can be obtained on-line using the Weka Option
