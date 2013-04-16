@@ -1,3 +1,8 @@
+version 0.4.17
+
+* Add functionality for interfacing (some) Weka attribute evalutors,
+  and register GainRatioAttributeEval() and InfoGainAttributeEval().
+
 version 0.4.16
 
 * Upgrade to Weka 3.7.9.

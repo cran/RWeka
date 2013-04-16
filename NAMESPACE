@@ -22,6 +22,9 @@ export("read.arff",                     # "read.arff.R",
        ## Associators
        "make_Weka_associator",
        "Apriori", "Tertius",
+       ## Attribute evaluators
+       "make_Weka_attribute_evaluator",
+       "GainRatioAttributeEval", "InfoGainAttributeEval",
        ## Classifiers
        "make_Weka_classifier",
        "LinearRegression", "Logistic", "SMO",

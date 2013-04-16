@@ -5,6 +5,13 @@ Tertius <-
     make_Weka_associator("weka/associations/Tertius", "Tertius",
                          init = make_Weka_package_loader("tertius"))
 
+### * Attribute evaluators
+
+GainRatioAttributeEval <-
+    make_Weka_attribute_evaluator("weka/attributeSelection/GainRatioAttributeEval")
+InfoGainAttributeEval <-
+    make_Weka_attribute_evaluator("weka/attributeSelection/InfoGainAttributeEval")
+
 ### * Classifiers
 
 .make_class_name_expander <-
