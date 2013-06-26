@@ -41,6 +41,15 @@ WPM(cmd, ...)
       to the Java classpath.}
   }
 }
+\note{
+  Weka stores packages and their information in the Weka home directory,
+  as given by the value of the environment variable \env{WEKA_HOME}; if
+  this is not set, the \file{wekafiles} subdirectory of the user's home
+  directory is used.  If this Weka home directory was not created yet,
+  \code{WPM()} will instead use a temporary directory in the R session
+  directory: to achieve persistence, users need to create the Weka home
+  directory before using \code{WPM()}.
+}
 \examples{
 \dontrun{
 ## Start by building/refreshing the cache.

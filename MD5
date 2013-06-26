@@ -1,5 +1,5 @@
-9e2d929bac912f95c2b4de27f5b753ee *CHANGELOG
-9614abc1e00e92bb20fc44ba3e240f4d *DESCRIPTION
+d1a21be33b4efab3bd7fc0f6f8253864 *CHANGELOG
+1e1e9221a6751d3a984af792c020a556 *DESCRIPTION
 72c18f25ce5d73aa61d0a8942ec8336c *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 fd2173d17ed55c1b333f1129a2c10d87 *R/arff.R
@@ -43,16 +43,16 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 3c16059c5b92f6551f720f97d0eccc09 *inst/arff/vote.arff
 772c551b8486b932aed784a582b9c1b1 *inst/arff/weather.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
-2d5b04c59924afcdf4a4ff8dc63720ae *inst/doc/RWeka.R
-2831c5bdad092fc8c72fb8cdda3829fc *inst/doc/RWeka.Rnw
-65cf5206f9d98f0a954a72cd17082c4e *inst/doc/RWeka.pdf
+be57288871b41ee48f397db5c971825c *inst/doc/RWeka.R
+50b73b0965dbb232a5a83da125333b6e *inst/doc/RWeka.Rnw
+b637b0dfb447e83628bc04dfce3d02d2 *inst/doc/RWeka.pdf
 9e4fd24b0c87ed09d368aa6c42abe7a4 *inst/java/RWeka.jar
 d6e40e537e8fdbea7311411ac4c045a2 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 7acd1ec41342efda10dbed67366b255f *java/Makefile
 d38299d914da253b8a9eeba3ed05f344 *java/RWekaInterfaces.class
 ff37760200816dcf95490230dd1f3f0b *java/RWekaInterfaces.java
 c000b7e3e89ede64d3ca3e7add1bf44d *man/WOW.Rd
-53009366b0b59d7c88c56e37331cc858 *man/WPM.Rd
+b29272b6b9084c05e33888bac4331b71 *man/WPM.Rd
 f6119a4a261c7d1e04b96b1822fc6ae4 *man/Weka_associators.Rd
 6285fdeb1f5503b4ef85a29e58ebfa5b *man/Weka_attribute_evaluators.Rd
 f75bd4d535c19247e942370f7a1c2cb0 *man/Weka_classifier_functions.Rd
@@ -77,5 +77,5 @@ cdc21ddb317cfaf5b698735528e92bfc *man/write.arff.Rd
 79c06f3d43f02dc95fcca73faf0fc1de *po/R-RWeka.pot
 216aa1e958764fff76dfcfc8621d7ee4 *tests/data_exchange.R
 1e8561450f7aaee1eacbf8e5f7c85f68 *tests/data_exchange.Rout.save
-2831c5bdad092fc8c72fb8cdda3829fc *vignettes/RWeka.Rnw
+50b73b0965dbb232a5a83da125333b6e *vignettes/RWeka.Rnw
 edac6531e9b5465017b888d7b5c6d8ba *vignettes/RWeka.bib

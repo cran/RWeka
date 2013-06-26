@@ -1,3 +1,8 @@
+version 0.4.18
+
+* Clarify that WPM() installations will not be persistent unless the
+  Weka home directory was already created.
+
 version 0.4.17
 
 * Add functionality for interfacing (some) Weka attribute evalutors,

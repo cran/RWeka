@@ -25,7 +25,7 @@ require("RWeka")
 
 
 ###################################################
-### code chunk number 5: RWeka.Rnw:93-97 (eval = FALSE)
+### code chunk number 5: RWeka.Rnw:98-102 (eval = FALSE)
 ###################################################
 ## LBR <-
 ## make_Weka_classifier("weka/classifiers/lazy/LBR",
@@ -34,7 +34,7 @@ require("RWeka")
 
 
 ###################################################
-### code chunk number 6: RWeka.Rnw:111-116
+### code chunk number 6: RWeka.Rnw:116-121
 ###################################################
 m1 <- J48(Species ~ ., data = iris)
 writeLines(rJava::.jstrVal(m1$classifier))
@@ -44,7 +44,7 @@ rJava::.jstrVal(m1$classifier)
 
 
 ###################################################
-### code chunk number 7: RWeka.Rnw:130-135
+### code chunk number 7: RWeka.Rnw:135-140
 ###################################################
 m1 <- J48(Species ~ ., data = iris)
 rJava::.jcache(m1$classifier)
@@ -54,13 +54,13 @@ writeLines(rJava::.jstrVal(m1$classifier))
 
 
 ###################################################
-### code chunk number 8: RWeka.Rnw:140-141
+### code chunk number 8: RWeka.Rnw:145-146
 ###################################################
 unlink("m1.rda")
 
 
 ###################################################
-### code chunk number 9: RWeka.Rnw:151-170
+### code chunk number 9: RWeka.Rnw:156-175
 ###################################################
 graphVisualizer <-
 function(file, width = 400, height = 400,
@@ -84,26 +84,26 @@ function(file, width = 400, height = 400,
 
 
 ###################################################
-### code chunk number 10: RWeka.Rnw:173-175 (eval = FALSE)
+### code chunk number 10: RWeka.Rnw:178-180 (eval = FALSE)
 ###################################################
 ## write_to_dot(m1, "m1.dot")
 ## graphVisualizer("m1.dot")
 
 
 ###################################################
-### code chunk number 11: RWeka.Rnw:202-203
+### code chunk number 11: RWeka.Rnw:207-208
 ###################################################
 c("-W", "weka.classifiers.trees.J48", "--", "-M", 30)
 
 
 ###################################################
-### code chunk number 12: RWeka.Rnw:207-208
+### code chunk number 12: RWeka.Rnw:212-213
 ###################################################
 Weka_control(W = J48, "--", M = 30)
 
 
 ###################################################
-### code chunk number 13: RWeka.Rnw:212-217
+### code chunk number 13: RWeka.Rnw:217-222
 ###################################################
 myAB <- make_Weka_classifier("weka/classifiers/meta/AdaBoostM1")
 myAB(Species ~ ., data = iris,
@@ -113,7 +113,7 @@ myAB(Species ~ ., data = iris,
 
 
 ###################################################
-### code chunk number 14: RWeka.Rnw:223-227
+### code chunk number 14: RWeka.Rnw:228-232
 ###################################################
 AdaBoostM1(Species ~ ., data = iris,
            control = Weka_control(W = list(J48, "--", M = 30)))
