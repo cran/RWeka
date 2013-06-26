@@ -44,8 +44,8 @@ This moves a lot of algorithms and tools out of the main Weka
 distribution and into ``packages'', featuring functionality very similar
 to the R package management system.  Packages are provided as zip files
 downloadable from a central repository.  By default, Weka stores
-packages and ther information in the directory specified by the
-environment variable \verb|WEKA_HOME|; if this is not set, the
+packages and their information in the Weka home directory, as specified
+by the environment variable \verb|WEKA_HOME|; if this is not set, the
 \file{wekafiles} subdirectory of the user's home directory is used.
 Inside this directory, subdirectory \file{packages} holds installed
 packages (each contained its own subdirectory), and \file{repCache}
@@ -75,6 +75,11 @@ Packages can be installed by calling \verb|WPM()| with the
 removed using the \verb|"remove-package"| action.  Finally, packages can
 be ``loaded'' (i.e., having their jars added to the class path) using
 the \verb|"load-package"| action.
+
+Note that if the Weka home directory was not created yet, \verb|WPM()|
+will instead use a temporary directory in the R session directory: to
+achieve persistence, users need to create the Weka home directory before
+using \verb|WPM()|.
 
 The advent of Weka's package management system adds both flexibility and
 complexity.  Package \pkg{RWeka} not only provides the ``raw'' interface
