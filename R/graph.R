@@ -205,7 +205,7 @@ function(object, data, response, ...)
 
     out <- new("BinaryTree")
     out@tree <- make_BinaryTree(object, data)
-    out@responses <- party:::initVariableFrame(data.frame(response), NULL)
+    out@responses <- party::initVariableFrame(data.frame(response), NULL)
     out@get_where <- function(...) NULL
     out
 }
