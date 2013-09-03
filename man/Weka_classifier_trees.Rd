@@ -5,6 +5,7 @@
 \alias{M5P}
 \alias{DecisionStump}
 \alias{plot.Weka_tree}
+\alias{parse_Weka_digraph}
 \title{R/Weka Classifier Trees}
 \description{
   R interfaces to Weka regression and classification tree learners.
@@ -89,6 +90,10 @@ DecisionStump(formula, data, subset, na.action,
   corresponding Weka instances, respectively, are included in the fitted
   model object, possibly speeding up subsequent computations on the
   object.  By default, neither is included.
+
+  \code{parse_Weka_digraph} can parse the graph associated with a Weka
+  tree classifier (and obtained by invoking its \code{graph()} method in
+  Weka), returning a simple list with nodes and edges.
 }
 
 \references{
