@@ -6,7 +6,8 @@ function(cmd, ...)
               "remove-package", "load-package", "package-info")
     pos <- pmatch(tolower(cmd), cmds)
     if(is.na(pos))
-        stop(gettextf("Invalid package manager command '%s'.", cmd))
+        stop(gettextf("Invalid package manager command '%s'.", cmd),
+             domain = NA)
     cmd <- cmds[pos]
 
     args <- as.character(list(...))
@@ -17,14 +18,16 @@ function(cmd, ...)
         ## Need to write code ourselves ...
         arg <- args[1L]
         if(is.na(arg))
-            stop(gettextf("No package given."))
+            stop(gettextf("No package given."),
+                 domain = NA)
         ## Avoid repeated loads (for now).
         packages <- Weka_packages_loaded()
         if(!(arg %in% packages)) {
             dir <- .jcall(wpm, "Ljava/io/File;", "getPackageHome")
             dir <- file.path(.jcall(dir, "S", "toString"), arg)
             if(!file.exists(dir)) {
-                stop(gettextf("Unavailable package '%s'.", arg))
+                stop(gettextf("Unavailable package '%s'.", arg),
+                     domain = NA)
             }
             .jaddClassPath(Sys.glob(file.path(dir, "*.jar")))
             Weka_packages_loaded(c(packages, arg))
@@ -83,13 +86,15 @@ function(cmd, ...)
            "install-package" = {
                arg <- args[1L]
                if(is.na(arg))
-                   stop(gettextf("No package given."))
+                   stop(gettextf("No package given."),
+                        domain = NA)
                args <- c("-install-package", arg)
            },
            "remove-package" = {
                arg <- args[1L]
                if(is.na(arg))
-                   stop(gettextf("No package given."))
+                   stop(gettextf("No package given."),
+                        domain = NA)
                args <- c("-remove-package", arg)
            })
 
@@ -131,5 +136,7 @@ function(p)
                  error =
                  function(e)
                  stop(gettextf("Required Weka package '%s' is not installed.",
-                               p)))
+                               p),
+                      domain = NA))
+                 
     }
