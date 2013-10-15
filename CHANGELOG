@@ -1,3 +1,7 @@
+version 0.4.20
+
+* Fixed degenerate class levels in evaluate_Weka_classifier.
+
 version 0.4.19
 
 * Upgrade to Weka 3.7.10.

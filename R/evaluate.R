@@ -25,9 +25,22 @@ function(object, newdata = NULL,
     result <- .jcall(instances, "Lweka/core/Attribute;", "classAttribute")
     has_numeric_class <-
 	    .jcall(result, "Z", "isNumeric")
-    if (!has_numeric_class &&
-	!.jcall(result, "Z", "isNominal"))
-	stop("type of class attribute not supported")
+    if (!has_numeric_class) { 
+	if (!.jcall(result, "Z", "isNominal"))
+	    stop("type of class attribute not supported")
+
+	## Fix degenerate levels
+	k <- .jcall(result, "I", "numValues")
+	if (k != length(object$levels)) {
+	    levels <- NULL
+	    while(k > 0L)
+		levels <- c(
+		    .jcall(result, "S", "value", (k <- k - 1L)),
+		    levels
+		)
+	    object$levels <- levels
+	}
+    }
 	
     result <- list()
     ## Cost sensitive evaluation
