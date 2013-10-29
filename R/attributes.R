@@ -37,7 +37,7 @@ function(mf, control, name, init)
     evaluator <- .jnew(name)
     control <- as.character(control)
     if(length(control))
-       .jcall(filter, "V", "setOptions", .jarray(control))
+       .jcall(evaluator, "V", "setOptions", .jarray(control))
 
     .jcall(evaluator, "V", "buildEvaluator", instances)
 
