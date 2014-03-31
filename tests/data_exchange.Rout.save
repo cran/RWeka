@@ -1,7 +1,7 @@
 
-R version 2.10.0 Under development (unstable) (2009-04-15 r48325)
-Copyright (C) 2009 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
+R Under development (unstable) (2014-03-30 r65339) -- "Unsuffered Consequences"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -120,13 +120,11 @@ Type 'q()' to quit R.
 > 
 > ## connections
 > 
-> if (capabilities("fifo")) {
-+     f <- fifo("")
-+     write.arff(x, f)
-+     xx <- read.arff(f)
-+     close(f)
-+     print(all.equal(x, xx))     # TRUE
-+ }
+> f <- file("")
+> write.arff(x, f)
+> xx <- read.arff(f)
+> close(f)
+> print(all.equal(x, xx))                 # TRUE
 [1] TRUE
 > 
 > ## date normalization
@@ -147,7 +145,7 @@ Type 'q()' to quit R.
 > 
 > # differ in representation
 > all.equal(x, xx)
-[1] "Component 2: Attributes: < Component 2: 1 string mismatch >"
+[1] TRUE
 > 
 > 
 > ## test the R parser and writer
@@ -165,3 +163,6 @@ Type 'q()' to quit R.
 > 
 > ###
 > 
+> proc.time()
+   user  system elapsed 
+  0.904   0.028   1.170 

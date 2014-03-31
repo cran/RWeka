@@ -5,16 +5,14 @@ function(file)
     if(!is.character(file)) {
         if(!inherits(file, "connection"))
             stop("Argument 'file' must be a character string or connection.")
-        if(!isOpen(file, "r")) {
-            open(file, "r")
-            on.exit(close(file))
+        con <- file
+        if(!isOpen(con, "r")) {
+            open(con, "r")
+            on.exit(close(con))
         }
-        rf <- file
         file <- tempfile()
         on.exit(unlink(file), add = TRUE)
-        wf <- file(file, "w")
-        writeLines(readLines(rf), wf)
-        close(wf)
+        writeLines(readLines(con), file)
     }
 
     ## Read the ARFF file into Weka.

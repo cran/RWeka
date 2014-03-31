@@ -19,20 +19,10 @@ LovinsStemmer(x, control = NULL)
 \value{
   A character vector with the stemmed words.
 }
-\details{
-  The R interface to Weka's Snowball stemmers is available as function
-  \code{\link[Snowball]{SnowballStemmer}} in package \pkg{Snowball} (as
-  it requires a jar with the Java version of the Snowball stemmers which
-  cannot be included in package \pkg{RWeka} due to license
-  restrictions).
-}
 \references{
   J. B. Lovins (1968),
   Development of a stemming algorithm.
   \emph{Mechanical Translation and Computational Linguistics} \bold{11},
   22--31.
-}
-\seealso{
-  \code{\link[Snowball]{SnowballStemmer}}
 }
 \keyword{character}

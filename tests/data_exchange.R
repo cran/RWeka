@@ -65,13 +65,11 @@ x
 
 ## connections
 
-if (capabilities("fifo")) {
-    f <- fifo("")
-    write.arff(x, f)
-    xx <- read.arff(f)
-    close(f)
-    print(all.equal(x, xx))     # TRUE
-}
+f <- file("")
+write.arff(x, f)
+xx <- read.arff(f)
+close(f)
+print(all.equal(x, xx))                 # TRUE
 
 ## date normalization
 x <- data.frame(date1 = as.POSIXct("2012-12-12 12:12:12", tz = ""),

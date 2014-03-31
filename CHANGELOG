@@ -1,3 +1,7 @@
+version 0.4.22
+
+* Use partykit instead of party for plotting classifier trees.
+
 version 0.4.21
 
 * Fix bug in attribute evaluation interface code.
@@ -99,7 +103,7 @@ version 0.4-1
 * Upgrade to Weka 3.7.1.
 
 * Changes in readers.R and RWekaInterfaces.java (FastVector was
-  deprecated and Instance became an Interface). (C) 
+  deprecated and Instance became an Interface). (C)
 
 version 0.3-25
 
@@ -170,7 +174,7 @@ version 0.3-11
 
 * We use now a more direct approach to exchange data with Weka.
   This should reduce processing times considerably. (C)
-  
+
 * R logical is now mapped to Weka's enumeration type, i.e., to
   {FALSE, TRUE}. (C)
 
@@ -248,7 +252,7 @@ version 0.2-9
 
 version 0.2-6
 
-* Upgrade to Weka 3.5.3. Moved out persistence support as it 
+* Upgrade to Weka 3.5.3. Moved out persistence support as it
   lacks support from R and others :-( (C)
 
 * Support for Weka control lists in make_class_name_expander(). (K)
@@ -269,5 +273,5 @@ version 0.2-4
 
 * Upgrade to Weka 3.5.2. (K)
 
-* Exception and missing value fixes in RWekaInterfaces.java, 
+* Exception and missing value fixes in RWekaInterfaces.java,
   classifiers.R, clusterers.R. Registered DBScan. (C)

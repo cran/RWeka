@@ -55,10 +55,9 @@ DecisionStump(formula, data, subset, na.action,
   on \code{\link{evaluate_Weka_classifier}}.
 
   There is also a \code{plot} method for fitted binary \code{Weka_tree}s
-  via the facilities provided by package \pkg{party}. This converts the
-  \code{Weka_tree} to a \code{BinaryTree} and then simply calls the plot
-  method of this class (see \code{\link[party]{plot.BinaryTree}}) with
-  slight modifications to the default arguments.
+  via the facilities provided by package \pkg{partykit}. This converts
+  the \code{Weka_tree} to a \code{party} object and then simply calls
+  the plot method of this class (see \code{\link[partykit]{plot.party}}).
 
   Provided the Weka classification tree learner implements the
   \dQuote{Drawable} interface (i.e., provides a \code{graph} method),
@@ -140,8 +139,8 @@ summary(m1) # calls evaluate_Weka_classifier()
 table(iris$Species, predict(m1)) # by hand
 
 ## visualization
-## use party package
-if(require("party", quietly = TRUE)) plot(m1)
+## use partykit package
+if(require("partykit", quietly = TRUE)) plot(m1)
 ## or Graphviz
 write_to_dot(m1)
 ## or Rgraphviz
@@ -160,13 +159,13 @@ DF2 <- read.arff(system.file("arff", "contact-lenses.arff",
 m2 <- J48(`contact-lenses` ~ ., data = DF2)
 m2
 table(DF2$`contact-lenses`, predict(m2))
-if(require("party", quietly = TRUE)) plot(m2)
+if(require("partykit", quietly = TRUE)) plot(m2)
 
 ## M5P
 DF3 <- read.arff(system.file("arff", "cpu.arff", package = "RWeka"))
 m3 <- M5P(class ~ ., data = DF3)
 m3
-if(require("party", quietly = TRUE)) plot(m3)
+if(require("partykit", quietly = TRUE)) plot(m3)
 
 ## Logistic Model Tree.
 DF4 <- read.arff(system.file("arff", "weather.arff", package = "RWeka"))
@@ -176,7 +175,7 @@ table(DF4$play, predict(m4))
 
 ## Larger scale example.
 if(require("mlbench", quietly = TRUE)
-   && require("party", quietly = TRUE)) {
+   && require("partykit", quietly = TRUE)) {
     ## Predict diabetes status for Pima Indian women
     data("PimaIndiansDiabetes", package = "mlbench")
     ## Fit J48 tree with reduced error pruning

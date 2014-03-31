@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: RWeka 0.4-15\n"
-"POT-Creation-Date: 2013-03-19 14:56\n"
+"Project-Id-Version: RWeka 0.4-22\n"
+"POT-Creation-Date: 2014-03-15 19:35\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,13 +82,7 @@ msgstr ""
 msgid "Cannot create dot description from 'x'."
 msgstr ""
 
-msgid "Cannot coerce n-ary trees."
-msgstr ""
-
-msgid "Plotting Weka trees requires package 'party'."
-msgstr ""
-
-msgid "Plotting of trees with multi-way splits is currently not implemented."
+msgid "Plotting Weka trees requires package 'partykit'."
 msgstr ""
 
 msgid "An R interface to Weka class '%s', which has information"
