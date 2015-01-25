@@ -100,7 +100,7 @@ DecisionStump(formula, data, subset, na.action,
   \emph{Logistic Model Trees}.
   Master's thesis, Institute for Computer Science, University of
   Freiburg, Germany.
-  \url{http://www.informatik.uni-freiburg.de/~ml/thesis_landwehr2003.html}
+  \url{http://www.cs.uni-potsdam.de/ml/landwehr/diploma_thesis.pdf}
 
   N. Landwehr, M. Hall, and E. Frank (2005).
   Logistic Model Trees.

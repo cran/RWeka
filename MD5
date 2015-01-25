@@ -1,8 +1,8 @@
-3a05f13bb59f5c450709900d1875e45b *CHANGELOG
-2d88208f6d8c949c91d0cebed865c302 *DESCRIPTION
+e619f5651dadd291714d54dbe155ba8e *CHANGELOG
+35ec8d729ed500673c6039f86c7cf390 *DESCRIPTION
 4a90c4ce9525e130e5a4a409fdefa3ec *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
-fd2173d17ed55c1b333f1129a2c10d87 *R/arff.R
+e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
 e38560dfd0be25bf3aad5a5f91afbc62 *R/associators.R
 aab568d2b30a2c78769b1ff3bc19bcf5 *R/attributes.R
 c9caaf1c9d0656be9ba0d06cc73bec21 *R/classifiers.R
@@ -14,7 +14,7 @@ afd67296e7e83d98bf2f182ddf5a2e0e *R/filters.R
 cd8682bcc4b0f94aac0a71ca317625c8 *R/graph.R
 364e6ad0114a5a0d42a1eab3d4457c02 *R/interfaces.R
 c96dfba0f414bb5c3feb22df2f2faf92 *R/onLoad.R
-ec02374b4afdefd6351514428ce7effc *R/readers.R
+6c4af92a6b775c96d094efd56dd70b57 *R/readers.R
 19bde99e262aa0a309dfede6d2205ea3 *R/stemmers.R
 79272361b3aaaabe64197308868d987f *R/techinfo.R
 c491e41958780d4ab1a0944420a99128 *R/tokenizers.R
@@ -22,7 +22,7 @@ c491e41958780d4ab1a0944420a99128 *R/tokenizers.R
 da6b5da585e30c67b36009e46c76f2f2 *R/wow.R
 dddbdc54546ac55c82f3c9f5de167c09 *R/wpm.R
 4de2d9d2513b5af678fdd57eb6269b85 *R/zzz.R
-3d16f1527c26a8d48135fd148f99735d *build/vignette.rds
+a48d1cca3392480881384b8ca640541e *build/vignette.rds
 c181a74fcc92ed2070ad1aced4264030 *configure
 7764bb2879d6a33ff32dc3fb41428d30 *inst/CITATION
 62d900123933cc8385bde5d89467fcf6 *inst/arff/contact-lenses.arff
@@ -44,11 +44,11 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 be57288871b41ee48f397db5c971825c *inst/doc/RWeka.R
 50b73b0965dbb232a5a83da125333b6e *inst/doc/RWeka.Rnw
-3c1dd64bafa02f114148d27e7b4338c0 *inst/doc/RWeka.pdf
-a0ea6a2bfdea385609d32ae359f5fd43 *inst/java/RWeka.jar
+4be6be0a28efdb800f660ba30dcfa3d7 *inst/doc/RWeka.pdf
+5d74fc165bb80629516ec3bd9c7fb7f6 *inst/java/RWeka.jar
 4ac4c1ca759dfe1e695e5e51af3035e1 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
-7acd1ec41342efda10dbed67366b255f *java/Makefile
-1e9399bf2544d795d73c6155cea108af *java/RWekaInterfaces.class
+9939238a409bea4f47d71216ce0422c9 *java/Makefile
+c4253d2d12dcf61914f54c89f74db664 *java/RWekaInterfaces.class
 ff37760200816dcf95490230dd1f3f0b *java/RWekaInterfaces.java
 c000b7e3e89ede64d3ca3e7add1bf44d *man/WOW.Rd
 b29272b6b9084c05e33888bac4331b71 *man/WPM.Rd
@@ -58,7 +58,7 @@ f75bd4d535c19247e942370f7a1c2cb0 *man/Weka_classifier_functions.Rd
 3c203be3729386fc60f17403f56207ec *man/Weka_classifier_lazy.Rd
 d504b6be463f6b81f5e2d361bee80666 *man/Weka_classifier_meta.Rd
 608c821000226d563b32c099fee791d4 *man/Weka_classifier_rules.Rd
-e1f02931018f696ac8e28683efa12cf0 *man/Weka_classifier_trees.Rd
+76414711676d085b55f6e01b2fbdef01 *man/Weka_classifier_trees.Rd
 7162b9a61a96b48830e50cd81f9a6315 *man/Weka_classifiers.Rd
 f95a30158eb8308dff452ac929e1fe0b *man/Weka_clusterers.Rd
 bb45d9c853587cd0df4511673e306e45 *man/Weka_control.Rd

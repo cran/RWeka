@@ -67,7 +67,7 @@ function(x, con, eol)
     instances <- read_data_into_Weka(x)
     text <- .jcall(instances, "Ljava/lang/String;", "toString")
 
-    writeLines(text, con, sep = eol)
+    writeLines(unlist(strsplit(text, "\n", fixed = TRUE)), con, sep = eol)
 }
 
 .write_ARFF_to_con.simple_triplet_matrix <-

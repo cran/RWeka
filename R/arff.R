@@ -153,7 +153,7 @@ function(x, file, eol = "\n")
     }
 
     ## Write data.
-    writeLines("@data", file)
+    writeLines("@data", file, sep = eol)
     write.table(x, file = file, na = "?", sep = ",",
                 eol = eol, quote = FALSE, row.names = FALSE,
                 col.names = FALSE)
