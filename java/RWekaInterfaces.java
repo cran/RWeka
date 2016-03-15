@@ -28,7 +28,7 @@ public abstract class RWekaInterfaces {
 	    }
 	}
 	if (k > 0)
-	   System.out.println(k+" instances not classified");
+	   System.err.println(k+" instances not classified");
 
 	return(out);
     }
@@ -51,7 +51,7 @@ public abstract class RWekaInterfaces {
 	    }
 	}
 	if (k > 0)
-	   System.out.println(k+" instances not classified");
+	   System.err.println(k+" instances not classified");
 	
 	return(out);
     }

@@ -22,7 +22,7 @@ WOW(x)
 \references{
   K. Hornik, C. Buchta, and A. Zeileis (2009).
   Open-source machine learning: R meets Weka.
-  \emph{Computational Statistics}, \bold{24}/2, 225--232,
+  \emph{Computational Statistics}, \bold{24}/2, 225--232.
 }
 \examples{
 ## The name of an "existing" (registered) interface.
