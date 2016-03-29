@@ -1,3 +1,7 @@
+version 0.4.26
+
+* Improve code for non-standard evaluation.
+
 version 0.4.25
 
 * Upgrade to Weka 3.7.13.

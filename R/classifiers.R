@@ -41,7 +41,8 @@ function(name, class = NULL, handlers = list(), init = NULL)
         mc <- match.call()
         mf <- mc[c(1L, match(c("formula", "data", "subset", "na.action"),
                              names(mc), 0L))]
-        mf[[1L]] <- as.name("model.frame")
+        ## Need 'stats::' for non-standard evaluation:
+        mf[[1L]] <- quote(stats::model.frame)
         mf <- eval(mf, parent.frame())
 	
         .structure(c(RWeka_build_classifier(mf, control, name, handlers,
@@ -247,7 +248,8 @@ function(formula, ...)
     mf <- mf[c(1L, match(c("formula", "data", "subset", "na.action"),
                          names(mf), 0L))]
     mf$drop.unused.levels <- TRUE
-    mf[[1L]] <- as.name("model.frame")
+    ## Need 'stats::' for non-standard evaluation:
+    mf[[1L]] <- quote(stats::model.frame)
     mf[names(nargs)] <- nargs
     if(is.null(env <- environment(formula$terms)))
         env <- parent.frame()

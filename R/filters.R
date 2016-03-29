@@ -19,7 +19,8 @@ function(name, class = NULL, init = NULL)
         mc <- match.call()
         mf <- mc[c(1L, match(c("formula", "data", "subset", "na.action"),
                              names(mc), 0L))]
-        mf[[1L]] <- as.name("model.frame")
+        ## Need 'stats::' for non-standard evaluation:
+        mf[[1L]] <- quote(stats::model.frame)
         mf <- eval(mf, parent.frame())
         
         RWeka_use_filter(mf, control, name, init)
