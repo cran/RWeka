@@ -1,5 +1,5 @@
 Package: RWeka
-Version: 0.4-26
+Version: 0.4-27
 Title: R/Weka Interface
 Authors@R: c(person("Kurt", "Hornik", role = c("aut", "cre"),
                     email = "Kurt.Hornik@R-project.org"),
@@ -8,7 +8,7 @@ Authors@R: c(person("Kurt", "Hornik", role = c("aut", "cre"),
              person("Alexandros", "Karatzoglou", role = "ctb"),
              person("David", "Meyer", role = "ctb"),
              person("Achim", "Zeileis", role = "ctb"))
-Description: An R interface to Weka (Version 3.7.13).
+Description: An R interface to Weka (Version 3.9.0).
    Weka is a collection of machine learning algorithms for data mining
    tasks written in Java, containing tools for data pre-processing,
    classification, regression, clustering, association rules, and
@@ -16,13 +16,13 @@ Description: An R interface to Weka (Version 3.7.13).
    Weka jar is in a separate package 'RWekajars'.  For more information
    on Weka see <http://www.cs.waikato.ac.nz/ml/weka/>.
 Depends: R (>= 2.6.0)
-Imports: RWekajars (>= 3.7.13), rJava (>= 0.6-3), graphics, stats,
+Imports: RWekajars (>= 3.9.0), rJava (>= 0.6-3), graphics, stats,
         utils, grid
 Suggests: partykit (>= 0.8.0), mlbench, e1071
 SystemRequirements: Java (>= 6.0)
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2016-03-29 11:45:22 UTC; hornik
+Packaged: 2016-05-03 20:11:48 UTC; hornik
 Author: Kurt Hornik [aut, cre],
   Christian Buchta [ctb],
   Torsten Hothorn [ctb],
@@ -31,4 +31,4 @@ Author: Kurt Hornik [aut, cre],
   Achim Zeileis [ctb]
 Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
 Repository: CRAN
-Date/Publication: 2016-03-29 14:14:46
+Date/Publication: 2016-05-04 10:13:25
