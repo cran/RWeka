@@ -29,7 +29,8 @@ function(cmd, ...)
                 stop(gettextf("Unavailable package '%s'.", arg),
                      domain = NA)
             }
-            .jaddClassPath(Sys.glob(file.path(dir, "*.jar")))
+            .jaddClassPath(c(Sys.glob(file.path(dir, "*.jar")),
+                             Sys.glob(file.path(dir, "lib", "*.jar"))))
             Weka_packages_loaded(c(packages, arg))
         }
         return(invisible())

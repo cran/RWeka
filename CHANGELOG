@@ -1,3 +1,11 @@
+version 0.4.28
+
+* Weka 3.9.0 needs Java >= 1.7: change SystemRequirements and configure
+  accordingly.
+
+* Fix problem in WPM("load-package") spotted by
+  Eibe Frank <eibe@waikato.ac.nz>.
+
 version 0.4.27
 
 * Upgrade to Weka 3.9.0.
