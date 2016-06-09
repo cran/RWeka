@@ -1,9 +1,22 @@
 WPM <-
 function(cmd, ...)
 {
+    ## See
+    ## <http://weka.sourceforge.net/doc.dev/weka/core/WekaPackageManager.html>.
+        
     cmd <- cmd[1L]
-    cmds <- c("refresh-cache", "list-packages", "install-package",
-              "remove-package", "load-package", "package-info")
+    cmds <- c(## Corresponding to command line options:
+              "refresh-cache",
+              "package-info",
+              "list-packages",
+              "install-package", "remove-package",
+              ## (command line uses -uninstall-package)
+              "toggle-load-status",
+              ## R specific:
+              "load-packages",
+              ## Internal use only:
+              ".check-installed-and-load"
+              )
     pos <- pmatch(tolower(cmd), cmds)
     if(is.na(pos))
         stop(gettextf("Invalid package manager command '%s'.", cmd),
@@ -13,28 +26,6 @@ function(cmd, ...)
     args <- as.character(list(...))
 
     wpm <- .jnew("weka.core.WekaPackageManager")
-    
-    if(cmd == "load-package") {
-        ## Need to write code ourselves ...
-        arg <- args[1L]
-        if(is.na(arg))
-            stop(gettextf("No package given."),
-                 domain = NA)
-        ## Avoid repeated loads (for now).
-        packages <- Weka_packages_loaded()
-        if(!(arg %in% packages)) {
-            dir <- .jcall(wpm, "Ljava/io/File;", "getPackageHome")
-            dir <- file.path(.jcall(dir, "S", "toString"), arg)
-            if(!file.exists(dir)) {
-                stop(gettextf("Unavailable package '%s'.", arg),
-                     domain = NA)
-            }
-            .jaddClassPath(c(Sys.glob(file.path(dir, "*.jar")),
-                             Sys.glob(file.path(dir, "lib", "*.jar"))))
-            Weka_packages_loaded(c(packages, arg))
-        }
-        return(invisible())
-    }
 
     ## * -refresh-cashe
     ## This is
@@ -58,46 +49,6 @@ function(cmd, ...)
                        "java/io/PrintStream"))
         return(invisible())
     }
-    
-    ## Let us use main() for now, but make sure we call it reasonably,
-    ## as the Weka 3.7.2 release in fact does System.exit(1) in case of
-    ## misuse ...
-
-    switch(EXPR = cmd,
-           "list-packages" = {
-               arg <- c(args, "all")[1L]
-               tab <- c("all", "installed", "available")
-               pos <- pmatch(arg, tab)
-               if(is.na(pos))
-                   stop("Invalid package manager command '%s %s'",
-                        cmd, arg)
-               args <- c("-list-packages", arg)
-           },
-           "package-info" = {
-               ## This is somewhat silly ...
-               ## But we really need 2 arguments here.
-               args <- args[c(1L, 2L)]
-               tab <- c("repository", "installed", "archive")
-               pos <- pmatch(args[1L], tab)
-               if(is.na(pos) || is.na(args[2L]))
-                   stop("Invalid package manager command '%s %s %s'",
-                        cmd, arg[1L], arg[2L])
-               args <- c("-package-info", args)
-           },
-           "install-package" = {
-               arg <- args[1L]
-               if(is.na(arg))
-                   stop(gettextf("No package given."),
-                        domain = NA)
-               args <- c("-install-package", arg)
-           },
-           "remove-package" = {
-               arg <- args[1L]
-               if(is.na(arg))
-                   stop(gettextf("No package given."),
-                        domain = NA)
-               args <- c("-remove-package", arg)
-           })
 
     ## Capture Java output.
     bos <- .jnew("java/io/ByteArrayOutputStream")
@@ -110,34 +61,92 @@ function(cmd, ...)
            .jnew("java/io/PrintStream",
                  .jcast(bos,"java/io/OutputStream")))
 
+    on.exit({
+        ## Stop redirecting Java messages.
+        .jcall("java/lang/System", "V", "setOut", out)
+        .jcall("java/lang/System", "V", "setErr", err)
+        ## And display them.
+        message(.jcall(bos, "Ljava/lang/String;", "toString"))
+    })
+
+    switch(EXPR = cmd,    
+           ".check-installed-and-load" = {
+               ## Need to write code ourselves ...
+               arg <- args[1L]
+               if(is.na(arg))
+                   stop(gettextf("No package given."),
+                        domain = NA)
+               ## Explictly throw an error if the package is not
+               ## installed.
+               installed <-
+                   vapply(.jcall(wpm,
+                                 "Ljava/util/List;",
+                                 "getInstalledPackages"),
+                          function(e) .jcall(e, "S", "getName"), "")
+               if(is.na(match(arg, installed))) 
+                   stop(gettextf("Required Weka package '%s' is not installed.",
+                                 arg),
+                        domain = NA)
+               ## Alternatively, use
+               ##   dir <- .jcall(wpm, "Ljava/io/File;", "getPackageHome")
+               ##   dir <- file.path(.jcall(dir, "S", "toString"), arg)
+               ##   if(!file.exists(dir)) 
+               ##       stop(gettextf("Required Weka package '%s' is not installed.",
+               ##                     arg),
+               ##            domain = NA)
+               .jcall(wpm, "V", "loadPackages", FALSE)
+               return(invisible())
+           },
+           "load-packages" = {
+               .jcall(wpm, "V", "loadPackages", FALSE)
+               return(invisible())
+           },               
+           "list-packages" = {
+               arg <- c(args, "all")[1L]
+               tab <- c("all", "installed", "available")
+               pos <- pmatch(arg, tab)
+               if(is.na(pos))
+                   stop("Invalid package manager command '%s %s'",
+                        cmd, arg)
+               args <- c("-list-packages", tab[pos])
+           },
+           "package-info" = {
+               ## This is somewhat silly ...
+               ## But we really need 2 arguments here.
+               args <- args[c(1L, 2L)]
+               tab <- c("repository", "installed", "archive")
+               pos <- pmatch(args[1L], tab)
+               if(is.na(pos) || is.na(args[2L]))
+                   stop("Invalid package manager command '%s %s %s'",
+                        cmd, arg[1L], arg[2L])
+               args <- c("-package-info", c(tab[pos], args[2L]))
+           },
+           "install-package" = {
+               if(!length(args))
+                   stop(gettextf("No package given."),
+                        domain = NA)
+               args <- c("-install-package", args)
+           },
+           "remove-package" = {
+               arg <- args[1L]
+               if(is.na(arg))
+                   stop(gettextf("No package given."),
+                        domain = NA)
+               args <- c("-uninstall-package", arg)
+           },
+           "toggle-load-status" = {
+               if(!length(args))
+                   stop(gettextf("No package given."),
+                        domain = NA)
+               args <- c("-toggle-load-status", args)
+           }
+           )
+    
     .jcall(wpm, "V", "main", .jarray(args))
-
-    ## Stop redirecting Java messages.
-    .jcall("java/lang/System", "V", "setOut", out)
-    .jcall("java/lang/System", "V", "setErr", err)
-    ## And display them.
-    message(.jcall(bos, "Ljava/lang/String;", "toString"))
 }
-
-Weka_packages_loaded <-
-local({
-    packages <- character()
-    function(new) {
-        if(!missing(new))
-            packages <<- unique(new)
-        else
-            packages
-    }
-})
 
 make_Weka_package_loader <-
 function(p)
     function() {
-        tryCatch(WPM("load-package", p),
-                 error =
-                 function(e)
-                 stop(gettextf("Required Weka package '%s' is not installed.",
-                               p),
-                      domain = NA))
-                 
+        WPM(".check-installed-and-load", p)
     }

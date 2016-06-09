@@ -74,7 +74,7 @@ Packages can be installed by calling \verb|WPM()| with the
 \verb|"install-package"| action and the package name, and similarly be
 removed using the \verb|"remove-package"| action.  Finally, packages can
 be ``loaded'' (i.e., having their jars added to the class path) using
-the \verb|"load-package"| action.
+the \verb|"load-packages"| action.
 
 Note that if the Weka home directory was not created yet, \verb|WPM()|
 will instead use a temporary directory in the R session directory: to

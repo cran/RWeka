@@ -9,10 +9,13 @@ WPM(cmd, ...)
 }
 \arguments{
   \item{cmd}{a character string specifying the action to be performed.
-    Must be one of \code{"refresh-cache"}, \code{"list-packages"},
-    \code{"package-info"}, \code{"install-package"},
-    \code{"remove-package"}, or \code{"load-package"} (or a unique
-    abbreviation thereof).}
+    Must be one of \code{"refresh-cache"},
+    \code{"list-packages"},
+    \code{"package-info"},
+    \code{"install-package"}, \code{"remove-package"},
+    \code{"toggle-load-status"}
+    or \code{"load-packages"}
+    (or a unique abbreviation thereof).}
   \item{...}{character strings giving further arguments required for the
     action to be performed.  See \bold{Details}.}
 }
@@ -37,8 +40,10 @@ WPM(cmd, ...)
       additional character string giving its name.  (In principle, one
       could also provide a file path or URL to a zip file.)}
     \item{\code{"remove-package"}}{remove a given (installed) package.}
-    \item{\code{"load-package"}}{load a given package by adding its jars
-      to the Java classpath.}
+    \item{\code{"toggle-load-status"}}{toggle the load status of the
+      given (installed) packages.}
+    \item{\code{"load-packages"}}{load all installed packages with
+      active load status.}
   }
 }
 \note{
