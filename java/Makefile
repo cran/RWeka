@@ -14,7 +14,7 @@ WEKAJAR = ../../RWekajars/inst/java/weka.jar
 ## Keeps this in sync with the requirements as documented in
 ## <http://www.cs.waikato.ac.nz/~ml/weka/index_requirements.html>.
 .java.class:
-	$(JAVAC) -target 1.6 -source 1.6 -cp $(WEKAJAR) $<
+	$(JAVAC) -target 1.7 -source 1.7 -cp $(WEKAJAR) $<
 ## </NOTE>
 
 all: $(JARS)

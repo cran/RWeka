@@ -1,3 +1,7 @@
+version 0.4.30
+
+* Upgrade to Weka 3.9.1.
+
 version 0.4.29
 
 * More improvements for WPM().  In particular, change to "load-packages"

@@ -213,6 +213,10 @@ function(x, classIndex = 0L)
     ## See the Weka 3-5-7 source code for this insanity (e.g., string).
     ## Note that the class index, if any, must be set as an attribute.
 
+    ## Be nice.
+    if(!is.data.frame(x))
+        x <- as.data.frame(x)
+
     ## As Weka instance objects do not have case/row names, we store
     ## such information in the R container for the Weka instances.  For
     ## simplicity, we store the dimnames including the (variable) names
