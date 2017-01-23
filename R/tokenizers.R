@@ -18,7 +18,7 @@ function(name)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta
 
     out <- function(x, control = NULL) {
-        tokenizer <- .jnew(name)
+        tokenizer <- Weka_object_for_name(name)
         x <- Filter(nzchar, as.character(x))
         if(!length(x)) return(character())
         .jcall("RWekaInterfaces", "[S", "tokenize",

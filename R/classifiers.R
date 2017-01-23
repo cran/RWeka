@@ -73,7 +73,7 @@ function(mf, control, name, handlers, options, init)
     instances <- read_model_frame_into_Weka(mf)
 
     ## Build the classifier.
-    classifier <- .jnew(name)
+    classifier <- Weka_object_for_name(name)
     control <- as.character(.compose_and_funcall(handlers$control,
                                                  control))
     if(length(control))

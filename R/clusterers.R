@@ -26,7 +26,7 @@ function(x, control, name, init)
     instances <- read_data_into_Weka(x)
 
     ## Build the clusterer.
-    clusterer <- .jnew(name)
+    clusterer <- Weka_object_for_name(name)
     control <- as.character(control)
     if(length(control)) {
         if(.has_method(clusterer, "setOptions"))

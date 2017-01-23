@@ -49,7 +49,7 @@ function(mf, control, name, init)
        instances <- read_model_frame_into_Weka(mf)
 
     ## Build filter.
-    filter <- .jnew(name)
+    filter <- Weka_object_for_name(name)
     control <- as.character(control)
     if (length(control))
        .jcall(filter, "V", "setOptions", .jarray(control))

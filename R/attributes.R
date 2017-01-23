@@ -35,7 +35,7 @@ function(mf, control, name, init)
 
     instances <- read_model_frame_into_Weka(mf)
 
-    evaluator <- .jnew(name)
+    evaluator <- Weka_object_for_name(name)
     control <- as.character(control)
     if(length(control))
        .jcall(evaluator, "V", "setOptions", .jarray(control))

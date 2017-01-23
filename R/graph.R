@@ -29,14 +29,14 @@ function(x, plainleaf = TRUE)
     nodes <- x[ind == -1L]
     edges <- x[ind != -1L]
     
-    nval <- matrix(rep("", 2L * length(nodes)), ncol = 2L)
+    nval <- matrix(rep.int("", 2L * length(nodes)), ncol = 2L)
     colnames(nval) <- c("name", "splitvar")
     nval[, 1L] <- sapply(strsplit(nodes, " "), "[", 1L)
     nval[, 2L] <- sapply(strsplit(nodes, "\""), "[", 2L)
     if(plainleaf)
         nval[grep("(", nval[, 2L], fixed = TRUE), 2L] <- ""
     
-    eval <- matrix(rep("", 3L * length(edges)), ncol = 3L)
+    eval <- matrix(rep.int("", 3L * length(edges)), ncol = 3L)
     colnames(eval) <- c("from", "to", "label")
     eval[, 1L] <- sapply(strsplit(edges, "->"), "[", 1L)
     eval[, 2L] <-

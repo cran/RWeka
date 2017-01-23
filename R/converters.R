@@ -32,7 +32,7 @@ function(name, handlers = list())
         write.arff(x, arfff)
         ## Call the saver with the ARFF file as input, the given output
         ## file, and the given control arguments.
-        saver <- .jnew(name)
+        saver <- Weka_object_for_name(name)
         control <- as.character(.compose_and_funcall(handlers$control,
                                                      control))
         .jcall(saver, "V", "setOptions",
@@ -56,7 +56,7 @@ function(name, handlers = list())
 ##     function(x, file, control = NULL) {
 ##         if(!is.character(file) || (length(file) != 1L))
 ##             stop("Argument 'file' must be a character string.")
-##         saver <- .jnew(name)
+##         saver <- Weka_object_for_name(name)
 ##         .jcall(saver, "V", "setInstances", read_data_into_Weka(x))
 ##         .jcall(saver, "V", "setFile",
 ##                .jnew("java/io/File", path.expand(file)))
@@ -81,7 +81,7 @@ function(name)
         if(!is.character(file) || (length(file) != 1L))
             stop("Argument 'file' must be a character string.")
         
-        loader <- .jnew(name)
+        loader <- Weka_object_for_name(name)
         .jcall(loader, "V", "setSource",
                .jnew("java/io/File", path.expand(file)))
         instances <-

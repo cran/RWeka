@@ -1,3 +1,8 @@
+version 0.4.31
+
+* Weka 3.9.1 can no longer load classes in external packages via .jnew():
+  use the Weka package class loaded manager instead.
+
 version 0.4.30
 
 * Upgrade to Weka 3.9.1.

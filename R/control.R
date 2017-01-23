@@ -41,7 +41,7 @@ function(x, ...)
         ## which can be recursive, so that we can handle things like
         ##   Weka_control(K = list("RBFKernel", G = 2))
         ## <FIXME>
-        tag <- if(nzchar(tag)) paste("-", tag, sep = "") else NULL
+        tag <- if(nzchar(tag)) paste0("-", tag) else NULL
         out <- if(is.list(val)) {
             nms <- names(val)
             if(is.null(nms)) nms <- character(length(val))

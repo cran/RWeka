@@ -20,4 +20,9 @@ function(libname, pkgname)
                                             "wekafiles")))$isdir) ||
        !isdir)
         Sys.setenv(WEKA_HOME = tempfile("RWeka"))
+
+    ## As of Weka 3.9.1, .jnew() can no longer be used for classes in
+    ## external packages.  Hence, instantiate the Weka package class
+    ## loader manager and use its objectForName() method instead.
+    Weka_package_class_loader_manager(.jnew("weka/core/WekaPackageClassLoaderManager"))
 }

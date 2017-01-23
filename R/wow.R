@@ -12,7 +12,7 @@ function(x)
             init()
     }
     
-    x <- .jnew(name)
+    x <- Weka_object_for_name(name)
 
     names <- descriptions <- synopses <- character()
     lengths <- integer()

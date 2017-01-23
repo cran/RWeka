@@ -150,3 +150,25 @@ function(p)
     function() {
         WPM(".check-installed-and-load", p)
     }
+
+Weka_package_class_loader_manager <-
+local({
+    man <- NULL          
+    function(new) {
+        if(!missing(new)) {
+            man <<- new
+        }
+        else
+            man
+    }
+})
+    
+Weka_object_for_name <-
+function(name)
+{
+    if(!is.null(man <- Weka_package_class_loader_manager()))
+        .jcall(man, "Ljava/lang/Object;", "objectForName",
+               as_qualified_name(name))
+    else
+        .jnew(name)
+}
