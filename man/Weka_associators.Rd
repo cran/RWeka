@@ -61,7 +61,7 @@ Apriori(x)
 Apriori(x, Weka_control(N = 20))
 
 \dontrun{
-## Requires Weka package 'Tertius' to be installed.
+## Requires Weka package 'tertius' to be installed.
 ## Tertius with defaults.
 Tertius(x)
 ## Some options: only classification rules (single item in the RHS).

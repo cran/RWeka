@@ -1,5 +1,5 @@
 make_Weka_clusterer <-
-function(name, class = NULL, init = NULL)
+function(name, class = NULL, init = NULL, package = NULL)
 {
     ## Return a function interfacing the Weka cluster learner class
     ## 'name'.
@@ -8,25 +8,30 @@ function(name, class = NULL, init = NULL)
     classes <- c(class, "Weka_clusterer")
     kind <- "R_Weka_clusterer_interface"
     name <- as_JNI_name(name)
-    meta <- make_R_Weka_interface_metadata(name, kind, classes, init)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes, init,
+                                           package)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta
     
     out <- function(x, control = NULL) {
-        .structure(RWeka_build_clusterer(x, control, name, init),
+        .structure(RWeka_build_clusterer(x, control, name, init,
+                                         package),
                    class = classes)
     }
     make_R_Weka_interface(out, meta)
 }
 
 RWeka_build_clusterer <-
-function(x, control, name, init)
+function(x, control, name, init, package)
 {
-    if(is.function(init)) init()
+    if(is.function(init))
+        init()
+    else if(!is.null(package))
+        WPM(".check-installed-and-load", package)
     
     instances <- read_data_into_Weka(x)
 
     ## Build the clusterer.
-    clusterer <- Weka_object_for_name(name)
+    clusterer <- Weka_object_for_name(name, package)
     control <- as.character(control)
     if(length(control)) {
         if(.has_method(clusterer, "setOptions"))

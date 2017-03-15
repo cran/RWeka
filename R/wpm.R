@@ -164,8 +164,17 @@ local({
 })
     
 Weka_object_for_name <-
-function(name)
+function(name, package = NULL)
 {
+    ## <FIXME>
+    ## Alternatively, should now be able to do:
+    ##   if(!is.null(package) &&
+    ##      !is.null(man <- Weka_package_class_loader_manager()))
+    ##        .jnew(name, class.loader = man$getPackageClassLoaded(package))
+    ## but this assumes that in all cases where 'name' is from an
+    ## external package the corresponding 'package' is given too:
+    ## So let's be defensive for the time being.
+    ## </FIXME>
     if(!is.null(man <- Weka_package_class_loader_manager()))
         .jcall(man, "Ljava/lang/Object;", "objectForName",
                as_qualified_name(name))

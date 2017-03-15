@@ -1,5 +1,5 @@
 make_Weka_file_saver <-
-function(name, handlers = list())
+function(name, handlers = list(), package = NULL)
 {
     ## Create an interface to a Weka class for saving data.
 
@@ -16,7 +16,8 @@ function(name, handlers = list())
 
     kind <- "R_Weka_file_saver_interface"
     name <- as_JNI_name(name)
-    meta <- make_R_Weka_interface_metadata(name, kind)
+    meta <- make_R_Weka_interface_metadata(name, kind,
+                                           package = package)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta
 
     out <- function(x, file, control = NULL) {
@@ -32,7 +33,7 @@ function(name, handlers = list())
         write.arff(x, arfff)
         ## Call the saver with the ARFF file as input, the given output
         ## file, and the given control arguments.
-        saver <- Weka_object_for_name(name)
+        saver <- Weka_object_for_name(name, package)
         control <- as.character(.compose_and_funcall(handlers$control,
                                                      control))
         .jcall(saver, "V", "setOptions",
@@ -67,13 +68,14 @@ function(name, handlers = list())
 ## </NOTE>
 
 make_Weka_file_loader <-
-function(name)
+function(name, package = NULL)
 {
     ## Create an interface to a Weka class for saving data.
 
     kind <- "R_Weka_file_loader_interface"
     name <- as_JNI_name(name)    
-    meta <- make_R_Weka_interface_metadata(name, kind, "data.frame")
+    meta <- make_R_Weka_interface_metadata(name, kind, "data.frame",
+                                           package = package)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta
 
     out <- function(file) {
@@ -81,7 +83,7 @@ function(name)
         if(!is.character(file) || (length(file) != 1L))
             stop("Argument 'file' must be a character string.")
         
-        loader <- Weka_object_for_name(name)
+        loader <- Weka_object_for_name(name, package)
         .jcall(loader, "V", "setSource",
                .jnew("java/io/File", path.expand(file)))
         instances <-

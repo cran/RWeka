@@ -12,12 +12,16 @@
   or filter, or show the available interfaces.
 }
 \usage{
-make_Weka_associator(name, class = NULL, init = NULL)
-make_Weka_attribute_evaluator(name, class = NULL, init = NULL)
+make_Weka_associator(name, class = NULL,
+                     init = NULL, package = NULL)
+make_Weka_attribute_evaluator(name, class = NULL,
+                              init = NULL, package = NULL)
 make_Weka_classifier(name, class = NULL, handlers = list(),
-                     init = NULL)
-make_Weka_clusterer(name, class = NULL, init = NULL)
-make_Weka_filter(name, class = NULL, init = NULL)
+                     init = NULL, package = NULL)
+make_Weka_clusterer(name, class = NULL,
+                    init = NULL, package = NULL)
+make_Weka_filter(name, class = NULL,
+                 init = NULL, package = NULL)
 list_Weka_interfaces()
 make_Weka_package_loader(p)
 }
@@ -35,6 +39,9 @@ make_Weka_package_loader(p)
     queried for available options via \code{\link{WOW}}.  Typically,
     this is used for loading Weka packages when interfacing
     functionality in these.}
+  \item{package}{\code{NULL} (default), or a character string giving the
+    name of the external Weka package providing the learner/filter class
+    specified by \code{name}.}
   \item{p}{a character string naming a Weka package to be loaded via
     \code{\link{WPM}}.}
 }

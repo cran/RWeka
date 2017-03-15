@@ -28,12 +28,13 @@ function(x, ...)
     
     name <- get_Java_class(x)
 
+    package <- attr(x, "meta")$package
     if(is.function(init <- attr(x, "meta")$init))
         init()
     
     ## Seems that not all Weka learners have a globalInfo() method
     ## (e.g., Cobweb for Weka 3.4.6), so be careful.
-    o <- Weka_object_for_name(name)
+    o <- Weka_object_for_name(name, package)
     if(.has_method(o, "globalInfo")) {
         writeLines(c(strwrap(gettextf("An R interface to Weka class '%s', which has information",
                               as_qualified_name(name))),

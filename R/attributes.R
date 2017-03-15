@@ -6,12 +6,13 @@
 ## http://weka.sourceforge.net/doc.dev/weka/attributeSelection/AttributeEvaluator.html
 
 make_Weka_attribute_evaluator <-
-function(name, class = NULL, init = NULL)
+function(name, class = NULL, init = NULL, package = NULL)
 {
     classes <- c(class, "double")
     kind <- "R_Weka_attribute_evaluator_interface"
     name <- as_JNI_name(name)
-    meta <- make_R_Weka_interface_metadata(name, kind, classes, init)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes, init,
+                                           package)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta
 
     out <- function(formula, data, subset, na.action, control = NULL) {
@@ -22,20 +23,23 @@ function(name, class = NULL, init = NULL)
         mf[[1L]] <- quote(stats::model.frame)
         mf <- eval(mf, parent.frame())
 
-        RWeka_evaluate_attributes(mf, control, name, init)
+        RWeka_evaluate_attributes(mf, control, name, init, package)
     }
 
     make_R_Weka_interface(out, meta)
 }
 
 RWeka_evaluate_attributes <-
-function(mf, control, name, init)
+function(mf, control, name, init, package)
 {
-    if(is.function(init)) init()
+    if(is.function(init))
+        init()
+    else if(!is.null(package))
+        WPM(".check-installed-and-load", package)
 
     instances <- read_model_frame_into_Weka(mf)
 
-    evaluator <- Weka_object_for_name(name)
+    evaluator <- Weka_object_for_name(name, package)
     control <- as.character(control)
     if(length(control))
        .jcall(evaluator, "V", "setOptions", .jarray(control))

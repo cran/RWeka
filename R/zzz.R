@@ -3,7 +3,7 @@ Apriori <-
     make_Weka_associator("weka/associations/Apriori", "Apriori")
 Tertius <-
     make_Weka_associator("weka/associations/Tertius", "Tertius",
-                         init = make_Weka_package_loader("tertius"))
+                         package = "tertius")
 
 ### * Attribute evaluators
 
@@ -58,7 +58,7 @@ IBk <-
 LBR <-
     make_Weka_classifier("weka/classifiers/lazy/LBR",
                          c("LBR", "Weka_lazy"),
-                         init = make_Weka_package_loader("lazyBayesianRules"))
+                         package = "lazyBayesianRules")
                             
 
 ### ** Rules
@@ -131,7 +131,7 @@ MultiBoostAB <-
     make_Weka_classifier("weka/classifiers/meta/MultiBoostAB",
                          c("MultiBoostAB", "Weka_meta"),
                          .Weka_meta_classifier_handlers,
-                         init = make_Weka_package_loader("multiBoostAB"))
+                         package = "multiBoostAB")
 Stacking <-
     make_Weka_classifier("weka/classifiers/meta/Stacking",
                          c("Stacking", "Weka_meta"),
@@ -165,10 +165,10 @@ SimpleKMeans <-
     make_Weka_clusterer("weka/clusterers/SimpleKMeans", "SimpleKMeans")
 XMeans <-
     make_Weka_clusterer("weka/clusterers/XMeans", "XMeans",
-                        init = make_Weka_package_loader("XMeans"))
+                        package = "XMeans")
 DBScan <-
     make_Weka_clusterer("weka/clusterers/DBScan", "DBScan",
-                        init = make_Weka_package_loader("optics_dbScan"))
+                        package = "optics_dbScan")
 
 ### * Converters
 

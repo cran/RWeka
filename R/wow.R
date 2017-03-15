@@ -3,16 +3,22 @@ function(x)
 {
     ## Weka Option Wizard.
 
+    ## <FIXME>
+    ## This should perhaps get a 'package' argument?
+    ## </FIXME>
+
     name <- get_Java_class(x)
     if(is.null(name))
         stop("Argument 'x' does not specify a known Weka method.")
 
+    package <- NULL
     if(inherits(x, "R_Weka_interface")) {
+        package <- attr(x, "meta")$package
         if(is.function(init <- attr(x, "meta")$init))
             init()
     }
     
-    x <- Weka_object_for_name(name)
+    x <- Weka_object_for_name(name, package)
 
     names <- descriptions <- synopses <- character()
     lengths <- integer()

@@ -7,12 +7,13 @@
 ## ceeboo 2006
 
 make_Weka_filter <-
-function(name, class = NULL, init = NULL)
+function(name, class = NULL, init = NULL, package = NULL)
 {
     classes <- c(class, "data.frame")
     kind <- "R_Weka_filter_interface"
     name <- as_JNI_name(name)
-    meta <- make_R_Weka_interface_metadata(name, kind, classes, init)
+    meta <- make_R_Weka_interface_metadata(name, kind, classes, init,
+                                           package)
     Weka_interfaces[[Java_class_base_name(name)]] <- meta    
 
     out <- function(formula, data, subset, na.action, control = NULL) {
@@ -23,16 +24,19 @@ function(name, class = NULL, init = NULL)
         mf[[1L]] <- quote(stats::model.frame)
         mf <- eval(mf, parent.frame())
         
-        RWeka_use_filter(mf, control, name, init)
+        RWeka_use_filter(mf, control, name, init, package)
     }
 
     make_R_Weka_interface(out, meta)
 }
 
 RWeka_use_filter <-
-function(mf, control, name, init)
+function(mf, control, name, init, package)
 {
-    if(is.function(init)) init()
+    if(is.function(init))
+        init()
+    else if(!is.null(package))
+        WPM(".check-installed-and-load", package)
     
     ## We do not always need a response variable, e.g., for the class 
     ## of unsupervised filters.
@@ -49,7 +53,7 @@ function(mf, control, name, init)
        instances <- read_model_frame_into_Weka(mf)
 
     ## Build filter.
-    filter <- Weka_object_for_name(name)
+    filter <- Weka_object_for_name(name, package)
     control <- as.character(control)
     if (length(control))
        .jcall(filter, "V", "setOptions", .jarray(control))

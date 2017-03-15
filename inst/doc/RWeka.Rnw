@@ -23,7 +23,7 @@ collection of machine learning algorithms for data mining tasks written
 in Java, containing tools for data pre-processing, classification,
 regression, clustering, association rules, and visualization.  Building
 on the low-level R/Java interface functionality of package \pkg{rJava}
-\citep{RWeka:Urbanek:2010}, \pkg{RWeka} provides R ``interface
+\citep{RWeka:Urbanek:2016}, \pkg{RWeka} provides R ``interface
 generators'' for setting up interface functions with the usual ``R look
 and feel'', re-using Weka's standardized interface of learner classes
 (including classifiers, clusterers, associators, filters, loaders,
@@ -90,17 +90,23 @@ classes providing the Lazy Bayesian Rules classifier interfaced by
 \verb|LBR()| are now in Weka package \pkg{lazyBayesianRules}.  Hence,
 when \verb|LBR()| is used for building the classifier (or queried for
 available options via \verb|WOW()|), the Weka package must be loaded
-(and hence have already been installed).  We have thus enhanced the
-interface registration mechanism to allow the optional specification of
-an \verb|init| hook function to be run before instantiating the Weka
-learner class being interfaced.  E.g., the \pkg{RWeka} registration code
-now does
+(and hence have already been installed).  As of \pkg{RWeka} 0.4-32, the
+interface registration mechanism provides a \verb|package| argument to
+optionally specify an external package providing a Weka learner class
+being interfaced, to the effect that that this package is loaded before
+the class is instantiated.  E.g., the \pkg{RWeka} registration code now
+does
 <<eval=false>>=
 LBR <-
-make_Weka_classifier("weka/classifiers/lazy/LBR",
-                     c("LBR", "Weka_lazy"),
-                     init = make_Weka_package_loader("lazyBayesianRules"))
+    make_Weka_classifier("weka/classifiers/lazy/LBR",
+                         c("LBR", "Weka_lazy"),
+                         package = "lazyBayesianRules")
 @ 
+(Previously, the \verb|init| argument would be used for explicit
+loading, using, e.g.,
+\verb|init = make_Weka_package_loader("lazyBayesianRules"))| for the
+above registration.  The new mechanism is preferred as it provides
+explicit information about the external package dependencies.)
 
 (Other function affected are \verb|DBScan|, \verb|MultiBoostAB|,
 \verb|Tertius|, and \verb|XMeans|, for which the corresponding Java
