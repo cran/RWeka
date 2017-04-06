@@ -21,6 +21,10 @@ function(libname, pkgname)
        !isdir)
         Sys.setenv(WEKA_HOME = tempfile("RWeka"))
 
+    ## Instantiate the Weka package manager to that classes in jars in
+    ## the Weka jar can be found.
+    Weka_package_manager(new_Weka_package_manager())
+
     ## As of Weka 3.9.1, .jnew() can no longer be used for classes in
     ## external packages.  Hence, instantiate the Weka package class
     ## loader manager and use its objectForName() method instead.

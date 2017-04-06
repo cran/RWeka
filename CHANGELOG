@@ -1,3 +1,11 @@
+version 0.4.33
+
+* Redo WPM("install-package") in interface code to eliminate the need for
+  patching Weka to not System.exit(0) in its WekaPackageManager main().
+
+* Quietly instatiate the Weka package manager on startup to eliminate the
+  need for extracting the external jars shipped in the Weka jar.
+
 version 0.4.32
 
 * Enhance interface registration to note the package providing the Weka

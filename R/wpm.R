@@ -25,7 +25,7 @@ function(cmd, ...)
 
     args <- as.character(list(...))
 
-    wpm <- .jnew("weka.core.WekaPackageManager")
+    wpm <- Weka_package_manager()
 
     ## * -refresh-cashe
     ## This is
@@ -55,11 +55,11 @@ function(cmd, ...)
     out <- .jfield("java/lang/System", , "out")
     .jcall("java/lang/System", "V", "setOut",
            .jnew("java/io/PrintStream",
-                 .jcast(bos,"java/io/OutputStream")))
+                 .jcast(bos, "java/io/OutputStream")))
     err <- .jfield("java/lang/System", , "err")
     .jcall("java/lang/System", "V", "setErr",
            .jnew("java/io/PrintStream",
-                 .jcast(bos,"java/io/OutputStream")))
+                 .jcast(bos, "java/io/OutputStream")))
 
     on.exit({
         ## Stop redirecting Java messages.
@@ -69,6 +69,40 @@ function(cmd, ...)
         message(.jcall(bos, "Ljava/lang/String;", "toString"))
     })
 
+    ## Weka's WekaPackageManager main() needs to call System.exit(0) at
+    ## the end of installing packages, so duplicate the main() code here
+    ## (instead of providing a patched version of Weka without the call
+    ## as done previously).
+    if(cmd == "install-package") {
+        if(!length(args))
+            stop(gettextf("No package given."),
+                 domain = NA)
+        target <- tolower(args[1L])
+        if(startsWith(target, "https://") ||
+           startsWith(target, "http://")) {
+            .jcall(wpm, "S",
+                   "installPackageFromURL",
+                   .jnew("java/net/URL", args[1L]),
+                   .jarray(.jfield("java/lang/System", , "out"),
+                           "java/io/PrintStream"))
+        } else if(endsWith(target, ".zip")) {
+            .jcall(wpm, "S",
+                   "installPackageFromArchive",
+                   args[1L],
+                   .jarray(.jfield("java/lang/System", , "out"),
+                           "java/io/PrintStream"))
+        } else {
+            if(is.na(version <- args[2L])) version <- "Latest"
+            .jcall(wpm, "Z",
+                   "installPackageFromRepository",
+                   args[1L],
+                   version,
+                   .jarray(.jfield("java/lang/System", , "out"),
+                           "java/io/PrintStream"))
+        }
+        return(invisible())
+    }
+    
     switch(EXPR = cmd,    
            ".check-installed-and-load" = {
                ## Need to write code ourselves ...
@@ -121,12 +155,12 @@ function(cmd, ...)
                         cmd, arg[1L], arg[2L])
                args <- c("-package-info", c(tab[pos], args[2L]))
            },
-           "install-package" = {
-               if(!length(args))
-                   stop(gettextf("No package given."),
-                        domain = NA)
-               args <- c("-install-package", args)
-           },
+           ## "install-package" = {
+           ##     if(!length(args))
+           ##         stop(gettextf("No package given."),
+           ##              domain = NA)
+           ##     args <- c("-install-package", args)
+           ## },
            "remove-package" = {
                arg <- args[1L]
                if(is.na(arg))
@@ -150,6 +184,46 @@ function(p)
     function() {
         WPM(".check-installed-and-load", p)
     }
+
+Weka_package_manager <-
+local({
+    man <- NULL
+    function(new) {
+        if(!missing(new)) {
+            man <<- new
+        }
+        else
+            man
+    }
+    })
+
+## Avoid
+##   Apr 06, 2017 2:11:37 PM com.github.fommil.netlib.ARPACK <clinit>
+#    WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+##   Apr 06, 2017 2:11:37 PM com.github.fommil.netlib.ARPACK <clinit>
+##   WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+## messages on startup.
+new_Weka_package_manager <-
+function() {
+    ## Capture Java output.
+    bos <- .jnew("java/io/ByteArrayOutputStream")
+    out <- .jfield("java/lang/System", , "out")
+    .jcall("java/lang/System", "V", "setOut",
+           .jnew("java/io/PrintStream",
+                 .jcast(bos, "java/io/OutputStream")))
+    err <- .jfield("java/lang/System", , "err")
+    .jcall("java/lang/System", "V", "setErr",
+           .jnew("java/io/PrintStream",
+                 .jcast(bos, "java/io/OutputStream")))
+
+    on.exit({
+        ## Stop redirecting Java messages.
+        .jcall("java/lang/System", "V", "setOut", out)
+        .jcall("java/lang/System", "V", "setErr", err)
+    })
+
+    .jnew("weka.core.WekaPackageManager")
+}
 
 Weka_package_class_loader_manager <-
 local({

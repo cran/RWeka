@@ -103,10 +103,10 @@ LBR <-
                          package = "lazyBayesianRules")
 @ 
 (Previously, the \verb|init| argument would be used for explicit
-loading, using, e.g.,
-\verb|init = make_Weka_package_loader("lazyBayesianRules"))| for the
-above registration.  The new mechanism is preferred as it provides
-explicit information about the external package dependencies.)
+loading, so that for example the above registration had
+\verb|init = make_Weka_package_loader("lazyBayesianRules"))|.  The new
+mechanism is preferred as it provides explicit information about the
+external package dependencies.)
 
 (Other function affected are \verb|DBScan|, \verb|MultiBoostAB|,
 \verb|Tertius|, and \verb|XMeans|, for which the corresponding Java
