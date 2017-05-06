@@ -1,3 +1,8 @@
+version 0.4.34
+
+* Rewrite all WPM() commands to not call the WekaPackageManager main()
+  method.
+
 version 0.4.33
 
 * Redo WPM("install-package") in interface code to eliminate the need for

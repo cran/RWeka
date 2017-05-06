@@ -1,6 +1,6 @@
-5c2f70eaf0973e27f38c60fef8d9ad5a *CHANGELOG
-e8bc336a734063977bee91517e9a46d6 *DESCRIPTION
-4a90c4ce9525e130e5a4a409fdefa3ec *NAMESPACE
+cf296212ae0d5ec19bc640493de2dc98 *CHANGELOG
+3a5c9b35a97327476266ede3d102cf59 *DESCRIPTION
+41b1dde3a37014e3c2c5fa208fc47167 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
 845651db147bb31a51c9284ea8db965b *R/associators.R
@@ -20,7 +20,7 @@ a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
 6e01063ed46d46991bdb02684bc6a116 *R/tokenizers.R
 5d4daa93e351916029ae37f90868d7e0 *R/utils.R
 6b6b9f7c0b310f14c7a602e89cd98693 *R/wow.R
-b821786682830b7d06883efcb33e3594 *R/wpm.R
+1921f10ffa42a0232fb714974cc16b14 *R/wpm.R
 fb1a797787fb844bed4fd1bf63c8dc6f *R/zzz.R
 ca181ca12908341454f208536fab20b8 *build/vignette.rds
 a342231319c52bba408a393eadc11462 *configure
@@ -44,7 +44,7 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 92c7b220a3c56a49f0885b8b77d66547 *inst/doc/RWeka.R
 4f88379809f244d49470c1d61af68ee9 *inst/doc/RWeka.Rnw
-b35de81a61bb96f790cf62ae8dcb3782 *inst/doc/RWeka.pdf
+a1eb02bfa725bcffa0d94a37f81496cd *inst/doc/RWeka.pdf
 1c2024b74526c2288d5426636a410f6a *inst/java/RWeka.jar
 4ac4c1ca759dfe1e695e5e51af3035e1 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 a03c79700b454cf1d3777f0db6f3589f *java/Makefile

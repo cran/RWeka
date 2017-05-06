@@ -1,5 +1,5 @@
 Package: RWeka
-Version: 0.4-33
+Version: 0.4-34
 Title: R/Weka Interface
 Authors@R: c(person("Kurt", "Hornik", role = c("aut", "cre"),
                     email = "Kurt.Hornik@R-project.org"),
@@ -22,7 +22,7 @@ Suggests: partykit (>= 0.8.0), mlbench, e1071
 SystemRequirements: Java (>= 7.0)
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2017-04-06 12:48:58 UTC; hornik
+Packaged: 2017-05-06 10:33:50 UTC; hornik
 Author: Kurt Hornik [aut, cre],
   Christian Buchta [ctb],
   Torsten Hothorn [ctb],
@@ -31,4 +31,4 @@ Author: Kurt Hornik [aut, cre],
   Achim Zeileis [ctb]
 Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
 Repository: CRAN
-Date/Publication: 2017-04-06 13:16:34 UTC
+Date/Publication: 2017-05-06 10:40:26 UTC

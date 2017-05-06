@@ -12,7 +12,7 @@ import("utils")
 ## but apparently things improved ...
 importFrom("rJava", ".jaddClassPath", ".jarray", ".jcall", ".jcast",
            ".jevalArray", ".jfield", ".jfindClass", ".jinit", ".jlong",
-           ".jnew", ".jnull", ".jpackage")
+           ".jnew", ".jnull", ".jpackage", ".jstrVal")
 ## Only needed for plotting Weka_tree objects, which requires party
 ## which in turn depends on (hence attaches) grid, but in any case ...
 import("grid")
@@ -72,3 +72,6 @@ S3method("write_to_dot", "Weka_classifier")
 S3method("print", "Weka_filter")
 S3method("print", "Weka_classifier_evaluation")
 S3method("summary", "Weka_classifier")
+
+S3method("print", "Weka_package_info")
+S3method("print", "Weka_package_listing")

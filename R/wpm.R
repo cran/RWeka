@@ -27,26 +27,23 @@ function(cmd, ...)
 
     wpm <- Weka_package_manager()
 
-    ## * -refresh-cashe
-    ## This is
+    ## Weka's WekaPackageManager main() needs to call System.exit(0)
+    ## when invoked successfully, so cannot be used directly without
+    ## patching the Weka sources.  
+
+    ## We have
     ##   public static java.lang.Exception
     ##   weka.core.WekaPackageManager.refreshCache(java.io.PrintStream[])
     ## We could try to capture progress into a suitable output stream,
     ## but for now simply allow writing to stdout ... sort of.
-    ## Messy ... similar for the others.
 
-    ## Note that as of 8982 the WekaPackageManager class main() method
-    ## calls System.exit(0), so using main() is no longer feasible.  We
-    ## currently patch the upstream Weka sources for RWekajars, but
-    ## should really rewrite the WPM() code to use the appropriate
-    ## WekaPackageManager methods directly, instead of main().
-
+    progress <- .jarray(.jfield("java/lang/System", , "out"),
+                        "java/io/PrintStream")
     if(cmd == "refresh-cache") {
         .jcall(wpm,
                "Ljava/lang/Exception;",
                "refreshCache",
-               .jarray(.jfield("java/lang/System", , "out"),
-                       "java/io/PrintStream"))
+               progress)
         return(invisible())
     }
 
@@ -66,14 +63,84 @@ function(cmd, ...)
         .jcall("java/lang/System", "V", "setOut", out)
         .jcall("java/lang/System", "V", "setErr", err)
         ## And display them.
-        message(.jcall(bos, "Ljava/lang/String;", "toString"))
+        message(.jcall(bos, "Ljava/lang/String;", "toString"),
+                appendLF = FALSE)
     })
 
-    ## Weka's WekaPackageManager main() needs to call System.exit(0) at
-    ## the end of installing packages, so duplicate the main() code here
-    ## (instead of providing a patched version of Weka without the call
-    ## as done previously).
-    if(cmd == "install-package") {
+    ## <FIXME>
+    ## Perhaps we could use bos from above for this?
+    progress <- .jarray(.jfield("java/lang/System", , "out"),
+                        "java/io/PrintStream")
+    ## </FIXME>
+
+    if(cmd == "package-info") {
+        one <- args[1L]
+        two <- args[2L]
+        tab <- c("repository", "installed", "archive")
+        pos <- pmatch(one, tab)
+        if(is.na(pos) || is.na(two))
+            stop("Invalid package manager command '%s %s %s'",
+                 cmd, one, two)
+        one <- tab[pos]
+        info <- if(one == "repository") {
+                    if(is.na(version <- args[3L]))
+                        version <- "Latest"
+                    wpm$getRepositoryPackageInfo(two, version)
+                } else if(one == "installed") {
+                    wpm$getInstalledPackageInfo(two)
+                } else                  # Leaves 'archive'
+                    wpm$getPackageArchiveInfo(two)
+        meta <- info$getPackageMetaData()
+        keys <- vapply(meta$keySet(), .jstrVal, "")
+        vals <- vapply(keys, function(k) meta$get(k), "")
+        names(vals) <- keys
+        class(vals) <- "Weka_package_info"
+        return(vals)
+    }
+    else if(cmd == "list-packages") {
+        arg <- c(args, "all")[1L]
+        tab <- c("all", "installed", "available")
+        pos <- pmatch(arg, tab)
+        if(is.na(pos))
+            stop("Invalid package manager command '%s %s'",
+                 cmd, arg)
+        arg <- tab[pos]
+        info <- if(arg == "all")
+                    wpm$getAllPackages()
+                else if(arg == "installed")
+                    wpm$getInstalledPackages()
+                else                    # leaves 'available'
+                    wpm$getAvailableCompatiblePackages()
+
+        fun <- function(p) {
+            n <- p$getName()
+            v_inst <- v_repo <- "----"
+            if(p$isInstalled()) {
+                p_inst <- wpm$getInstalledPackageInfo(n)
+                v_inst <- p_inst$getPackageMetaDataElement("Version")
+                p_repo <- wpm$getRepositoryPackageInfo(n)
+                if(!is.null(p_repo)) {
+                    v_repo <- p_repo$getPackageMetaDataElement("Version")
+                    if(is.null(v_repo)) v_repo <- ""
+                }
+            } else {
+                v_repo <- p$getPackageMetaDataElement("Version")
+            }
+            c(n,
+              v_inst,
+              v_repo,
+              p$getPackageMetaDataElement("Title"))
+        }
+        
+        info <- do.call(rbind, lapply(info, fun))
+        if(!length(info))
+            info <- matrix(character(), ncol = 4L)
+        colnames(info) <-
+            c("Installed", "Available", "Package", "Title")
+        class(info) <- "Weka_package_listing"
+        return(info)
+    }
+    else if(cmd == "install-package") {
         if(!length(args))
             stop(gettextf("No package given."),
                  domain = NA)
@@ -83,100 +150,106 @@ function(cmd, ...)
             .jcall(wpm, "S",
                    "installPackageFromURL",
                    .jnew("java/net/URL", args[1L]),
-                   .jarray(.jfield("java/lang/System", , "out"),
-                           "java/io/PrintStream"))
+                   progress)
         } else if(endsWith(target, ".zip")) {
             .jcall(wpm, "S",
                    "installPackageFromArchive",
                    args[1L],
-                   .jarray(.jfield("java/lang/System", , "out"),
-                           "java/io/PrintStream"))
+                   progress)
         } else {
-            if(is.na(version <- args[2L])) version <- "Latest"
+            if(is.na(version <- args[2L]))
+                version <- "Latest"
             .jcall(wpm, "Z",
                    "installPackageFromRepository",
                    args[1L],
                    version,
-                   .jarray(.jfield("java/lang/System", , "out"),
-                           "java/io/PrintStream"))
+                   progress)
         }
+        ## <FIXME>
+        ## Perhaps use the return value?
         return(invisible())
+        ## </FIXME>
     }
-    
-    switch(EXPR = cmd,    
-           ".check-installed-and-load" = {
-               ## Need to write code ourselves ...
-               arg <- args[1L]
-               if(is.na(arg))
-                   stop(gettextf("No package given."),
-                        domain = NA)
-               ## Explictly throw an error if the package is not
-               ## installed.
-               installed <-
-                   vapply(.jcall(wpm,
-                                 "Ljava/util/List;",
-                                 "getInstalledPackages"),
-                          function(e) .jcall(e, "S", "getName"), "")
-               if(is.na(match(arg, installed))) 
-                   stop(gettextf("Required Weka package '%s' is not installed.",
-                                 arg),
-                        domain = NA)
-               ## Alternatively, use
-               ##   dir <- .jcall(wpm, "Ljava/io/File;", "getPackageHome")
-               ##   dir <- file.path(.jcall(dir, "S", "toString"), arg)
-               ##   if(!file.exists(dir)) 
-               ##       stop(gettextf("Required Weka package '%s' is not installed.",
-               ##                     arg),
-               ##            domain = NA)
-               .jcall(wpm, "V", "loadPackages", FALSE)
-               return(invisible())
-           },
-           "load-packages" = {
-               .jcall(wpm, "V", "loadPackages", FALSE)
-               return(invisible())
-           },               
-           "list-packages" = {
-               arg <- c(args, "all")[1L]
-               tab <- c("all", "installed", "available")
-               pos <- pmatch(arg, tab)
-               if(is.na(pos))
-                   stop("Invalid package manager command '%s %s'",
-                        cmd, arg)
-               args <- c("-list-packages", tab[pos])
-           },
-           "package-info" = {
-               ## This is somewhat silly ...
-               ## But we really need 2 arguments here.
-               args <- args[c(1L, 2L)]
-               tab <- c("repository", "installed", "archive")
-               pos <- pmatch(args[1L], tab)
-               if(is.na(pos) || is.na(args[2L]))
-                   stop("Invalid package manager command '%s %s %s'",
-                        cmd, arg[1L], arg[2L])
-               args <- c("-package-info", c(tab[pos], args[2L]))
-           },
-           ## "install-package" = {
-           ##     if(!length(args))
-           ##         stop(gettextf("No package given."),
-           ##              domain = NA)
-           ##     args <- c("-install-package", args)
-           ## },
-           "remove-package" = {
-               arg <- args[1L]
-               if(is.na(arg))
-                   stop(gettextf("No package given."),
-                        domain = NA)
-               args <- c("-uninstall-package", arg)
-           },
-           "toggle-load-status" = {
-               if(!length(args))
-                   stop(gettextf("No package given."),
-                        domain = NA)
-               args <- c("-toggle-load-status", args)
-           }
-           )
-    
-    .jcall(wpm, "V", "main", .jarray(args))
+    else if(cmd == "remove-package") {
+        arg <- args[1L]
+        if(is.na(arg))
+            stop(gettextf("No package given."),
+                 domain = NA)
+        .jcall(wpm, "V",
+               "uninstallPackage",
+               arg,
+               FALSE,
+               progress)
+        ## <FIXME>
+        ## Perhaps use the return value?
+        return(invisible())
+        ## </FIXME>
+    }
+    else if(cmd == "toggle-load-status") {
+        if(!length(args))
+            stop(gettextf("No package given."),
+                 domain = NA)
+        ## toggleLoadStatus() needs ava.util.List<java.lang.String>, not
+        ## sure how to best get this ...
+        args <- .jnew("java/util/Arrays")$asList(.jarray(args))
+        wpm$toggleLoadStatus(args)
+        ## <FIXME>
+        ## Perhaps use the return value?
+        return(invisible())
+        ## </FIXME>
+    }
+    else if(cmd == "load-packages") {
+        .jcall(wpm, "V", "loadPackages", FALSE)
+        ## <FIXME>
+        ## Perhaps use the return value?
+        return(invisible())
+        ## </FIXME>
+    }
+    else if(cmd == ".check-installed-and-load") {
+        arg <- args[1L]
+        if(is.na(arg))
+            stop(gettextf("No package given."),
+                 domain = NA)
+        ## Explictly throw an error if the package is not installed.
+        installed <-
+            vapply(.jcall(wpm,
+                          "Ljava/util/List;",
+                          "getInstalledPackages"),
+                   function(e) .jcall(e, "S", "getName"), "")
+        if(is.na(match(arg, installed))) 
+            stop(gettextf("Required Weka package '%s' is not installed.",
+                          arg),
+                 domain = NA)
+        ## Alternatively, use
+        ##   dir <- .jcall(wpm, "Ljava/io/File;", "getPackageHome")
+        ##   dir <- file.path(.jcall(dir, "S", "toString"), arg)
+        ##   if(!file.exists(dir)) 
+        ##       stop(gettextf("Required Weka package '%s' is not installed.",
+        ##                     arg),
+        ##            domain = NA)
+        .jcall(wpm, "V", "loadPackages", FALSE)
+        ## <FIXME>
+        ## Perhaps use the return value?
+        return(invisible())
+        ## </FIXME>
+    }
+}
+
+print.Weka_package_info <-
+function(x, ...)
+{
+    write.dcf(rbind(x))
+    invisible(x)
+}
+
+print.Weka_package_listing <-
+function(x, ...)    
+{
+    writeLines(formatDL(paste(format(c("Installed", x[, 2L])),
+                              format(c("Available", x[, 3L]))),
+                        c("Package",
+                          paste(x[, 1L], x[, 4L], sep = ": "))))
+    invisible(x)
 }
 
 make_Weka_package_loader <-
