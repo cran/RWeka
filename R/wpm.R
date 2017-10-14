@@ -63,8 +63,8 @@ function(cmd, ...)
         .jcall("java/lang/System", "V", "setOut", out)
         .jcall("java/lang/System", "V", "setErr", err)
         ## And display them.
-        message(.jcall(bos, "Ljava/lang/String;", "toString"),
-                appendLF = FALSE)
+        msg <- .jcall(bos, "Ljava/lang/String;", "toString")   
+        message(msg, appendLF = FALSE)
     })
 
     ## <FIXME>

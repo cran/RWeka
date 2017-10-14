@@ -1,5 +1,5 @@
-cf296212ae0d5ec19bc640493de2dc98 *CHANGELOG
-3a5c9b35a97327476266ede3d102cf59 *DESCRIPTION
+6ce807937d2f2fe3e3eb34c8485a8f66 *CHANGELOG
+39b29ff07db6a997bb0cbd74067eff9c *DESCRIPTION
 41b1dde3a37014e3c2c5fa208fc47167 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
@@ -20,10 +20,10 @@ a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
 6e01063ed46d46991bdb02684bc6a116 *R/tokenizers.R
 5d4daa93e351916029ae37f90868d7e0 *R/utils.R
 6b6b9f7c0b310f14c7a602e89cd98693 *R/wow.R
-1921f10ffa42a0232fb714974cc16b14 *R/wpm.R
+59a3989f4b243e50e79d806bf54ba7b7 *R/wpm.R
 fb1a797787fb844bed4fd1bf63c8dc6f *R/zzz.R
 ca181ca12908341454f208536fab20b8 *build/vignette.rds
-a342231319c52bba408a393eadc11462 *configure
+8a27ea3c8aeeacf1f882f67b2d0af683 *configure
 12c7f6f2bf8c0bc9756d51d0e5262c28 *inst/CITATION
 62d900123933cc8385bde5d89467fcf6 *inst/arff/contact-lenses.arff
 1d7762863c38f27fba557d53b97c4744 *inst/arff/cpu.arff
@@ -44,11 +44,10 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 92c7b220a3c56a49f0885b8b77d66547 *inst/doc/RWeka.R
 4f88379809f244d49470c1d61af68ee9 *inst/doc/RWeka.Rnw
-a1eb02bfa725bcffa0d94a37f81496cd *inst/doc/RWeka.pdf
+4abf8b978699bbf34c978fb0e12199cf *inst/doc/RWeka.pdf
 1c2024b74526c2288d5426636a410f6a *inst/java/RWeka.jar
-4ac4c1ca759dfe1e695e5e51af3035e1 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
+1d3da883ed70914709bf547b95744724 *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 a03c79700b454cf1d3777f0db6f3589f *java/Makefile
-f5a6324ff512ac7b942783452cb99863 *java/RWeka.jar
 ecf3e9c22c486af59684bb2010540b86 *java/RWekaInterfaces.class
 6f55e0587b719ce63f226a7cc87561c1 *java/RWekaInterfaces.java
 7f2741340c6e822b360fa1dc7304339e *man/WOW.Rd
@@ -74,7 +73,7 @@ c57894e3164249a47123b6917ce098de *man/predict_Weka_classifier.Rd
 0e4bda8f277906665ee191898c6f301e *man/predict_Weka_clusterer.Rd
 ae5d40ebff466ba88dcbb78ffa9a80ee *man/read.arff.Rd
 452e5670a4ea6bdb74a495cf6a2d6605 *man/write.arff.Rd
-3bbd1466f7ceb78ff9c244f74de68725 *po/R-RWeka.pot
+efac426551ce72ad9627b8c090330f22 *po/R-RWeka.pot
 86d039832368dd3127f43a0965869807 *tests/data_exchange.R
 ba811ceb8549fe35202f372d90d67433 *tests/data_exchange.Rout.save
 b2f00fd4d3162f7345ca6a14db8bd1df *tools/getsp.class

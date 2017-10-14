@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: RWeka 0.4-22\n"
-"POT-Creation-Date: 2014-03-15 19:35\n"
+"Project-Id-Version: RWeka 0.4-34\n"
+"POT-Creation-Date: 2017-08-07 11:29\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,22 +118,13 @@ msgstr ""
 msgid "Invalid package manager command '%s'."
 msgstr ""
 
-msgid "No package given."
-msgstr ""
-
-msgid "Unavailable package '%s'."
+msgid "Invalid package manager command '%s %s %s'"
 msgstr ""
 
 msgid "Invalid package manager command '%s %s'"
 msgstr ""
 
-msgid "Invalid package manager command '%s %s %s'"
-msgstr ""
-
-msgid "Ljava/lang/String;"
-msgstr ""
-
-msgid "toString"
+msgid "No package given."
 msgstr ""
 
 msgid "Required Weka package '%s' is not installed."

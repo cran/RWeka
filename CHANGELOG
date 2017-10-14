@@ -1,3 +1,7 @@
+version 0.4.35
+
+* Improve Java 9 detection in configure version checking.
+
 version 0.4.34
 
 * Rewrite all WPM() commands to not call the WekaPackageManager main()
