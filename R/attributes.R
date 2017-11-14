@@ -40,6 +40,11 @@ function(mf, control, name, init, package)
     instances <- read_model_frame_into_Weka(mf)
 
     evaluator <- Weka_object_for_name(name, package)
+    ## Currently we can only handle attribute evaluators which implement
+    ## the AttributeEvaluator (but not the SubsetEvaluator) interface.
+    if(!.has_method(evaluator, "evaluateAttribute"))
+        stop("Can only handle attribute (but not subset) evaluators.")
+    
     control <- as.character(control)
     if(length(control))
        .jcall(evaluator, "V", "setOptions", .jarray(control))

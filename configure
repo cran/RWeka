@@ -49,7 +49,7 @@ java_version=`${JAVA} -cp tools getsp "java.version" | sed 's/[+-].*//'`
 java_version_maj=`echo "${java_version}" | cut -f1 -d.`
 java_version_min=`echo "${java_version}" | cut -f2 -d.`
 if test ${java_version_maj} -ge 7 || \
-    test ${java_version_maj} -eq 1 && test ${java_version_min} -ge 7;
+    test ${java_version_maj} -eq 1 -a ${java_version_min} -ge 7;
 then
   RWeka_cv_java_version_7=yes
 fi

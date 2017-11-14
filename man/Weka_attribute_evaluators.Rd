@@ -34,6 +34,10 @@ InfoGainAttributeEval(formula, data, subset, na.action, control = NULL)
 
   \code{InfoGainAttributeEval} evaluates the worth of an attribute by
   measuring the information gain with respect to the class.
+
+  Currently, only interfaces to classes which evaluate single attributes
+  (as opposed to subsets, technically, which implement the Weka
+  AttributeEvaluator interface) are possible.
 }
 \examples{
 InfoGainAttributeEval(Species ~ . , data = iris)

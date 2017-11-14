@@ -1,3 +1,9 @@
+version 0.4.36
+
+* Clarify that attribute evaluation interfaces only work for classes
+  implementing the AttributeEvaluation (but not the SubsetEvaluation)
+  interface.
+
 version 0.4.35
 
 * Improve Java 9 detection in configure version checking.

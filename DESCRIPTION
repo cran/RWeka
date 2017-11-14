@@ -1,8 +1,9 @@
 Package: RWeka
-Version: 0.4-35
+Version: 0.4-36
 Title: R/Weka Interface
 Authors@R: c(person("Kurt", "Hornik", role = c("aut", "cre"),
-                    email = "Kurt.Hornik@R-project.org"),
+                    email = "Kurt.Hornik@R-project.org",
+		    comment = c(ORCID = "0000-0003-4198-9911")),
              person("Christian", "Buchta", role = "ctb"),
              person("Torsten", "Hothorn", role = "ctb"),
              person("Alexandros", "Karatzoglou", role = "ctb"),
@@ -24,8 +25,8 @@ Suggests: partykit (>= 0.8.0), mlbench, e1071
 SystemRequirements: Java (>= 7.0)
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2017-10-14 14:47:15 UTC; hornik
-Author: Kurt Hornik [aut, cre],
+Packaged: 2017-11-14 19:46:41 UTC; hornik
+Author: Kurt Hornik [aut, cre] (<https://orcid.org/0000-0003-4198-9911>),
   Christian Buchta [ctb],
   Torsten Hothorn [ctb],
   Alexandros Karatzoglou [ctb],
@@ -33,4 +34,4 @@ Author: Kurt Hornik [aut, cre],
   Achim Zeileis [ctb] (<https://orcid.org/0000-0003-0918-3766>)
 Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
 Repository: CRAN
-Date/Publication: 2017-10-14 14:59:53 UTC
+Date/Publication: 2017-11-14 20:15:37 UTC

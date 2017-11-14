@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: RWeka 0.4-34\n"
-"POT-Creation-Date: 2017-08-07 11:29\n"
+"Project-Id-Version: RWeka 0.4-36\n"
+"POT-Creation-Date: 2017-11-14 13:21\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,9 @@ msgid "Invalid type specification."
 msgstr ""
 
 msgid "Associator cannot set control options."
+msgstr ""
+
+msgid "Can only handle attribute (but not subset) evaluators."
 msgstr ""
 
 msgid "Can only compute class probabilities for classification problems."
