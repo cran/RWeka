@@ -1,3 +1,7 @@
+version 0.4.37
+
+* Upgrade to Weka 3.9.2.
+
 version 0.4.36
 
 * Clarify that attribute evaluation interfaces only work for classes

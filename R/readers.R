@@ -27,8 +27,17 @@ function(file)
 read_model_frame_into_Weka <-
 function(mf)
 {
-    ## Model frame has the class variable in first position.
-    read_data_into_Weka(mf, 1L)
+    ## Argh.  We cannot necessarily assume that there is a Weka-sense
+    ## "class attributes" (response variable), but for classifiers we
+    ## currently employ .default_data_handler_for_classifiers() to drop
+    ## unused variables, which also eliminates the model frame terms.
+    ## Hence, cannot simply do
+    ##   idx <- attr(terms(mf), "response")
+    ## and need the following hack instead:
+    idx <- attr(attr(mf, "terms"), "response")
+    if(is.null(idx)) idx <- 1L
+    ## Still better than previous versions which hard-wired the 1L.
+    read_data_into_Weka(mf, idx)
 }
 
 write.arff <-
