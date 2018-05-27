@@ -1,5 +1,5 @@
-e5a723de99c6d0138c719f65fad8f545 *CHANGELOG
-e04155de1b77c2f2bd6329b7cfb39934 *DESCRIPTION
+4517cf27fe74ccca4e3c373a676bf854 *CHANGELOG
+21a5385273a6209e8cfb1b60f38ac64e *DESCRIPTION
 41b1dde3a37014e3c2c5fa208fc47167 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
@@ -12,7 +12,7 @@ ce7aa8de423786c9e88e7f96741fd81c *R/control.R
 753d36a8f0d0583619e36c50bba086da *R/evaluate.R
 f888278cb4a8c1bfd0bce0155ad37669 *R/filters.R
 c6d7da4c2a6864f05fb8bff06bcf4147 *R/graph.R
-2c7b8a4e95ad01eb0a557b28c1d23afd *R/interfaces.R
+d0870df9e9d9cd3ce4eff6887f52e429 *R/interfaces.R
 9cde4dfb28094a5027068bc1e176e90b *R/onLoad.R
 7ebe753cb033687a8dbb32e840370459 *R/readers.R
 a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
@@ -22,8 +22,8 @@ a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
 6b6b9f7c0b310f14c7a602e89cd98693 *R/wow.R
 59a3989f4b243e50e79d806bf54ba7b7 *R/wpm.R
 fb1a797787fb844bed4fd1bf63c8dc6f *R/zzz.R
-cd1c7f3e0e8ff61eb70930d93419352a *build/vignette.rds
-73d857f267b11049267eb158dc08a48c *configure
+ca181ca12908341454f208536fab20b8 *build/vignette.rds
+ce111aeba501f9ac78846ae71727dff1 *configure
 12c7f6f2bf8c0bc9756d51d0e5262c28 *inst/CITATION
 62d900123933cc8385bde5d89467fcf6 *inst/arff/contact-lenses.arff
 1d7762863c38f27fba557d53b97c4744 *inst/arff/cpu.arff
@@ -44,11 +44,11 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 92c7b220a3c56a49f0885b8b77d66547 *inst/doc/RWeka.R
 4f88379809f244d49470c1d61af68ee9 *inst/doc/RWeka.Rnw
-17f9fbf73feaf01fd3294f94632ec718 *inst/doc/RWeka.pdf
-bf604d7f400e705d957a0387ae85cbfb *inst/java/RWeka.jar
+8fafa59979094d0f3df6ae4bbf5956b7 *inst/doc/RWeka.pdf
+1e9b6f9a9b70b2f2bc8dc9705b43c526 *inst/java/RWeka.jar
 3185c574d550797b5b9660739690fdac *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
-a03c79700b454cf1d3777f0db6f3589f *java/Makefile
-ecf3e9c22c486af59684bb2010540b86 *java/RWekaInterfaces.class
+36bc4f0f14c74c016250993d39e3426a *java/Makefile
+e035ca08762a5629d84eebb36b3b01e9 *java/RWekaInterfaces.class
 6f55e0587b719ce63f226a7cc87561c1 *java/RWekaInterfaces.java
 7f2741340c6e822b360fa1dc7304339e *man/WOW.Rd
 b6ee55317897a5a8fa2401e0112203ee *man/WPM.Rd

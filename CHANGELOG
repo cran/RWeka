@@ -1,4 +1,11 @@
+version 0.4.38
+
+* Tweak for print.R_Weka_interface().
+
 version 0.4.37
+
+* Weka 3.9.0 needs Java >= 8: change SystemRequirements and configure
+  accordingly.
 
 * Upgrade to Weka 3.9.2.
 

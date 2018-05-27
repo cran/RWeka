@@ -19,13 +19,15 @@ function()
 print.R_Weka_interface <-
 function(x, ...)
 {
-    ## We can only get the name of the interface function if print() is
-    ## called explicitly.
-    fname <- if(is.name(s <- substitute(x)))
-        as.character(s)
-    else
-        ""
-    
+    ## Older versions tried using the *name* of the interface being
+    ## printed if not auto-printed, using
+    ##   fname <- if(is.name(s <- substitute(x)))
+    ##     as.character(s)
+    ##   else
+    ##     ""
+    ## This no longer works since c67993, and seems a bad idea in any
+    ## case.
+
     name <- get_Java_class(x)
 
     package <- attr(x, "meta")$package
@@ -56,8 +58,8 @@ function(x, ...)
                  gettext("Argument list:"),
                  {
                      ax <- deparse(args(x))
-                     strwrap(sub("^function *", fname, ax[-length(ax)]),
-                             indent = 2L, exdent = 2L)
+                     sub("^function *", "  ",
+                         sub("^ +", "    ", ax[-length(ax)]))
                  }))
     
     classes <- get_R_classes_returned(x)
