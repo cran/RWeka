@@ -1,5 +1,5 @@
-4517cf27fe74ccca4e3c373a676bf854 *CHANGELOG
-21a5385273a6209e8cfb1b60f38ac64e *DESCRIPTION
+bd6177eaf5c59b5d9b91ad8ec9bdf33c *CHANGELOG
+aa0d584ed6993c7f04ce9d9a0fec7840 *DESCRIPTION
 41b1dde3a37014e3c2c5fa208fc47167 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
@@ -22,7 +22,7 @@ a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
 6b6b9f7c0b310f14c7a602e89cd98693 *R/wow.R
 59a3989f4b243e50e79d806bf54ba7b7 *R/wpm.R
 fb1a797787fb844bed4fd1bf63c8dc6f *R/zzz.R
-ca181ca12908341454f208536fab20b8 *build/vignette.rds
+059d266516d7b383b49672eb1ba080ae *build/vignette.rds
 ce111aeba501f9ac78846ae71727dff1 *configure
 12c7f6f2bf8c0bc9756d51d0e5262c28 *inst/CITATION
 62d900123933cc8385bde5d89467fcf6 *inst/arff/contact-lenses.arff
@@ -44,11 +44,12 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 92c7b220a3c56a49f0885b8b77d66547 *inst/doc/RWeka.R
 4f88379809f244d49470c1d61af68ee9 *inst/doc/RWeka.Rnw
-8fafa59979094d0f3df6ae4bbf5956b7 *inst/doc/RWeka.pdf
+104747edbbedeab6b81784752f612bc7 *inst/doc/RWeka.pdf
 1e9b6f9a9b70b2f2bc8dc9705b43c526 *inst/java/RWeka.jar
 3185c574d550797b5b9660739690fdac *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 36bc4f0f14c74c016250993d39e3426a *java/Makefile
-e035ca08762a5629d84eebb36b3b01e9 *java/RWekaInterfaces.class
+2722db0b7f605c1e79685bc8aa87170e *java/RWeka.jar
+58577c5b1461cc80df4194a4c7c528e3 *java/RWekaInterfaces.class
 6f55e0587b719ce63f226a7cc87561c1 *java/RWekaInterfaces.java
 7f2741340c6e822b360fa1dc7304339e *man/WOW.Rd
 b6ee55317897a5a8fa2401e0112203ee *man/WPM.Rd

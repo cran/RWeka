@@ -1,3 +1,7 @@
+version 0.4.39
+
+* Upgrade to Weka 3.9.3.
+
 version 0.4.38
 
 * Tweak for print.R_Weka_interface().
