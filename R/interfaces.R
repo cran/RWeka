@@ -11,7 +11,7 @@ function()
         capitalize(sprintf("%ss",
                            sub(".*_([^_]+)_interface", "\\1", names(o))))
     writeLines(formatDL(names(o),
-                        sapply(o, paste, collapse = ", "),
+                        vapply(o, paste, "", collapse = ", "),
                         style = "list"))
     invisible(o)
 }

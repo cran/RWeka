@@ -82,7 +82,7 @@ function(object, newdata = NULL,
               sep = "\n" )
     ## Extractor function
     extractValues <- function(x, ...)
-        sapply(x, function(x) .jcall(evaluation, "D", x, ...))
+        vapply(x, function(x) .jcall(evaluation, "D", x, ...), 0)
 
     ## Numeric class
     if (has_numeric_class) {

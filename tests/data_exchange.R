@@ -6,6 +6,12 @@ library(RWeka)
 ## low-level
 
 set.seed(123)
+
+## <FIXME>
+## Remove eventually.
+if(getRversion() >= "3.6.0") RNGkind(sample.kind = "Rounding")
+## </FIXME>
+
 x <- data.frame(R = runif(10),
                 L = sample(c(FALSE, TRUE), 10, rep = TRUE),
                 C = sample(LETTERS[1:3], 10, rep = TRUE),

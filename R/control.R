@@ -4,7 +4,7 @@ function(...)
     rval <- list(...)
     if((length(rval) > 0L)
        && (is.null(names(rval)) ||
-           !all(nzchar(names(rval)) | sapply(rval, identical, "--"))))
+           !all(nzchar(names(rval)) | vapply(rval, identical, NA, "--"))))
         stop("All arguments must be named.")
     `class<-`(rval, "Weka_control")
 }

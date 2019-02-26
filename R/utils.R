@@ -15,7 +15,7 @@ function(object, name)
 {
     object <- .jcall(object, "Ljava/lang/Class;", "getClass")
     object <- .jcall(object, "[Ljava/lang/reflect/Method;", "getMethods")
-    object <- sapply(object, .jcall, "S", "getName")
+    object <- vapply(object, .jcall, "", "S", "getName")
     match(name, object, nomatch = 0L) > 0L
 }
 

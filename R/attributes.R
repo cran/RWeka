@@ -53,9 +53,10 @@ function(mf, control, name, init, package)
 
     pos <- seq_len(ncol(mf)) - 1L
     pos <- pos[pos != .jcall(instances, "I", "classIndex")]
-    out <- sapply(pos,
+    out <- vapply(pos,
                   function(p)
-                  .jcall(evaluator, "D", "evaluateAttribute", p))
+                      .jcall(evaluator, "D", "evaluateAttribute", p),
+                  0)
     names(out) <- colnames(mf)[pos + 1L]
 
     out

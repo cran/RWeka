@@ -162,8 +162,11 @@ function(x)
                is.na(out[[i]]) <- is.nan(out[[i]])
                out[[i]] <- factor(out[[i]], levels = idx)
                levels(out[[i]]) <-
-                   sapply(idx, function(k)
-                          .jcall(attribute, "S", "value", as.integer(k)))
+                   vapply(idx,
+                          function(k)
+                              .jcall(attribute, "S", "value",
+                                     as.integer(k)),
+                          "")
                ## Assume logical (see below).
                if(all(match(levels(out[[i]]), c("FALSE", "TRUE"),
                        nomatch = 0L)))
@@ -176,8 +179,11 @@ function(x)
                is.na(out[[i]]) <- is.nan(out[[i]])
                out[[i]] <- factor(out[[i]], levels = idx)
                levels(out[[i]]) <-
-                   sapply(idx, function(k)
-                          .jcall(attribute, "S", "value", as.integer(k)))
+                   vapply(idx,
+                          function(k)
+                              .jcall(attribute, "S", "value",
+                                     as.integer(k)),
+                          "")
                out[[i]] <- as.character(out[[i]])
            },
             
