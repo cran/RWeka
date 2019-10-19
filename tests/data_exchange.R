@@ -5,12 +5,13 @@ library(RWeka)
 
 ## low-level
 
-set.seed(123)
-
 ## <FIXME>
 ## Remove eventually.
-if(getRversion() >= "3.6.0") RNGkind(sample.kind = "Rounding")
+suppressWarnings(RNGversion("3.5.0"))
 ## </FIXME>
+
+set.seed(123)
+
 
 x <- data.frame(R = runif(10),
                 L = sample(c(FALSE, TRUE), 10, rep = TRUE),

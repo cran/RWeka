@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2019-02-26 r76162) -- "Unsuffered Consequences"
+R Under development (unstable) (2019-03-01 r76185) -- "Unsuffered Consequences"
 Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -22,14 +22,13 @@ Type 'q()' to quit R.
 > 
 > ## low-level
 > 
-> set.seed(123)
-> 
 > ## <FIXME>
 > ## Remove eventually.
-> if(getRversion() >= "3.6.0") RNGkind(sample.kind = "Rounding")
-Warning message:
-In RNGkind(sample.kind = "Rounding") : non-uniform 'Rounding' sampler used
+> suppressWarnings(RNGversion("3.5.0"))
 > ## </FIXME>
+> 
+> set.seed(123)
+> 
 > 
 > x <- data.frame(R = runif(10),
 +                 L = sample(c(FALSE, TRUE), 10, rep = TRUE),
@@ -173,4 +172,4 @@ In RNGkind(sample.kind = "Rounding") : non-uniform 'Rounding' sampler used
 > 
 > proc.time()
    user  system elapsed 
-  0.920   0.113   0.625 
+  1.058   0.081   0.642 
