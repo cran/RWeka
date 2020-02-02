@@ -18,7 +18,7 @@ write.arff(x, file, eol = "\n")
 }
 \references{
   Attribute-Relation File Format
-  \url{https://weka.wikispaces.com/ARFF}
+  \url{https://waikato.github.io/weka-wiki/formats_and_processing/arff/}
 }  
 \seealso{
   \code{\link{read.arff}}
