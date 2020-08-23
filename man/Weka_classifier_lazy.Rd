@@ -67,10 +67,12 @@ LBR(formula, data, subset, na.action,
   D. Aha and D. Kibler (1991).
   Instance-based learning algorithms.
   \emph{Machine Learning}, \bold{6}, 37--66.
+  \doi{10.1007/BF00153759}.
   
   Z. Zheng and G. Webb (2000).
   Lazy learning of Bayesian rules.
   \emph{Machine Learning}, \bold{41}/1, 53--84.
+  \doi{10.1023/A:1007613203719}.
 }
 \seealso{
   \link[=Weka_classifiers]{Weka_classifiers}  

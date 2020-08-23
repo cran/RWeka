@@ -107,6 +107,7 @@ make_Weka_package_loader(p)
   K. Hornik, C. Buchta, and A. Zeileis (2009).
   Open-source machine learning: R meets Weka.
   \emph{Computational Statistics}, \bold{24}/2, 225--232.
+  \doi{10.1007/s00180-008-0119-7}.
 }
 \examples{
 ## Create an interface to Weka's Naive Bayes classifier.

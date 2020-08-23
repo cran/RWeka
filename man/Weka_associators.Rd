@@ -46,6 +46,7 @@ Tertius(x, control = NULL)
   P. A. Flach and N. Lachiche (1999).
   Confirmation-guided discovery of first-order rules with Tertius.
   \emph{Machine Learning}, \bold{42}, 61--95.
+  \doi{10.1023/A:1007656703224}.
 
   I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.

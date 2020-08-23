@@ -68,6 +68,7 @@ DBScan(x, control = NULL)
   D. H. Fisher (1987).
   Knowledge acquisition via incremental conceptual clustering.
   \emph{Machine Learning}, \bold{2}/2, 139--172.
+  \doi{10.1023/A:1022852608280}.
 
   J. Gennari, P. Langley, and D. H. Fisher (1989).
   Models of incremental concept formation.
@@ -76,6 +77,7 @@ DBScan(x, control = NULL)
   D. S. Hochbaum and D. B. Shmoys (1985).
   A best possible heuristic for the \eqn{k}-center problem,
   \emph{Mathematics of Operations Research}, \bold{10}(2), 180--184.
+  \doi{10.1287/moor.10.2.180}.
 
   D. Pelleg and A. W. Moore (2006).
   X-means: Extending K-means with Efficient Estimation of the Number of

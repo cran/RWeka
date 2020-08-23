@@ -10,13 +10,13 @@ fi
 
 ## Find the configured Java interpreter.
 ## If JAVA is set in the environment, use it.
-if test -z "${JAVA}"; then
+if test -z "${JAVA}" || test ! -x "${JAVA}"; then
   ## Argh.  R CMD config JAVA works only from 2.5.0 onwards ...
   JAVA=`"${R_HOME}/bin/R" CMD config | grep JAVA`
   if test -n "${JAVA}"; then
     JAVA=`"${R_HOME}/bin/R" CMD config JAVA`
   fi
-  if test -z "${JAVA}"; then
+  if test -z "${JAVA}" || test ! -x "${JAVA}"; then
     ## Keep this in sync with what is used in R CMD javareconf.
     ## Sort of ...
     JAVA_PATH="${PATH}"

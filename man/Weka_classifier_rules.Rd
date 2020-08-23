@@ -104,7 +104,8 @@ PART(formula, data, subset, na.action,
   R. C. Holte (1993).
   Very simple classification rules perform well on most commonly used
   datasets.
-  \emph{Machine Learning}, \bold{11}, 63--91. 
+  \emph{Machine Learning}, \bold{11}, 63--91.
+  \doi{10.1023/A:1022631118932}.
 
   I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.

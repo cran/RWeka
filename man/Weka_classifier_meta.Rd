@@ -94,6 +94,7 @@ CostSensitiveClassifier(formula, data, subset, na.action,
   L. Breiman (1996).
   Bagging predictors.
   \emph{Machine Learning}, \bold{24}/2, 123--140.
+  \doi{10.1023/A:1018054314350}.
 
   Y. Freund and R. E. Schapire (1996).
   Experiments with a new boosting algorithm.
@@ -104,10 +105,12 @@ CostSensitiveClassifier(formula, data, subset, na.action,
   J. H. Friedman, T. Hastie, and R. Tibshirani (2000).
   Additive logistic regression: A statistical view of boosting.
   \emph{Annals of Statistics}, \bold{28}/2, 337--374.
+  \doi{10.1214/aos/1016218223}.
 
   G. I. Webb (2000).
   MultiBoosting: A technique for combining boosting and wagging.
   \emph{Machine Learning}, \bold{40}/2, 159--196.
+  \doi{10.1023/A:1007659514849}.
 
   I. H. Witten and E. Frank (2005).
   \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
@@ -116,6 +119,7 @@ CostSensitiveClassifier(formula, data, subset, na.action,
   D. H. Wolpert (1992).
   Stacked generalization.
   \emph{Neural Networks}, \bold{5}, 241--259.
+  \doi{10.1016/S0893-6080(05)80023-1}.
 }
 \seealso{
   \link[=Weka_classifiers]{Weka_classifiers}  

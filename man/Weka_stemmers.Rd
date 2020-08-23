@@ -22,7 +22,7 @@ LovinsStemmer(x, control = NULL)
 \references{
   J. B. Lovins (1968),
   Development of a stemming algorithm.
-  \emph{Mechanical Translation and Computational Linguistics} \bold{11},
-  22--31.
+  \emph{Mechanical Translation and Computational Linguistics},
+  \bold{11}, 22--31.
 }
 \keyword{character}
