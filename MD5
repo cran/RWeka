@@ -1,5 +1,5 @@
-ef8a06bec44abe9cd7d71be3c332910b *CHANGELOG
-463f6f718fcc08187c7fd8b3f39d6c97 *DESCRIPTION
+acf3e848e6cf17ed16576504e3795c6e *CHANGELOG
+22dc4fb41f8f71600be7ff72d7e38bf7 *DESCRIPTION
 41b1dde3a37014e3c2c5fa208fc47167 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
@@ -11,8 +11,8 @@ ea6413b5dad1fcbe4ea6481966202f94 *R/control.R
 352b85a58ec2a92853b3429a889ec3bc *R/converters.R
 23627bf0e71e6ee69319362f14c56ca3 *R/evaluate.R
 f888278cb4a8c1bfd0bce0155ad37669 *R/filters.R
-c6d7da4c2a6864f05fb8bff06bcf4147 *R/graph.R
-ac04275d8c00143f6903a14fe4e3c7f7 *R/interfaces.R
+90b5fc25b7a8aed8b11c7274cc6bac38 *R/graph.R
+f270fc318746896390d2579bc8b986d4 *R/interfaces.R
 9cde4dfb28094a5027068bc1e176e90b *R/onLoad.R
 8373087dc6a350d4a2fd05f83d9ca75c *R/readers.R
 a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
@@ -21,9 +21,9 @@ a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
 3ae355531fa49b23a2c91b6c5c0c0379 *R/utils.R
 6b6b9f7c0b310f14c7a602e89cd98693 *R/wow.R
 59a3989f4b243e50e79d806bf54ba7b7 *R/wpm.R
-fb1a797787fb844bed4fd1bf63c8dc6f *R/zzz.R
-db71a176b7956d508c012877236da6e9 *build/partial.rdb
-499b4a9f92297a7817fce5fcdaa7a339 *build/vignette.rds
+d446f9be26c6b0128a978f3e0dd34a60 *R/zzz.R
+ccfa5227313d1cbc75d3c9c26862fafb *build/partial.rdb
+35c79245eca03610c5434b98f7fd4cb1 *build/vignette.rds
 d7e1d1070039b04d18400a1a2246e911 *configure
 12c7f6f2bf8c0bc9756d51d0e5262c28 *inst/CITATION
 62d900123933cc8385bde5d89467fcf6 *inst/arff/contact-lenses.arff
@@ -44,8 +44,8 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 772c551b8486b932aed784a582b9c1b1 *inst/arff/weather.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 92c7b220a3c56a49f0885b8b77d66547 *inst/doc/RWeka.R
-4f88379809f244d49470c1d61af68ee9 *inst/doc/RWeka.Rnw
-a2c75f678189ab59d21a174077de422b *inst/doc/RWeka.pdf
+b7de9f1e6e992f16ebc3599a62f395ad *inst/doc/RWeka.Rnw
+8c008bf979fddde5329247a5fe3fabb3 *inst/doc/RWeka.pdf
 1e9b6f9a9b70b2f2bc8dc9705b43c526 *inst/java/RWeka.jar
 3185c574d550797b5b9660739690fdac *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 36bc4f0f14c74c016250993d39e3426a *java/Makefile
@@ -80,5 +80,5 @@ fd41759592e6475b4311919496bb00f2 *tests/data_exchange.R
 fa006d30c3010471bd0eb6b481bff3c5 *tests/data_exchange.Rout.save
 b2f00fd4d3162f7345ca6a14db8bd1df *tools/getsp.class
 d98d48a1d5c1bbec93a7a584509199e6 *tools/getsp.java
-4f88379809f244d49470c1d61af68ee9 *vignettes/RWeka.Rnw
+b7de9f1e6e992f16ebc3599a62f395ad *vignettes/RWeka.Rnw
 fd3b2434fc546d37f58eb5128a9de4bb *vignettes/RWeka.bib

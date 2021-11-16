@@ -103,7 +103,7 @@ function(e)
     if(is.list(e)) {
         init <- get_Java_class(e[[1L]])
         if(length(e) > 1L) {
-            rest <- as.character(do.call("Weka_control", e[-1L]))
+            rest <- as.character(do.call(Weka_control, e[-1L]))
             if(is.na(match("--", rest)))
                 rest <- c("--", rest)
             init <- c(init, rest)

@@ -53,7 +53,7 @@ holds the cached copy of the meta data from the central package
 repository.  Weka users can access the package management system via the
 command line interface of the \verb|weka.core.WekaPackageManager| class,
 or a GUI.  See e.g.\
-\url{http://weka.wikispaces.com/How+do+I+use+the+package+manager\%3F} for
+\url{https://waikato.github.io/weka-wiki/packages/manager/} for
 more information.
 
 For the R/Weka interface, we have thus added \verb|WPM()| for
