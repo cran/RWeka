@@ -1,5 +1,5 @@
-acf3e848e6cf17ed16576504e3795c6e *CHANGELOG
-22dc4fb41f8f71600be7ff72d7e38bf7 *DESCRIPTION
+c3407cf566477c16b2a66ae5b493e253 *CHANGELOG
+cb340fe25fd7eb3ba938862cb7116f4b *DESCRIPTION
 41b1dde3a37014e3c2c5fa208fc47167 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
@@ -22,10 +22,10 @@ a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
 6b6b9f7c0b310f14c7a602e89cd98693 *R/wow.R
 59a3989f4b243e50e79d806bf54ba7b7 *R/wpm.R
 d446f9be26c6b0128a978f3e0dd34a60 *R/zzz.R
-ccfa5227313d1cbc75d3c9c26862fafb *build/partial.rdb
-35c79245eca03610c5434b98f7fd4cb1 *build/vignette.rds
+ea124a494ad7922985532ad3b308e4d5 *build/partial.rdb
+aa71a182608305483287b6823040859e *build/vignette.rds
 d7e1d1070039b04d18400a1a2246e911 *configure
-12c7f6f2bf8c0bc9756d51d0e5262c28 *inst/CITATION
+c88cac31590e56eead4304d6895d2fd2 *inst/CITATION
 62d900123933cc8385bde5d89467fcf6 *inst/arff/contact-lenses.arff
 1d7762863c38f27fba557d53b97c4744 *inst/arff/cpu.arff
 6a1a6c5781cf2f368946f44969c94dc1 *inst/arff/cpu.with.vendor.arff
@@ -45,7 +45,7 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 92c7b220a3c56a49f0885b8b77d66547 *inst/doc/RWeka.R
 b7de9f1e6e992f16ebc3599a62f395ad *inst/doc/RWeka.Rnw
-8c008bf979fddde5329247a5fe3fabb3 *inst/doc/RWeka.pdf
+1246ece3481e0b54061bc5acfc174a19 *inst/doc/RWeka.pdf
 1e9b6f9a9b70b2f2bc8dc9705b43c526 *inst/java/RWeka.jar
 3185c574d550797b5b9660739690fdac *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 36bc4f0f14c74c016250993d39e3426a *java/Makefile
@@ -59,7 +59,7 @@ e7d6d9133bfa1ce8734af05b5ca3b2ff *man/Weka_associators.Rd
 f75bd4d535c19247e942370f7a1c2cb0 *man/Weka_classifier_functions.Rd
 533e4799c39c0b92207cba4eb7596a10 *man/Weka_classifier_lazy.Rd
 e398e4ff669add44718173daed72c915 *man/Weka_classifier_meta.Rd
-220c03b1ea68b95d60a3ab775f8ff1f9 *man/Weka_classifier_rules.Rd
+6fc8205efb0c6ac511dcb9dff02f3c12 *man/Weka_classifier_rules.Rd
 1396cb01c44172afdfb40a74d4ade0a5 *man/Weka_classifier_trees.Rd
 7162b9a61a96b48830e50cd81f9a6315 *man/Weka_classifiers.Rd
 599e62800d74ea77166940f7e11f5b68 *man/Weka_clusterers.Rd

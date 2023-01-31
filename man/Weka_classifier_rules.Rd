@@ -84,7 +84,7 @@ PART(formula, data, subset, na.action,
     Learning}, pages 115--123.
   Morgan Kaufmann.
   ISBN 1-55860-377-8.
-  \url{http://citeseer.ist.psu.edu/cohen95fast.html}
+  \doi{10.1016/B978-1-55860-377-6.50023-2}.
   
   E. Frank and I. H. Witten (1998).
   Generating accurate rule sets without global optimization.
@@ -92,14 +92,14 @@ PART(formula, data, subset, na.action,
   \emph{Machine Learning: Proceedings of the Fifteenth International
     Conference}.
   Morgan Kaufmann Publishers: San Francisco, CA.
-  \url{http://www.cs.waikato.ac.nz/~eibe/pubs/ML98-57.ps.gz}
+  \url{https://www.cs.waikato.ac.nz/~eibe/pubs/ML98-57.ps.gz}
 
   M. Hall, G. Holmes, and E. Frank (1999).
   Generating rule sets from model trees.
   \emph{Proceedings of the Twelfth Australian Joint Conference on
     Artificial Intelligence}, Sydney, Australia, pages 1--12.
   Springer-Verlag.
-  \url{http://citeseer.ist.psu.edu/holmes99generating.html}
+  \url{https://www.cs.waikato.ac.nz/~eibe/pubs/ajc.pdf}
 
   R. C. Holte (1993).
   Very simple classification rules perform well on most commonly used
