@@ -1,5 +1,5 @@
 c3407cf566477c16b2a66ae5b493e253 *CHANGELOG
-cb340fe25fd7eb3ba938862cb7116f4b *DESCRIPTION
+71953bb80681fb2ad0abbac212f970be *DESCRIPTION
 41b1dde3a37014e3c2c5fa208fc47167 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
@@ -14,7 +14,7 @@ f888278cb4a8c1bfd0bce0155ad37669 *R/filters.R
 90b5fc25b7a8aed8b11c7274cc6bac38 *R/graph.R
 f270fc318746896390d2579bc8b986d4 *R/interfaces.R
 9cde4dfb28094a5027068bc1e176e90b *R/onLoad.R
-8373087dc6a350d4a2fd05f83d9ca75c *R/readers.R
+46ef0ef5bef7e0ee84a6a528b1f4f6ca *R/readers.R
 a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
 79272361b3aaaabe64197308868d987f *R/techinfo.R
 6e01063ed46d46991bdb02684bc6a116 *R/tokenizers.R
@@ -45,7 +45,7 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
 92c7b220a3c56a49f0885b8b77d66547 *inst/doc/RWeka.R
 b7de9f1e6e992f16ebc3599a62f395ad *inst/doc/RWeka.Rnw
-1246ece3481e0b54061bc5acfc174a19 *inst/doc/RWeka.pdf
+24defb7bf31009f85572d9a5aca73325 *inst/doc/RWeka.pdf
 1e9b6f9a9b70b2f2bc8dc9705b43c526 *inst/java/RWeka.jar
 3185c574d550797b5b9660739690fdac *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 36bc4f0f14c74c016250993d39e3426a *java/Makefile
@@ -69,7 +69,7 @@ bb45d9c853587cd0df4511673e306e45 *man/Weka_control.Rd
 efb5b063c531f034e5c5a397de3b6a0b *man/Weka_interfaces.Rd
 a270d99616959cee71952aff0c4695d4 *man/Weka_stemmers.Rd
 847ef11c29dbea4ce9cf89222e69d09a *man/Weka_tokenizers.Rd
-8fc033b87ce0a4093f12f50a11711ff8 *man/dot.Rd
+6518c7a9c6644d94a60edeba149c2139 *man/dot.Rd
 6cc1592c639820ac980b248c04a7b682 *man/evaluate_Weka_classifier.Rd
 c57894e3164249a47123b6917ce098de *man/predict_Weka_classifier.Rd
 0e4bda8f277906665ee191898c6f301e *man/predict_Weka_clusterer.Rd

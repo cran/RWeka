@@ -357,9 +357,9 @@ function(x, ...)
     invisible(x)
 }
 summary.Weka_instances <-
-function(x, ...)
+function(object, ...)
 {
-    writeLines(.jcall(x, "S", "toSummaryString"))
+    writeLines(.jcall(object, "S", "toSummaryString"))
 }
 ## (Not perfect because this returns nothing useful.  We could of course
 ## parse the toSummaryString() results ...)
