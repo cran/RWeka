@@ -37,20 +37,9 @@ Tertius(x, control = NULL)
   \code{Tertius} requires Weka package \pkg{tertius} to be installed.
 }
 \references{
-  R. Agrawal and R. Srikant (1994).
-  Fast algorithms for mining association rules in large databases.
-  \emph{Proceedings of the  International Conference on Very Large
-    Databases}, 478--499.
-  Santiago, Chile: Morgan Kaufmann, Los Altos, CA.
-
-  P. A. Flach and N. Lachiche (1999).
-  Confirmation-guided discovery of first-order rules with Tertius.
-  \emph{Machine Learning}, \bold{42}, 61--95.
-  \doi{10.1023/A:1007656703224}.
-
-  I. H. Witten and E. Frank (2005).
-  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
-  2nd Edition, Morgan Kaufmann, San Francisco. 
+  \bibshow{Agrawal+Srikant:1994,
+    Flach+Lachiche:2001,
+    Witten+Frank:2005}
 }
 \examples{
 x <- read.arff(system.file("arff", "contact-lenses.arff",

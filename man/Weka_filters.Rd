@@ -34,23 +34,14 @@ Discretize(formula, data, subset, na.action, control = NULL)
     
   \code{Discretize} implements a supervised instance filter that
   discretizes a range of numeric attributes in the dataset into nominal
-  attributes.  Discretization is by Fayyad & Irani's \acronym{MDL}
-  method (the default).
+  attributes.  Discretization is by the \acronym{MDL} method of
+  \bibcitet{Fayyad+Irani:1993}.
 
   Note that these methods ignore nominal attributes, i.e., variables of
   class \code{factor}.
 }
 \references{
-  U. M. Fayyad and K. B. Irani (1993).
-  Multi-interval discretization of continuous-valued attributes for
-  classification learning.
-  \emph{Thirteenth International Joint Conference on Artificial
-    Intelligence}, 1022--1027.
-  Morgan Kaufmann.
-
-  I. H. Witten and E. Frank (2005).
-  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
-  2nd Edition, Morgan Kaufmann, San Francisco.
+  \bibshow{Fayyad+Irani:1993, Witten+Frank:2005}
 }
 \examples{
 ## Using a Weka data set ...

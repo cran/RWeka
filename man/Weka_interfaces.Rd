@@ -104,10 +104,7 @@ make_Weka_package_loader(p)
   ones package \pkg{RWeka} provides by default.
 }
 \references{
-  K. Hornik, C. Buchta, and A. Zeileis (2009).
-  Open-source machine learning: R meets Weka.
-  \emph{Computational Statistics}, \bold{24}/2, 225--232.
-  \doi{10.1007/s00180-008-0119-7}.
+  \bibshow{Hornik+Buchta+Zeileis:2008}
 }
 \examples{
 ## Create an interface to Weka's Naive Bayes classifier.

@@ -54,17 +54,17 @@ PART(formula, data, subset, na.action,
 
   \code{JRip} implements a propositional rule learner, \dQuote{Repeated
     Incremental Pruning to Produce Error Reduction} (RIPPER), as proposed
-  by Cohen (1995).
+  by \bibcitet{Cohen:1995}.
 
   \code{M5Rules} generates a decision list for regression problems using
   separate-and-conquer.  In each iteration it builds an model tree using
-  M5 and makes the \dQuote{best} leaf into a rule.  See Hall, Holmes and
-  Frank (1999) for more information.
+  M5 and makes the \dQuote{best} leaf into a rule.
+  See \bibcitet{Holmes+Hall+Frank:1999} for more information.
 
-  \code{OneR} builds a simple 1-R classifier, see Holte (1993).
+  \code{OneR} builds a simple 1-R classifier, see \bibcitet{Holte:1993}.
 
-  \code{PART} generates PART decision lists using the approach of Frank
-  and Witten (1998).
+  \code{PART} generates PART decision lists using the approach of
+  \bibcitet{Frank+Witten:1998}.
 
   The model formulae should only use the \samp{+} and \samp{-} operators
   to indicate the variables to be included or not used, respectively.
@@ -77,39 +77,11 @@ PART(formula, data, subset, na.action,
   object.  By default, neither is included.
 }
 \references{
-  W. W. Cohen (1995).
-  Fast effective rule induction.
-  In A. Prieditis and S. Russell (eds.),
-  \emph{Proceedings of the 12th International Conference on Machine
-    Learning}, pages 115--123.
-  Morgan Kaufmann.
-  ISBN 1-55860-377-8.
-  \doi{10.1016/B978-1-55860-377-6.50023-2}.
-  
-  E. Frank and I. H. Witten (1998).
-  Generating accurate rule sets without global optimization.
-  In J. Shavlik (ed.),
-  \emph{Machine Learning: Proceedings of the Fifteenth International
-    Conference}.
-  Morgan Kaufmann Publishers: San Francisco, CA.
-  \url{https://www.cs.waikato.ac.nz/~eibe/pubs/ML98-57.ps.gz}
-
-  M. Hall, G. Holmes, and E. Frank (1999).
-  Generating rule sets from model trees.
-  \emph{Proceedings of the Twelfth Australian Joint Conference on
-    Artificial Intelligence}, Sydney, Australia, pages 1--12.
-  Springer-Verlag.
-  \url{https://www.cs.waikato.ac.nz/~eibe/pubs/ajc.pdf}
-
-  R. C. Holte (1993).
-  Very simple classification rules perform well on most commonly used
-  datasets.
-  \emph{Machine Learning}, \bold{11}, 63--91.
-  \doi{10.1023/A:1022631118932}.
-
-  I. H. Witten and E. Frank (2005).
-  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
-  2nd Edition, Morgan Kaufmann, San Francisco. 
+  \bibshow{Cohen:1995,
+    Frank+Witten:1998,
+    Holmes+Hall+Frank:1999,
+    Holte:1993,
+    Witten+Frank:2005}
 }
 \seealso{
   \link[=Weka_classifiers]{Weka_classifiers}  

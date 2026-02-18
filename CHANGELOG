@@ -1,3 +1,11 @@
+version 0.4-47
+
+* Add and use bibentries.
+
+version 0.4-46
+
+* S3 g/m mismatch.
+
 version 0.4-45
 
 * Improve URLs and CITATION.

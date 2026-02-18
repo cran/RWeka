@@ -65,16 +65,16 @@ DecisionStump(formula, data, subset, na.action,
   of the tree for visualization via Graphviz or the \pkg{Rgraphviz}
   package.
 
-  \code{J48} generates unpruned or pruned C4.5 decision trees (Quinlan,
-  1993).
+  \code{J48} generates unpruned or pruned C4.5 decision trees
+  \bibcitep{Quinlan:1993}.
 
-  \code{LMT} implements \dQuote{Logistic Model Trees} (Landwehr, 2003;
-  Landwehr et al., 2005).
+  \code{LMT} implements \dQuote{Logistic Model Trees}
+  \bibcitep{Landwehr:2003, Landwehr+Hall+Frank:2005}.
 
   \code{M5P} (where the \samp{P} stands for \sQuote{prime}) generates M5
-  model trees using the M5' algorithm, which was introduced in Wang &
-  Witten (1997) and enhances the original M5 algorithm by Quinlan
-  (1992).
+  model trees using the M5' algorithm, which was introduced in
+  \bibcitet{Wang+Witten:1997} and enhances the original M5 algorithm by
+  \bibcitet{Quinlan:1992}.
 
   \code{DecisionStump} implements decision stumps (trees with a single
   split only), which are frequently used as base learners for meta
@@ -96,37 +96,12 @@ DecisionStump(formula, data, subset, na.action,
 }
 
 \references{
-  N. Landwehr (2003).
-  \emph{Logistic Model Trees}.
-  Master's thesis, Institute for Computer Science, University of
-  Freiburg, Germany.
-  \url{https://www.cs.uni-potsdam.de/ml/landwehr/diploma_thesis.pdf}
-
-  N. Landwehr, M. Hall, and E. Frank (2005).
-  Logistic Model Trees.
-  \emph{Machine Learning}, \bold{59}, 161--205.
-  \doi{10.1007/s10994-005-0466-3}.
-  
-  R. Quinlan (1993).
-  \emph{C4.5: Programs for Machine Learning}.
-  Morgan Kaufmann Publishers, San Mateo, CA.
-
-  R. Quinlan (1992).
-  Learning with continuous classes.
-  \emph{Proceedings of the Australian Joint Conference on Artificial
-    Intelligence}, 343--348.
-  World Scientific, Singapore. 
-
-  Y. Wang and I. H. Witten (1997).
-  Induction of model trees for predicting continuous classes.
-  \emph{Proceedings of the European Conference on Machine
-    Learning}.
-  University of Economics, Faculty of Informatics and Statistics,
-  Prague.
-
-  I. H. Witten and E. Frank (2005).
-  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
-  2nd Edition, Morgan Kaufmann, San Francisco. 
+  \bibshow{Landwehr:2003,
+    Landwehr+Hall+Frank:2005,
+    Quinlan:1992,
+    Quinlan:1993,
+    Wang+Witten:1997,
+    Witten+Frank:2005}
 }
 \seealso{
   \link[=Weka_classifiers]{Weka_classifiers}

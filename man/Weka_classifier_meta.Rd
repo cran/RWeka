@@ -62,20 +62,20 @@ CostSensitiveClassifier(formula, data, subset, na.action,
   predicting from the fitted models, and a \code{summary} method based
   on \code{\link{evaluate_Weka_classifier}}.
 
-  \code{AdaBoostM1} implements the AdaBoost M1 method of Freund and
-  Schapire (1996).
+  \code{AdaBoostM1} implements the AdaBoost M1 method of
+  \bibcitet{Freund+Schapire:1996}.
 
-  \code{Bagging} provides bagging (Breiman, 1996).
+  \code{Bagging} provides bagging \bibcitep{Breiman:1996}.
 
   \code{LogitBoost} performs boosting via additive logistic regression
-  (Friedman, Hastie and Tibshirani, 2000).
+  \bibcitep{Friedman+Hastie+Tibshirani:2000}.
 
-  \code{MultiBoostAB} implements MultiBoosting (Webb, 2000), an
-  extension to the AdaBoost technique for forming decision
+  \code{MultiBoostAB} implements MultiBoosting \bibcitep{Webb:2000},
+  an extension to the AdaBoost technique for forming decision
   committees which can be viewed as a combination of AdaBoost and
   \dQuote{wagging}.
 
-  \code{Stacking} provides stacking (Wolpert, 1992).
+  \code{Stacking} provides stacking \bibcitep{Wolpert:1992}.
 
   \code{CostSensitiveClassifier} makes its base classifier
   cost-sensitive.
@@ -91,35 +91,12 @@ CostSensitiveClassifier(formula, data, subset, na.action,
   object.  By default, neither is included.
 }
 \references{
-  L. Breiman (1996).
-  Bagging predictors.
-  \emph{Machine Learning}, \bold{24}/2, 123--140.
-  \doi{10.1023/A:1018054314350}.
-
-  Y. Freund and R. E. Schapire (1996).
-  Experiments with a new boosting algorithm.
-  In \emph{Proceedings of the International Conference on Machine
-    Learning}, pages 148--156.
-  Morgan Kaufmann: San Francisco.
-
-  J. H. Friedman, T. Hastie, and R. Tibshirani (2000).
-  Additive logistic regression: A statistical view of boosting.
-  \emph{Annals of Statistics}, \bold{28}/2, 337--374.
-  \doi{10.1214/aos/1016218223}.
-
-  G. I. Webb (2000).
-  MultiBoosting: A technique for combining boosting and wagging.
-  \emph{Machine Learning}, \bold{40}/2, 159--196.
-  \doi{10.1023/A:1007659514849}.
-
-  I. H. Witten and E. Frank (2005).
-  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
-  2nd Edition, Morgan Kaufmann, San Francisco. 
-
-  D. H. Wolpert (1992).
-  Stacked generalization.
-  \emph{Neural Networks}, \bold{5}, 241--259.
-  \doi{10.1016/S0893-6080(05)80023-1}.
+  \bibshow{Breiman:1996,
+    Freund+Schapire:1996,
+    Friedman+Hastie+Tibshirani:2000,
+    Webb:2000,
+    Witten+Frank:2005,
+    Wolpert:1992}
 }
 \seealso{
   \link[=Weka_classifiers]{Weka_classifiers}  

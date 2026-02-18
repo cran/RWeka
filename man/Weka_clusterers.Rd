@@ -38,11 +38,13 @@ DBScan(x, control = NULL)
   There is a \code{\link[=predict.Weka_clusterer]{predict}} method for
   predicting class ids or memberships from the fitted clusterers.
   
-  \code{Cobweb} implements the Cobweb (Fisher, 1987) and Classit
-  (Gennari et al., 1989) clustering algorithms.
+  \code{Cobweb} implements the Cobweb \bibcitep{Fisher:1987} and Classit
+  \bibcitep{Gennari+Langley+Fisher:1989} clustering algorithms.
   
-  \code{FarthestFirst} provides the \dQuote{farthest first traversal
-    algorithm} by Hochbaum and Shmoys, which works as a fast simple
+  \code{FarthestFirst} provides the
+  \dQuote{farthest first traversal algorithm} by
+  \bibcitet{Hochbaum+Shmoys:1985},
+  which works as a fast simple
   approximate clusterer modeled after simple \eqn{k}-means.
 
   \code{SimpleKMeans} provides clustering with the \eqn{k}-means
@@ -53,42 +55,16 @@ DBScan(x, control = NULL)
   number of clusters.
 
   \code{DBScan} provides the \dQuote{density-based clustering algorithm}
-  by Ester, Kriegel, Sander, and Xu. Note that noise points are assigned
-  to \code{NA}.
+  by \bibcitet{Ester+Kriegel+Sander:1996}.
+  Note that noise points are assigned to \code{NA}.
 }
 \references{
-  M. Ester, H.-P. Kriegel, J. Sander, and X. Xu (1996).
-  A Density-Based Algorithm for Discovering Clusters in Large Spatial
-  Databases with Noise.
-  \emph{Proceedings of the Second International Conference on Knowledge
-    Discovery and Data Mining (KDD'96)},
-  Portland, OR, 226--231.
-  AAAI Press.
-
-  D. H. Fisher (1987).
-  Knowledge acquisition via incremental conceptual clustering.
-  \emph{Machine Learning}, \bold{2}/2, 139--172.
-  \doi{10.1023/A:1022852608280}.
-
-  J. Gennari, P. Langley, and D. H. Fisher (1989).
-  Models of incremental concept formation.
-  \emph{Artificial Intelligence}, \bold{40}, 11--62.
-  
-  D. S. Hochbaum and D. B. Shmoys (1985).
-  A best possible heuristic for the \eqn{k}-center problem,
-  \emph{Mathematics of Operations Research}, \bold{10}(2), 180--184.
-  \doi{10.1287/moor.10.2.180}.
-
-  D. Pelleg and A. W. Moore (2006).
-  X-means: Extending K-means with Efficient Estimation of the Number of
-  Clusters.
-  In: \emph{Seventeenth International Conference on Machine Learning},
-  727--734.
-  Morgan Kaufmann.
-
-  I. H. Witten and E. Frank (2005).
-  \emph{Data Mining: Practical Machine Learning Tools and Techniques}.
-  2nd Edition, Morgan Kaufmann, San Francisco.
+  \bibshow{Ester+Kriegel+Sander:1996,
+    Fisher:1987,
+    Gennari+Langley+Fisher:1989,
+    Hochbaum+Shmoys:1985,
+    Pelleg+Moore:2000,
+    Witten+Frank:2005}
 }
 \note{
   \code{XMeans} requires Weka package \pkg{XMeans} to be installed.
