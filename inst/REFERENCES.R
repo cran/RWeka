@@ -142,8 +142,7 @@ bibentry(bibtype = "InProceedings",
          booktitle = "Proceedings of the Fifteenth International Conference on Machine Learning",
          pages = "144--151",
          numpages = "8",
-         series = "ICML '98",
-         url = "https://www.cs.waikato.ac.nz/~eibe/pubs/ML98-57.ps.gz")
+         series = "ICML '98")
 
 bibentry(bibtype = "InProceedings",
          key = "Freund+Schapire:1996",
@@ -231,8 +230,7 @@ bibentry(bibtype = "InProceedings",
          address = "Berlin, Heidelberg",
          pages = "1--12",
          isbn = "978-3-540-46695-6",
-         doi = "10.1007/3-540-46695-9_1",
-         url = "https://www.cs.waikato.ac.nz/~eibe/pubs/ajc.pdf")
+         doi = "10.1007/3-540-46695-9_1")
 
 bibentry(bibtype = "Article",
          key = "Holte:1993",
