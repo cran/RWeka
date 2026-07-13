@@ -19,6 +19,8 @@ M5P(formula, data, subset, na.action,
     control = Weka_control(), options = NULL)
 DecisionStump(formula, data, subset, na.action,
               control = Weka_control(), options = NULL)
+
+parse_Weka_digraph(x, plainleaf = TRUE)
 }
 \arguments{
   \item{formula}{a symbolic description of the model to be fit.}
@@ -35,6 +37,10 @@ DecisionStump(formula, data, subset, na.action,
     the Weka documentation.}
   \item{options}{a named list of further options, or \code{NULL}
     (default).  See \bold{Details}.}
+  \item{x}{a character string with the Weka digraph of a Weka classifier
+    tree (see \bold{Details}).}
+  \item{plainleaf}{a logical indicating whether the leaves should be
+    kept \sQuote{plain}, i.e., with empty labels.}
 }
 \value{
   A list inheriting from classes \code{Weka_tree} and
@@ -126,6 +132,11 @@ ff <- tempfile()
 write_to_dot(m1, ff)
 plot(agread(ff))
 }
+## The first uses the Weka digraph for the classifier tree
+di <- rJava::.jcall(m1$classifier, "S", "graph")
+writeLines(di)
+## for which we can extract the information about nodes and edges via
+parse_Weka_digraph(di)
 
 ## Using some Weka data sets ...
 

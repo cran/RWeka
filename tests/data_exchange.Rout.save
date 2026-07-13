@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2020-08-22 r79063) -- "Unsuffered Consequences"
-Copyright (C) 2020 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R Under development (unstable) (2026-07-12 r90242) -- "Unsuffered Consequences"
+Copyright (C) 2026 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -141,14 +141,23 @@ Type 'q()' to quit R.
                 date1               date2
 1 2012-12-12 12:12:12 2012-12-12 12:12:12
 > 
+> ## <FIXME>
+> ## In read_data_into_Weka() we currently always convert to the current
+> ## time zone, and in write.arff() do not preserve time zones.  Hence we
+> ## can really only compare whether write/read via Weka and via R give
+> ## the same, but not that it gets back the original data.
+> ## Argh ...
+> ## </FIXME>
+> 
 > temp <- tempfile()
 > write.arff(x, temp)
-> 
 > xx <- read.arff(temp)
 > unlink(temp)
+> ## IGNORE_RDIFF_BEGIN
 > xx
                 date1               date2
 1 2012-12-12 12:12:12 2012-12-12 13:12:12
+> ## IGNORE_RDIFF_END
 > 
 > ## differ in representation
 > ## <FIXME>
@@ -166,12 +175,13 @@ Type 'q()' to quit R.
 > ## test the R parser and writer
 > temp <- tempfile()
 > RWeka:::write.arff.R(x, temp)
-> 
 > zz <- RWeka:::read.arff.R(temp)
 > unlink(temp)
+> ## IGNORE_RDIFF_BEGIN
 > zz
                 date1               date2
 1 2012-12-12 12:12:12 2012-12-12 13:12:12
+> ## IGNORE_RDIFF_END
 > 
 > all.equal(xx, zz)   # TRUE 
 [1] TRUE
@@ -180,4 +190,4 @@ Type 'q()' to quit R.
 > 
 > proc.time()
    user  system elapsed 
-  1.163   0.072   0.642 
+  1.198   0.110   0.592 

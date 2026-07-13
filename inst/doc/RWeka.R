@@ -119,5 +119,3 @@ AdaBoostM1(Species ~ ., data = iris,
            control = Weka_control(W = list(J48, "--", M = 30)))
 AdaBoostM1(Species ~ ., data = iris,
            control = Weka_control(W = list(J48, M = 30)))
-
-

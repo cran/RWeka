@@ -83,12 +83,21 @@ x <- data.frame(date1 = as.POSIXct("2012-12-12 12:12:12", tz = ""),
 		date2 = as.POSIXct("2012-12-12 12:12:12", tz = "GMT"))
 x
 
+## <FIXME>
+## In read_data_into_Weka() we currently always convert to the current
+## time zone, and in write.arff() do not preserve time zones.  Hence we
+## can really only compare whether write/read via Weka and via R give
+## the same, but not that it gets back the original data.
+## Argh ...
+## </FIXME>
+
 temp <- tempfile()
 write.arff(x, temp)
-
 xx <- read.arff(temp)
 unlink(temp)
+## IGNORE_RDIFF_BEGIN
 xx
+## IGNORE_RDIFF_END
 
 ## differ in representation
 ## <FIXME>
@@ -104,10 +113,11 @@ all.equal(x, xx)
 ## test the R parser and writer
 temp <- tempfile()
 RWeka:::write.arff.R(x, temp)
-
 zz <- RWeka:::read.arff.R(temp)
 unlink(temp)
+## IGNORE_RDIFF_BEGIN
 zz
+## IGNORE_RDIFF_END
 
 all.equal(xx, zz)   # TRUE 
 

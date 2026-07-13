@@ -1,5 +1,5 @@
 c1da92045b7875e6cfd5c34d25077036 *CHANGELOG
-84f9f5f032fd460367d15ea98542528a *DESCRIPTION
+c9ee98ee50c2f3be0e28ec88112335b0 *DESCRIPTION
 41b1dde3a37014e3c2c5fa208fc47167 *NAMESPACE
 f9a81f720aebf5398a94efa32a2047a5 *R/AAA.R
 e8b6adbe6a0b2cf61f433762e1fd16dd *R/arff.R
@@ -22,8 +22,8 @@ a2a44bfc4544a528536174fca33673a1 *R/stemmers.R
 6b6b9f7c0b310f14c7a602e89cd98693 *R/wow.R
 59a3989f4b243e50e79d806bf54ba7b7 *R/wpm.R
 d446f9be26c6b0128a978f3e0dd34a60 *R/zzz.R
-2d9ce5adf2d4a1e21587639364b7b3e7 *build/partial.rdb
-3ee365f479c2b33faac69b5b3e47976d *build/vignette.rds
+edec8293e9321d5586e44f6621271148 *build/partial.rdb
+5decfd0dac0c041370403b14fa433c07 *build/vignette.rds
 d7e1d1070039b04d18400a1a2246e911 *configure
 c88cac31590e56eead4304d6895d2fd2 *inst/CITATION
 0380836130042232a2919eba7d12a020 *inst/REFERENCES.R
@@ -44,9 +44,9 @@ cf95f01735d47f8f4a844e15636cf2ca *inst/arff/test_sparse.arff
 3c16059c5b92f6551f720f97d0eccc09 *inst/arff/vote.arff
 772c551b8486b932aed784a582b9c1b1 *inst/arff/weather.arff
 b81fcc1372952a22083bcdf660a5af0f *inst/arff/weather.nominal.arff
-92c7b220a3c56a49f0885b8b77d66547 *inst/doc/RWeka.R
+ddb006b97e7dc5ea713a42afbec323b9 *inst/doc/RWeka.R
 b7de9f1e6e992f16ebc3599a62f395ad *inst/doc/RWeka.Rnw
-60b30071edc3d9983679442085e335c2 *inst/doc/RWeka.pdf
+0d5615f1a5197919fa6477e9e07b8628 *inst/doc/RWeka.pdf
 1e9b6f9a9b70b2f2bc8dc9705b43c526 *inst/java/RWeka.jar
 3185c574d550797b5b9660739690fdac *inst/po/en@quot/LC_MESSAGES/R-RWeka.mo
 36bc4f0f14c74c016250993d39e3426a *java/Makefile
@@ -61,7 +61,7 @@ a2efc37f5019b9c0e81092d5d5f68977 *man/Weka_classifier_functions.Rd
 361003d6496ef8b613dd1c28ea5756bd *man/Weka_classifier_lazy.Rd
 edaedb19664c0ca14977a5ffb8a651f6 *man/Weka_classifier_meta.Rd
 bba87f465e9fca3c67ade18dc11f051f *man/Weka_classifier_rules.Rd
-f8ed472c4da2ed921e52ff8928dedf52 *man/Weka_classifier_trees.Rd
+18a01e6c5b4173a75ca48c4eb663765d *man/Weka_classifier_trees.Rd
 7162b9a61a96b48830e50cd81f9a6315 *man/Weka_classifiers.Rd
 19b492b4445f1a0f02b60fd781dac6a7 *man/Weka_clusterers.Rd
 bb45d9c853587cd0df4511673e306e45 *man/Weka_control.Rd
@@ -77,8 +77,8 @@ c57894e3164249a47123b6917ce098de *man/predict_Weka_classifier.Rd
 2bd875463305dd1d60a0b54d5be4a238 *man/read.arff.Rd
 885a04d3e70007f38c6b6b4eefe632fd *man/write.arff.Rd
 dbfee2cf77fbfda91f43df152b1cfcf9 *po/R-RWeka.pot
-fd41759592e6475b4311919496bb00f2 *tests/data_exchange.R
-fa006d30c3010471bd0eb6b481bff3c5 *tests/data_exchange.Rout.save
+f3a9cdef17a1d9c8438439b73c18764d *tests/data_exchange.R
+c1af0df4121ad3be1888edda9f115bff *tests/data_exchange.Rout.save
 b2f00fd4d3162f7345ca6a14db8bd1df *tools/getsp.class
 d98d48a1d5c1bbec93a7a584509199e6 *tools/getsp.java
 b7de9f1e6e992f16ebc3599a62f395ad *vignettes/RWeka.Rnw
