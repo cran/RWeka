@@ -1,3 +1,15 @@
+version 0.4-50
+
+* The Pima Indians Diabetes data were removed from the UCI Repository
+  several year ago, and NIDDK claims it never authorized making the data
+  publicly available.  Hence remove the ARFF version of the data from
+  RWeka, and remove the example which used the data formerly provided
+  in package 'mlbench'.
+
+version 0.4-49
+
+* No user-visible changes.
+
 version 0.4-48
 
 * No user-visible changes.

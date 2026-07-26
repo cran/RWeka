@@ -159,18 +159,6 @@ DF4 <- read.arff(system.file("arff", "weather.arff", package = "RWeka"))
 m4 <- LMT(play ~ ., data = DF4)
 m4
 table(DF4$play, predict(m4))
-
-## Larger scale example.
-if(require("mlbench", quietly = TRUE)
-   && require("partykit", quietly = TRUE)) {
-    ## Predict diabetes status for Pima Indian women
-    data("PimaIndiansDiabetes", package = "mlbench")
-    ## Fit J48 tree with reduced error pruning
-    m5 <- J48(diabetes ~ ., data = PimaIndiansDiabetes,
-              control = Weka_control(R = TRUE))
-    plot(m5)
-    ## (Make sure that the plotting device is big enough for the tree.)
-}
 }
 \keyword{models}
 \keyword{regression}
